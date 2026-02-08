@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nitin Solanki</title>
+    <title>Nitin Solanki – Entrepreneur, Investor & Advisor</title>
     <style>
         /* Mont Font Family */
         @font-face {
@@ -41,7 +41,7 @@
             line-height: 1.6;
         }
 
-        /* Navigation - Dark Theme */
+        /* Navigation */
         header {
             position: fixed;
             top: 0;
@@ -52,15 +52,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #000;
+            background: rgba(0,0,0,0.95);
             border-bottom: 1px solid #222;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 800;
             letter-spacing: 2px;
-            text-transform: lowercase;
+            text-transform: uppercase;
             color: #fff;
         }
 
@@ -83,73 +83,222 @@
             opacity: 0.6;
         }
 
-        /* Hero Section - Full Width Image */
+        /* Hero Section */
         .hero {
             margin-top: 70px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 40px;
             position: relative;
-            height: 85vh;
-            min-height: 500px;
-            overflow: hidden;
         }
 
-        .hero-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 20%;
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
         }
 
-        .hero-overlay {
-            position: absolute;
-            bottom: 60px;
-            left: 60px;
-            color: #fff;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        .hero-content {
+            max-width: 600px;
         }
 
         .hero-name {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            line-height: 1.1;
         }
 
         .hero-tagline {
             font-size: 1rem;
-            font-weight: 200;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        /* Section Titles - Alo Style */
-        .section-header {
-            text-align: center;
-            padding: 80px 40px 50px;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
             font-weight: 800;
             letter-spacing: 3px;
             text-transform: uppercase;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            font-weight: 200;
+            line-height: 1.9;
+            color: #aaa;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            justify-self: end;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
             color: #fff;
         }
 
-        /* Photo Grid - 4 Column */
+        /* What I Do Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            padding: 40px;
+            background: #111;
+            border: 1px solid #222;
+            transition: border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: #444;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            font-weight: 200;
+            line-height: 1.8;
+            color: #999;
+        }
+
+        /* Focus Areas */
+        .focus-areas {
+            background: #0a0a0a;
+            padding: 100px 40px;
+        }
+
+        .focus-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+        }
+
+        .focus-item {
+            font-size: 1rem;
+            font-weight: 200;
+            color: #aaa;
+            padding-left: 20px;
+            border-left: 2px solid #333;
+        }
+
+        .focus-item strong {
+            font-weight: 800;
+            color: #fff;
+        }
+
+        /* How I Work */
+        .how-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .how-image {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+        }
+
+        .how-content p {
+            font-size: 1.1rem;
+            font-weight: 200;
+            line-height: 2;
+            color: #aaa;
+        }
+
+        /* Story Teaser */
+        .story-section {
+            background: #111;
+            padding: 100px 40px;
+        }
+
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .story-text {
+            font-size: 1.2rem;
+            font-weight: 200;
+            line-height: 2;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .story-link {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 40px;
+            border: 1px solid #fff;
+            transition: all 0.3s ease;
+        }
+
+        .story-link:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Photo Grid */
+        .photo-section {
+            padding: 100px 40px;
+        }
+
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            padding: 0 40px 80px;
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .photo-item {
-            position: relative;
-            overflow: hidden;
             aspect-ratio: 3/4;
+            overflow: hidden;
         }
 
         .photo-item img {
@@ -161,186 +310,6 @@
 
         .photo-item:hover img {
             transform: scale(1.05);
-        }
-
-        .photo-label {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        /* Featured Section - Large Image with Text */
-        .featured-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 600px;
-        }
-
-        .featured-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .featured-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 80px;
-            background: #111;
-        }
-
-        .featured-label {
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .featured-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            line-height: 1.2;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .featured-text {
-            font-size: 1rem;
-            font-weight: 200;
-            line-height: 1.9;
-            color: #aaa;
-            max-width: 500px;
-        }
-
-        /* About Section */
-        .about-section {
-            padding: 100px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-image {
-            width: 100%;
-            aspect-ratio: 4/5;
-            object-fit: cover;
-        }
-
-        .about-content {
-            padding: 40px 0;
-        }
-
-        .about-label {
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 25px;
-        }
-
-        .about-title {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            line-height: 1.3;
-            color: #fff;
-        }
-
-        .about-text {
-            font-size: 1rem;
-            font-weight: 200;
-            line-height: 2;
-            color: #aaa;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-        }
-
-        /* Full Width Banner */
-        .banner {
-            position: relative;
-            height: 70vh;
-            overflow: hidden;
-        }
-
-        .banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-        }
-
-        .banner-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-        }
-
-        .banner-title {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .banner-subtitle {
-            font-size: 1rem;
-            font-weight: 200;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 100px 40px;
-            text-align: center;
-            background: #000;
-        }
-
-        .contact-label {
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .contact-email {
-            font-size: 1.5rem;
-            font-weight: 200;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-email:hover {
-            opacity: 0.6;
         }
 
         /* Social Links */
@@ -380,27 +349,39 @@
 
         /* Responsive */
         @media (max-width: 1200px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
             .photo-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-image {
+                justify-self: center;
+                max-width: 400px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
             .hero-name {
                 font-size: 2.5rem;
             }
 
-            .featured-section {
+            .how-section {
                 grid-template-columns: 1fr;
             }
 
-            .featured-content {
-                padding: 60px 40px;
-            }
-
-            .about-section {
+            .focus-list {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
 
             header {
@@ -408,39 +389,34 @@
             }
 
             nav {
-                display: none;
+                gap: 20px;
             }
 
-            .logo {
-                font-size: 1.4rem;
+            nav a {
+                font-size: 0.65rem;
             }
 
-            .hero-overlay {
-                left: 30px;
-                bottom: 40px;
-            }
-
-            .banner-title {
-                font-size: 2rem;
+            .section {
+                padding: 80px 25px;
             }
         }
 
         @media (max-width: 600px) {
+            .hero-name {
+                font-size: 2rem;
+            }
+
             .photo-grid {
                 grid-template-columns: 1fr;
-                padding: 0 20px 60px;
             }
 
-            .hero-name {
-                font-size: 1.8rem;
+            nav {
+                display: none;
             }
 
-            .featured-title {
-                font-size: 1.8rem;
-            }
-
-            .about-title {
-                font-size: 1.5rem;
+            .social-section {
+                flex-wrap: wrap;
+                gap: 25px;
             }
         }
     </style>
@@ -449,116 +425,108 @@
 
     <!-- Header -->
     <header>
-        <div class="logo">nitin</div>
+        <div class="logo">Nitin Solanki</div>
         <nav>
-            <a href="#about">About</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#journey">Journey</a>
-            <a href="#contact">Contact</a>
+            <a href="#about">What I Do</a>
+            <a href="#story">Story</a>
+            <a href="about.html">Full Bio</a>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <img src="images/photo2.jpg" alt="Nitin Solanki" class="hero-image">
-        <div class="hero-overlay">
-            <h1 class="hero-name">Nitin Solanki</h1>
-            <p class="hero-tagline">Entrepreneur & Investor</p>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-name">Nitin Solanki</h1>
+                <p class="hero-tagline">Entrepreneur • Investor • Advisor</p>
+                <p class="hero-description">
+                    I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation.
+                </p>
+            </div>
+            <img src="images/photo2.jpg" alt="Nitin Solanki" class="hero-image">
         </div>
     </section>
 
-    <!-- Photo Grid Section -->
-    <div class="section-header" id="gallery">
-        <h2 class="section-title">Gallery</h2>
-    </div>
-
-    <div class="photo-grid">
-        <div class="photo-item">
-            <img src="images/varied1.jpg" alt="Nitin Solanki">
-        </div>
-        <div class="photo-item">
-            <img src="images/varied2.jpg" alt="Nitin Solanki">
-        </div>
-        <div class="photo-item">
-            <img src="images/varied3.jpg" alt="Nitin Solanki">
-        </div>
-        <div class="photo-item">
-            <img src="images/varied4.jpg" alt="Nitin Solanki">
-        </div>
-    </div>
-
-    <!-- Featured Section -->
-    <section class="featured-section" id="about">
-        <img src="images/varied5.jpg" alt="Nitin Solanki" class="featured-image">
-        <div class="featured-content">
-            <p class="featured-label">About</p>
-            <h2 class="featured-title">A Global<br>Perspective</h2>
-            <p class="featured-text">
-                A visionary entrepreneur and investor based in South Florida, Nitin Solanki brings a unique global perspective shaped by his journey from Zambia to the United States. With a foundation in electrical engineering and a passion for innovation, he has built a career focused on creating value and driving growth.
-            </p>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section" id="journey">
-        <img src="images/varied6.jpg" alt="Nitin Solanki" class="about-image">
-        <div class="about-content">
-            <p class="about-label">Journey</p>
-            <h3 class="about-title">From Zambia<br>to America</h3>
-            <div class="about-text">
-                <p>
-                    Born in Luanshya, Zambia, Nitin moved to the United States at the age of 10. His family's journey took them through Boston, Sacramento, and Redding, California, before settling in the Southeast.
-                </p>
-                <p>
-                    His parents purchased a motel in Millen, Georgia, instilling in Nitin the entrepreneurial spirit that would define his career. He moved to Atlanta for his education, graduating from Georgia Institute of Technology in 1998 with a Bachelor of Science in Electrical Engineering.
-                </p>
-                <p>
-                    After spending 10 years in Atlanta, he relocated to West Palm Beach in 2006, where he currently resides and continues to pursue his ventures in entrepreneurship and investment.
-                </p>
+    <!-- What I Do Section -->
+    <section class="section" id="about">
+        <p class="section-label">What I Do</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Advisory</h3>
+                <p>I work with founders and leadership teams to create clarity, align stakeholders, and turn strategy into execution—without chaos.</p>
+            </div>
+            <div class="service-card">
+                <h3>Investing</h3>
+                <p>I invest in businesses where strong operators and disciplined systems create durable outcomes.</p>
+            </div>
+            <div class="service-card">
+                <h3>Transformation</h3>
+                <p>I help teams modernize the way they operate—customer systems, data, and AI readiness—so growth is scalable, measurable, and repeatable.</p>
             </div>
         </div>
     </section>
 
-    <!-- Banner Section -->
-    <section class="banner">
-        <img src="images/photo1.jpg" alt="Nitin Solanki">
-        <div class="banner-content">
-            <h2 class="banner-title">Building the Future</h2>
-            <p class="banner-subtitle">Entrepreneur • Investor • Innovator</p>
+    <!-- Focus Areas -->
+    <section class="focus-areas">
+        <div class="section" style="padding-top: 0; padding-bottom: 0;">
+            <p class="section-label">Focus Areas</p>
+            <div class="focus-list">
+                <div class="focus-item"><strong>Strategy → Execution</strong> — operating cadence, priorities, accountability</div>
+                <div class="focus-item"><strong>Operations</strong> — performance improvement</div>
+                <div class="focus-item"><strong>Go-to-Market</strong> — customer journey, CRM/RevOps foundations</div>
+                <div class="focus-item"><strong>Technology</strong> — data + AI readiness, modernization</div>
+            </div>
         </div>
     </section>
 
-    <!-- More Photos -->
-    <div class="section-header">
-        <h2 class="section-title">More</h2>
-    </div>
-
-    <div class="photo-grid">
-        <div class="photo-item">
-            <img src="images/photo3.jpg" alt="Nitin Solanki">
+    <!-- How I Work -->
+    <section class="section">
+        <div class="how-section">
+            <img src="images/photo7.jpg" alt="Nitin Solanki" class="how-image">
+            <div class="how-content">
+                <p class="section-label">How I Work</p>
+                <h2 class="section-title">Relationship-First,<br>Outcome-Driven</h2>
+                <p>In high-pressure environments, I bring structure, calm, and delivery discipline—so decisions get made and progress compounds.</p>
+            </div>
         </div>
-        <div class="photo-item">
-            <img src="images/photo7.jpg" alt="Nitin Solanki">
-        </div>
-        <div class="photo-item">
-            <img src="images/photo8.jpg" alt="Nitin Solanki">
-        </div>
-        <div class="photo-item">
-            <img src="images/photo9.jpg" alt="Nitin Solanki">
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <p class="contact-label">Get in Touch</p>
-        <a href="mailto:nitin.k.solanki@gmail.com" class="contact-email">nitin.k.solanki@gmail.com</a>
     </section>
+
+    <!-- Story Teaser -->
+    <section class="story-section" id="story">
+        <div class="story-content">
+            <p class="section-label">My Story</p>
+            <p class="story-text">
+                Born in Luanshya, Zambia, I moved to the U.S. at 10 in pursuit of bigger opportunities. Early exposure to business and customer service shaped how I lead: listen first, build trust, and solve the real problem. That foundation became my edge in high-stakes transformation work—where clarity, people, and execution matter most.
+            </p>
+            <a href="about.html" class="story-link">Read the Full Story</a>
+        </div>
+    </section>
+
+    <!-- Photo Grid -->
+    <section class="photo-section">
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/varied2.jpg" alt="Nitin Solanki">
+            </div>
+            <div class="photo-item">
+                <img src="images/varied3.jpg" alt="Nitin Solanki">
+            </div>
+            <div class="photo-item">
+                <img src="images/varied4.jpg" alt="Nitin Solanki">
+            </div>
+            <div class="photo-item">
+                <img src="images/varied5.jpg" alt="Nitin Solanki">
+            </div>
+        </div>
+    </section>
+
 
     <!-- Social Links -->
     <section class="social-section">
+        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="social-link">LinkedIn</a>
         <a href="https://www.instagram.com/nitinsolanki" target="_blank" class="social-link">Instagram</a>
         <a href="https://www.facebook.com/nitinsolanki" target="_blank" class="social-link">Facebook</a>
-        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="social-link">LinkedIn</a>
+        <a href="https://x.com/nitinsolanki" target="_blank" class="social-link">X</a>
     </section>
 
     <!-- Footer -->

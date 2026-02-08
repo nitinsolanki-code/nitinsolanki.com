@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About – Nitin Solanki</title>
+    <style>
+        /* Mont Font Family */
+        @font-face {
+            font-family: 'Mont';
+            src: url('fonts/mont_extralightdemo.ttf') format('truetype'),
+                 url('fonts/Mont-ExtraLightDEMO.otf') format('opentype');
+            font-weight: 200;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Mont';
+            src: url('fonts/mont_heavydemo.ttf') format('truetype'),
+                 url('fonts/Mont-HeavyDEMO.otf') format('opentype');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Mont', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.95);
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero */
+        .page-hero {
+            margin-top: 70px;
+            padding: 100px 40px 60px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            font-weight: 200;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
+
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+
+        .section-block {
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .section-heading {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .content p {
+            font-size: 1.05rem;
+            font-weight: 200;
+            line-height: 2;
+            color: #bbb;
+            margin-bottom: 25px;
+        }
+
+        .content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Beliefs List */
+        .beliefs-list {
+            margin: 30px 0;
+        }
+
+        .belief-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .belief-item:first-child {
+            border-top: 1px solid #222;
+        }
+
+        .belief-number {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .belief-text {
+            font-size: 1rem;
+            font-weight: 200;
+            color: #bbb;
+            line-height: 1.8;
+        }
+
+        .belief-text strong {
+            font-weight: 800;
+            color: #fff;
+        }
+
+        /* Client List */
+        .client-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px 30px;
+            margin: 30px 0;
+        }
+
+        .client-item {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            letter-spacing: 0.5px;
+        }
+
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            margin: 60px 0;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* Quote Block */
+        .quote-block {
+            background: #111;
+            padding: 60px 50px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            font-weight: 200;
+            font-style: italic;
+            color: #ccc;
+            line-height: 1.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #111;
+            padding: 80px 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            font-weight: 200;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .cta-link {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 40px;
+            border: 1px solid #fff;
+            transition: all 0.3s ease;
+        }
+
+        .cta-link:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Social Links */
+        .social-section {
+            padding: 60px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: #000;
+        }
+
+        .social-link {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover {
+            opacity: 0.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 200;
+            color: #666;
+            letter-spacing: 1px;
+            background: #000;
+            border-top: 1px solid #222;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .section-heading {
+                font-size: 1.5rem;
+            }
+
+            .client-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header {
+                padding: 15px 25px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 0.65rem;
+            }
+
+            .content {
+                padding: 40px 25px 80px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .client-list {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .quote-block {
+                padding: 40px 30px;
+            }
+
+            .quote-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">Nitin Solanki</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#about">What I Do</a>
+            <a href="index.html#story">Story</a>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1 class="page-title">About</h1>
+        <p class="page-subtitle">
+            I'm Nitin Solanki—an entrepreneur, investor, and advisor. I'm known for helping leaders create clarity in complex environments and translate strategy into disciplined execution.
+        </p>
+    </section>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- Early Life -->
+        <div class="section-block">
+            <p class="section-label">Origins</p>
+            <h2 class="section-heading">Early Life: Zambia → America</h2>
+            <p>
+                I was born in Luanshya, Zambia. My early childhood there was stable and meaningful—we didn't leave out of hardship. My family moved to the United States when I was 10 because they were thinking long-term: education, opportunity, and a bigger future.
+            </p>
+            <p>
+                Some of my most formative lessons came through my father's work. As a kid, I spent time around his shop and absorbed the rhythm of business early—customers, relationships, trust, and service delivered in real time. I didn't call it "people skills" back then, but that's exactly what it was: learning how to communicate, listen, carry myself with confidence, and treat every interaction as reputation-building.
+            </p>
+        </div>
+
+        <img src="images/zambia.jpg" alt="Young Nitin in Zambia" class="featured-image">
+
+        <!-- Growing Up -->
+        <div class="section-block">
+            <p class="section-label">Foundation</p>
+            <h2 class="section-heading">Growing Up in the U.S.: The Motel Business</h2>
+            <p>
+                In the U.S., those same lessons continued through the motel business. If you want a real-world education in people and problem-solving, spend time in hospitality. There's always interaction—needs, complaints, questions, and unexpected issues that have to be handled professionally.
+            </p>
+            <p>
+                That environment trains you to manage emotions (yours and others), stay calm under pressure, communicate clearly, and solve problems without drama. Those habits became embedded in how I operate and lead to this day.
+            </p>
+        </div>
+
+        <!-- Early Work -->
+        <div class="section-block">
+            <p class="section-label">Early Career</p>
+            <h2 class="section-heading">Banking and Structure</h2>
+            <p>
+                After high school, I worked at a bank as a drive-through teller. It taught me what it means to represent an institution: consistency, reliability, process discipline, and delivering service at a high standard—every day, not just when it's convenient.
+            </p>
+            <p>
+                It was also an early lesson in systems: you can't improvise your way through everything. You need structure.
+            </p>
+        </div>
+
+        <img src="images/early2002.jpg" alt="Nitin Solanki 2002" class="featured-image" style="aspect-ratio: 3/4; max-width: 250px; margin: 60px auto;">
+
+        <!-- Consulting -->
+        <div class="section-block">
+            <p class="section-label">Professional Growth</p>
+            <h2 class="section-heading">College → Consulting</h2>
+            <p>
+                As I transitioned into the professional world, consulting became a natural fit. Consulting is a people business. Yes, there's technology and strategy—but the real work is earning trust, aligning stakeholders, navigating ambiguity, and delivering outcomes under time pressure.
+            </p>
+            <p>
+                My first true consulting role was with Siebel Systems, where I traveled extensively and learned the fundamentals: adaptability, speed, professionalism, and how to build credibility fast in unfamiliar environments.
+            </p>
+            <p>
+                From there, I expanded through major organizations including Accenture and Deloitte, gaining exposure to different industries, leadership cultures, and delivery models. Over time, that repetition at scale built pattern recognition: what drives outcomes, what consistently causes failure, and how to lead teams through complexity.
+            </p>
+        </div>
+
+        <img src="images/professional2010.jpg" alt="Nitin Solanki 2010" class="featured-image" style="aspect-ratio: 3/4; max-width: 250px; margin: 60px auto;">
+
+        <!-- Clients -->
+        <div class="section-block">
+            <p class="section-label">Experience</p>
+            <h2 class="section-heading">Client Depth</h2>
+            <p>
+                Across my consulting career, I've supported a wide range of organizations—large enterprises, smaller teams, domestic engagements across the U.S., and international work that broadened my perspective.
+            </p>
+            <p>
+                I've had the opportunity to work with organizations such as:
+            </p>
+            <div class="client-list">
+                <!-- Healthcare & Pharma -->
+                <span class="client-item">Eli Lilly</span>
+                <span class="client-item">Johnson & Johnson</span>
+                <span class="client-item">AstraZeneca</span>
+                <!-- Financial Services -->
+                <span class="client-item">Wells Fargo</span>
+                <span class="client-item">T. Rowe Price</span>
+                <span class="client-item">Charles Schwab</span>
+                <!-- Other Industries -->
+                <span class="client-item">ExxonMobil</span>
+                <span class="client-item">DaVita</span>
+                <span class="client-item">City of New York</span>
+            </div>
+            <p>
+                That breadth teaches you something important: technology alone doesn't transform anything—people do. Strategy alone doesn't create value—execution does.
+            </p>
+        </div>
+
+        <!-- Beliefs -->
+        <div class="section-block">
+            <p class="section-label">Philosophy</p>
+            <h2 class="section-heading">The Truth About Transformation</h2>
+            <p>
+                Over time, a few beliefs became non-negotiable for me:
+            </p>
+            <div class="beliefs-list">
+                <div class="belief-item">
+                    <div class="belief-number">01</div>
+                    <div class="belief-text"><strong>Transformation is human work.</strong> Systems don't resist change—people do.</div>
+                </div>
+                <div class="belief-item">
+                    <div class="belief-number">02</div>
+                    <div class="belief-text"><strong>Clarity is a competitive advantage.</strong> The ability to simplify and prioritize is rare—and valuable.</div>
+                </div>
+                <div class="belief-item">
+                    <div class="belief-number">03</div>
+                    <div class="belief-text"><strong>Delivery discipline beats brilliance.</strong> Consistent execution wins.</div>
+                </div>
+                <div class="belief-item">
+                    <div class="belief-number">04</div>
+                    <div class="belief-text"><strong>Governance isn't bureaucracy—it's protection.</strong> It reduces rework, clarifies decisions, and keeps teams moving.</div>
+                </div>
+                <div class="belief-item">
+                    <div class="belief-number">05</div>
+                    <div class="belief-text"><strong>Credibility is earned through outcomes.</strong> Trust compounds when results are real.</div>
+                </div>
+            </div>
+            <p>
+                This is the leadership style I carry today: calm, clear, structured, relationship-driven, and accountable to results.
+            </p>
+        </div>
+
+        <!-- Today -->
+        <div class="section-block">
+            <p class="section-label">Present</p>
+            <h2 class="section-heading">What I Do Today</h2>
+            <p>
+                Today, my identity is simple: I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation.
+            </p>
+            <p>
+                I'm effective in high-stakes environments because my foundation was built early—customer interaction, service, business discipline, and the ability to understand people and operate under pressure without losing focus.
+            </p>
+        </div>
+
+        <!-- Leadership Quote -->
+        <div class="quote-block">
+            <p class="quote-text">
+                I lead with clarity, calm, and execution. Transformation succeeds when leaders communicate the why, teams understand the what, and delivery is disciplined enough to produce outcomes. I'm relationship-first—but I'm accountable to results—because strategy without execution is just conversation.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <p class="cta-text">If you want to connect about advisory, investing, partnerships, or speaking—</p>
+        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="cta-link">Connect on LinkedIn</a>
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-section">
+        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="social-link">LinkedIn</a>
+        <a href="https://www.instagram.com/nitinsolanki" target="_blank" class="social-link">Instagram</a>
+        <a href="https://www.facebook.com/nitinsolanki" target="_blank" class="social-link">Facebook</a>
+        <a href="https://x.com/nitinsolanki" target="_blank" class="social-link">X</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Nitin Solanki. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
