@@ -5,26 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About – Nitin Solanki</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Mont Font Family */
-        @font-face {
-            font-family: 'Mont';
-            src: url('fonts/mont_extralightdemo.ttf') format('truetype'),
-                 url('fonts/Mont-ExtraLightDEMO.otf') format('opentype');
-            font-weight: 200;
-            font-style: normal;
-            font-display: swap;
+        /* ===== AMAN BRAND COLORS ===== */
+        :root {
+            --primary-bg: #F3EEE7;
+            --primary-text: #313131;
+            --warm-taupe: #D4C4B0;
+            --soft-sand: #E8DFD3;
+            --accent-dark: #000000;
         }
 
-        @font-face {
-            font-family: 'Mont';
-            src: url('fonts/mont_heavydemo.ttf') format('truetype'),
-                 url('fonts/Mont-HeavyDEMO.otf') format('opentype');
-            font-weight: 800;
-            font-style: normal;
-            font-display: swap;
-        }
-
+        /* ===== RESET & BASE (Mobile First) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -36,316 +30,575 @@
         }
 
         body {
-            font-family: 'Mont', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #000;
-            color: #fff;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.8;
+            font-weight: 300;
+            font-size: 16px;
         }
 
-        /* Navigation */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ===== HEADER (Mobile First) ===== */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 20px 40px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.95);
-            border-bottom: 1px solid #222;
+            background: rgba(243, 238, 231, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(243, 238, 231, 0.98);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--primary-text);
             text-decoration: none;
         }
 
         nav {
             display: flex;
-            gap: 35px;
+            gap: 15px;
+            align-items: center;
         }
 
         nav a {
+            display: none;
+        }
+
+        nav a.reserve-btn {
+            display: inline-block;
             color: #fff;
+            background: var(--accent-dark);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 800;
+            font-size: 0.7rem;
+            font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            transition: opacity 0.3s ease;
+            padding: 10px 20px;
+            transition: opacity 0.4s ease;
         }
 
-        nav a:hover {
-            opacity: 0.6;
+        nav a.reserve-btn:hover {
+            opacity: 0.85;
         }
 
-        /* Hero */
+        /* ===== PAGE HERO (Mobile First) ===== */
         .page-hero {
             margin-top: 70px;
-            padding: 100px 40px 60px;
+            padding: 60px 20px 40px;
             text-align: center;
         }
 
-        .page-title {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 4px;
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            color: var(--warm-taupe);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            line-height: 1.2;
         }
 
         .page-subtitle {
-            font-size: 1.1rem;
-            font-weight: 200;
-            color: #aaa;
-            max-width: 700px;
+            font-size: 1rem;
+            font-weight: 300;
+            color: #666;
+            max-width: 600px;
             margin: 0 auto;
             line-height: 1.9;
         }
 
-        /* Content */
+        /* ===== CONTENT (Mobile First) ===== */
         .content {
-            max-width: 800px;
+            max-width: 750px;
             margin: 0 auto;
-            padding: 60px 40px 100px;
+            padding: 40px 20px 80px;
         }
 
         .section-block {
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         .section-label {
-            font-size: 0.7rem;
-            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: #666;
-            margin-bottom: 20px;
+            color: var(--warm-taupe);
+            margin-bottom: 15px;
         }
 
         .section-heading {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            color: #fff;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            color: var(--primary-text);
             line-height: 1.3;
         }
 
         .content p {
-            font-size: 1.05rem;
-            font-weight: 200;
-            line-height: 2;
-            color: #bbb;
-            margin-bottom: 25px;
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #666;
+            margin-bottom: 20px;
         }
 
         .content p:last-child {
             margin-bottom: 0;
         }
 
-        /* Beliefs List */
+        /* ===== FEATURED IMAGE (Mobile First) ===== */
+        .featured-image {
+            width: 100%;
+            margin: 50px 0;
+            object-fit: contain;
+        }
+
+        .featured-image.portrait {
+            max-width: 200px;
+            margin: 50px auto;
+            display: block;
+        }
+
+        /* ===== BELIEFS LIST (Mobile First) ===== */
         .beliefs-list {
-            margin: 30px 0;
+            margin: 35px 0;
         }
 
         .belief-item {
             padding: 20px 0;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid var(--soft-sand);
         }
 
         .belief-item:first-child {
-            border-top: 1px solid #222;
+            border-top: 1px solid var(--soft-sand);
         }
 
         .belief-number {
-            font-size: 0.8rem;
-            font-weight: 800;
-            color: #666;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--warm-taupe);
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
         .belief-text {
-            font-size: 1rem;
-            font-weight: 200;
-            color: #bbb;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: #666;
             line-height: 1.8;
         }
 
         .belief-text strong {
-            font-weight: 800;
-            color: #fff;
+            font-weight: 500;
+            color: var(--primary-text);
         }
 
-        /* Client List */
+        /* ===== CLIENT LIST (Mobile First) ===== */
         .client-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px 30px;
-            margin: 30px 0;
+            grid-template-columns: 1fr;
+            gap: 0;
+            margin: 35px 0;
+            border-top: 1px solid var(--soft-sand);
         }
 
         .client-item {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: #fff;
-            padding: 15px 0;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--primary-text);
+            padding: 18px 15px;
             text-align: center;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid var(--soft-sand);
             letter-spacing: 0.5px;
         }
 
-        /* Featured Image */
-        .featured-image {
-            width: 100%;
-            margin: 60px 0;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-        }
-
-        /* Quote Block */
+        /* ===== QUOTE BLOCK (Mobile First) ===== */
         .quote-block {
-            background: #111;
-            padding: 60px 50px;
+            background: var(--soft-sand);
+            padding: 50px 25px;
             margin: 60px 0;
             text-align: center;
         }
 
         .quote-text {
-            font-size: 1.3rem;
-            font-weight: 200;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.15rem;
+            font-weight: 300;
             font-style: italic;
-            color: #ccc;
+            color: var(--primary-text);
             line-height: 1.9;
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        /* CTA Section */
+        /* ===== CTA SECTION (Mobile First) ===== */
         .cta-section {
-            background: #111;
-            padding: 80px 40px;
+            background: var(--soft-sand);
+            padding: 80px 20px;
             text-align: center;
-            margin-top: 60px;
         }
 
-        .cta-text {
-            font-size: 1.1rem;
-            font-weight: 200;
-            color: #aaa;
+        .cta-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-bottom: 20px;
+        }
+
+        .cta-heading {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--primary-text);
             margin-bottom: 30px;
+            line-height: 1.4;
         }
 
         .cta-link {
             display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             color: #fff;
+            background: var(--accent-dark);
             text-decoration: none;
-            padding: 15px 40px;
-            border: 1px solid #fff;
-            transition: all 0.3s ease;
+            padding: 14px 35px;
+            transition: opacity 0.4s ease;
         }
 
         .cta-link:hover {
-            background: #fff;
-            color: #000;
+            opacity: 0.85;
         }
 
-        /* Social Links */
+        /* ===== SOCIAL LINKS (Mobile First) ===== */
         .social-section {
-            padding: 60px 40px;
+            padding: 50px 20px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 40px;
-            background: #000;
+            gap: 25px;
+            background: var(--primary-bg);
         }
 
         .social-link {
+            font-family: 'Inter', sans-serif;
             font-size: 0.7rem;
-            font-weight: 800;
+            font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--primary-text);
             text-decoration: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .social-link:hover {
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
-        /* Footer */
+        /* ===== FOOTER (Mobile First) ===== */
         footer {
-            padding: 40px;
+            padding: 40px 20px;
             text-align: center;
             font-size: 0.7rem;
-            font-weight: 200;
-            color: #666;
+            font-weight: 300;
+            color: var(--warm-taupe);
             letter-spacing: 1px;
-            background: #000;
-            border-top: 1px solid #222;
+            background: var(--primary-bg);
+            border-top: 1px solid var(--soft-sand);
         }
 
-        /* Responsive */
-        @media (max-width: 968px) {
-            .page-title {
-                font-size: 2.2rem;
-            }
-
-            .section-heading {
-                font-size: 1.5rem;
-            }
-
-            .client-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
+        /* ========================================
+           TABLET STYLES (min-width: 768px)
+           ======================================== */
+        @media (min-width: 768px) {
             header {
-                padding: 15px 25px;
+                padding: 20px 40px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
             }
 
             nav {
-                gap: 20px;
+                gap: 30px;
             }
 
             nav a {
-                font-size: 0.65rem;
+                display: inline-block;
+                color: var(--primary-text);
+                text-decoration: none;
+                font-size: 0.7rem;
+                font-weight: 400;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                transition: opacity 0.4s ease;
+            }
+
+            nav a:hover {
+                opacity: 0.5;
+            }
+
+            .page-hero {
+                margin-top: 80px;
+                padding: 80px 40px 60px;
+            }
+
+            .page-title {
+                font-size: 3rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.05rem;
             }
 
             .content {
-                padding: 40px 25px 80px;
+                padding: 50px 40px 100px;
             }
-        }
 
-        @media (max-width: 600px) {
-            .page-title {
+            .section-block {
+                margin-bottom: 80px;
+            }
+
+            .section-heading {
                 font-size: 1.8rem;
             }
 
-            .client-list {
-                grid-template-columns: 1fr;
+            .featured-image {
+                margin: 60px 0;
             }
 
-            nav {
-                display: none;
+            .featured-image.portrait {
+                max-width: 220px;
+                margin: 60px auto;
+            }
+
+            .client-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .client-item {
+                border-right: 1px solid var(--soft-sand);
+            }
+
+            .client-item:nth-child(3n) {
+                border-right: none;
             }
 
             .quote-block {
-                padding: 40px 30px;
+                padding: 70px 40px;
+                margin: 80px 0;
             }
 
             .quote-text {
+                font-size: 1.3rem;
+            }
+
+            .cta-section {
+                padding: 100px 40px;
+            }
+
+            .cta-heading {
+                font-size: 2rem;
+            }
+
+            .social-section {
+                padding: 60px 40px;
+                gap: 40px;
+            }
+        }
+
+        /* ========================================
+           DESKTOP STYLES (min-width: 1024px)
+           ======================================== */
+        @media (min-width: 1024px) {
+            header {
+                padding: 25px 60px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 3px;
+            }
+
+            nav {
+                gap: 40px;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            nav a.reserve-btn {
+                padding: 12px 28px;
+            }
+
+            .page-hero {
+                margin-top: 90px;
+                padding: 100px 60px 80px;
+            }
+
+            .eyebrow {
+                font-size: 0.65rem;
+                margin-bottom: 20px;
+            }
+
+            .page-title {
+                font-size: 3.5rem;
+                margin-bottom: 35px;
+            }
+
+            .page-subtitle {
                 font-size: 1.1rem;
+                line-height: 2;
+                max-width: 650px;
+            }
+
+            .content {
+                padding: 60px 60px 120px;
+            }
+
+            .section-block {
+                margin-bottom: 100px;
+            }
+
+            .section-label {
+                font-size: 0.65rem;
+                margin-bottom: 20px;
+            }
+
+            .section-heading {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .content p {
+                font-size: 1rem;
+                line-height: 2;
+                margin-bottom: 25px;
+            }
+
+            .featured-image {
+                margin: 80px 0;
+                max-height: 450px;
+            }
+
+            .featured-image.portrait {
+                max-width: 250px;
+                max-height: 350px;
+                margin: 80px auto;
+            }
+
+            .beliefs-list {
+                margin: 50px 0;
+            }
+
+            .belief-item {
+                padding: 30px 0;
+            }
+
+            .belief-number {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .belief-text {
+                font-size: 1rem;
+                line-height: 1.9;
+            }
+
+            .client-list {
+                margin: 50px 0;
+            }
+
+            .client-item {
+                padding: 25px 15px;
+            }
+
+            .quote-block {
+                padding: 80px 60px;
+                margin: 100px 0;
+            }
+
+            .quote-text {
+                font-size: 1.4rem;
+                line-height: 2;
+                max-width: 650px;
+            }
+
+            .cta-section {
+                padding: 120px 60px;
+            }
+
+            .cta-eyebrow {
+                font-size: 0.65rem;
+                margin-bottom: 25px;
+            }
+
+            .cta-heading {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            .cta-link {
+                font-size: 0.75rem;
+                padding: 16px 45px;
+            }
+
+            .social-section {
+                padding: 80px 60px;
+                gap: 50px;
+            }
+
+            footer {
+                padding: 50px 60px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -356,14 +609,15 @@
     <header>
         <a href="index.html" class="logo">Nitin Solanki</a>
         <nav>
-            <a href="index.html">Home</a>
             <a href="index.html#about">What I Do</a>
             <a href="index.html#story">Story</a>
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
 
     <!-- Page Hero -->
     <section class="page-hero">
+        <span class="eyebrow">The Journey</span>
         <h1 class="page-title">About</h1>
         <p class="page-subtitle">
             I'm Nitin Solanki—an entrepreneur, investor, and advisor. I'm known for helping leaders create clarity in complex environments and translate strategy into disciplined execution.
@@ -376,7 +630,7 @@
         <!-- Early Life -->
         <div class="section-block">
             <p class="section-label">Origins</p>
-            <h2 class="section-heading">Early Life: Zambia → America</h2>
+            <h2 class="section-heading">Early Life: Zambia to America</h2>
             <p>
                 I was born in Luanshya, Zambia. My early childhood there was stable and meaningful—we didn't leave out of hardship. My family moved to the United States when I was 10 because they were thinking long-term: education, opportunity, and a bigger future.
             </p>
@@ -411,12 +665,12 @@
             </p>
         </div>
 
-        <img src="images/early2002.jpg" alt="Nitin Solanki 2002" class="featured-image" style="aspect-ratio: 3/4; max-width: 250px; margin: 60px auto;">
+        <img src="images/early2002.jpg" alt="Nitin Solanki 2002" class="featured-image portrait">
 
         <!-- Consulting -->
         <div class="section-block">
             <p class="section-label">Professional Growth</p>
-            <h2 class="section-heading">College → Consulting</h2>
+            <h2 class="section-heading">College to Consulting</h2>
             <p>
                 As I transitioned from college into the professional world, consulting immediately made sense for my personality and strengths. Consulting is a people business. Yes, it involves technology, process, and strategy—but at its core, it's about earning trust quickly, understanding what a client truly needs (often before they can articulate it), aligning stakeholders with competing priorities, navigating ambiguity, and delivering outcomes under real pressure.
             </p>
@@ -434,7 +688,7 @@
             </p>
         </div>
 
-        <img src="images/professional2010.jpg" alt="Nitin Solanki 2010" class="featured-image" style="aspect-ratio: 3/4; max-width: 250px; margin: 60px auto;">
+        <img src="images/professional2010.jpg" alt="Nitin Solanki 2010" class="featured-image portrait">
 
         <!-- Clients -->
         <div class="section-block">
@@ -447,15 +701,12 @@
                 I've had the opportunity to work with organizations such as:
             </p>
             <div class="client-list">
-                <!-- Healthcare & Pharma -->
                 <span class="client-item">Eli Lilly</span>
                 <span class="client-item">Johnson & Johnson</span>
                 <span class="client-item">AstraZeneca</span>
-                <!-- Financial Services -->
                 <span class="client-item">Wells Fargo</span>
                 <span class="client-item">T. Rowe Price</span>
                 <span class="client-item">Charles Schwab</span>
-                <!-- Other Industries -->
                 <span class="client-item">ExxonMobil</span>
                 <span class="client-item">DaVita</span>
                 <span class="client-item">City of New York</span>
@@ -522,7 +773,8 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <p class="cta-text">If you want to connect about advisory, investing, partnerships, or speaking—</p>
+        <p class="cta-eyebrow">Connect</p>
+        <h2 class="cta-heading">Let's Start a Conversation</h2>
         <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="cta-link">Connect on LinkedIn</a>
     </section>
 
@@ -536,8 +788,19 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Nitin Solanki. All Rights Reserved.</p>
+        <p>&copy; 2026 Nitin Solanki. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 
 </body>
 </html>

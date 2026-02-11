@@ -5,26 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nitin Solanki – Entrepreneur, Investor & Advisor</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Mont Font Family */
-        @font-face {
-            font-family: 'Mont';
-            src: url('fonts/mont_extralightdemo.ttf') format('truetype'),
-                 url('fonts/Mont-ExtraLightDEMO.otf') format('opentype');
-            font-weight: 200;
-            font-style: normal;
-            font-display: swap;
+        /* ===== AMAN BRAND COLORS ===== */
+        :root {
+            --primary-bg: #F3EEE7;
+            --primary-text: #313131;
+            --warm-taupe: #D4C4B0;
+            --soft-sand: #E8DFD3;
+            --accent-dark: #000000;
         }
 
-        @font-face {
-            font-family: 'Mont';
-            src: url('fonts/mont_heavydemo.ttf') format('truetype'),
-                 url('fonts/Mont-HeavyDEMO.otf') format('opentype');
-            font-weight: 800;
-            font-style: normal;
-            font-display: swap;
-        }
-
+        /* ===== RESET & BASE (Mobile First) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -36,388 +30,703 @@
         }
 
         body {
-            font-family: 'Mont', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #000;
-            color: #fff;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.7;
+            font-weight: 300;
+            font-size: 16px;
         }
 
-        /* Navigation */
+        /* Typography - Serif for headlines */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ===== HEADER (Mobile First) ===== */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 20px 40px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.95);
-            border-bottom: 1px solid #222;
+            background: rgba(243, 238, 231, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(243, 238, 231, 0.98);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--primary-text);
         }
 
         nav {
             display: flex;
-            gap: 35px;
+            gap: 15px;
+            align-items: center;
         }
 
         nav a {
+            display: none; /* Hide text links on mobile */
+        }
+
+        nav a.reserve-btn {
+            display: inline-block;
             color: #fff;
+            background: var(--accent-dark);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 800;
+            font-size: 0.7rem;
+            font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            transition: opacity 0.3s ease;
+            padding: 10px 20px;
+            transition: opacity 0.4s ease;
         }
 
-        nav a:hover {
-            opacity: 0.6;
+        nav a.reserve-btn:hover {
+            opacity: 0.85;
         }
 
-        /* Hero Section */
+        /* ===== HERO (Mobile First) ===== */
         .hero {
-            margin-top: 70px;
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            padding: 80px 40px;
-            position: relative;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px 20px 60px;
         }
 
         .hero-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            align-items: center;
+            width: 100%;
         }
 
         .hero-content {
-            max-width: 600px;
+            text-align: center;
+            order: 2;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-bottom: 20px;
         }
 
         .hero-name {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
             line-height: 1.1;
-        }
-
-        .hero-tagline {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 40px;
+            color: var(--primary-text);
         }
 
         .hero-description {
-            font-size: 1.1rem;
-            font-weight: 200;
+            font-size: 1rem;
+            font-weight: 300;
             line-height: 1.9;
-            color: #aaa;
+            color: #666;
+            margin-bottom: 35px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--primary-text);
+            padding-bottom: 5px;
+            transition: opacity 0.4s ease;
+        }
+
+        .hero-cta:hover {
+            opacity: 0.6;
+        }
+
+        .hero-image-wrapper {
+            order: 1;
+            display: flex;
+            justify-content: center;
         }
 
         .hero-image {
             width: 100%;
-            max-width: 500px;
-            aspect-ratio: 4/5;
-            object-fit: cover;
-            justify-self: end;
+            max-width: 350px;
+            object-fit: contain;
         }
 
-        /* Section Styles */
+        /* ===== SECTIONS (Mobile First) ===== */
         .section {
-            padding: 100px 40px;
+            padding: 60px 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .section-label {
-            font-size: 0.7rem;
-            font-weight: 800;
+        .section-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 400;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: #666;
-            margin-bottom: 30px;
+            color: var(--warm-taupe);
+            margin-bottom: 20px;
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            color: #fff;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 35px;
+            color: var(--primary-text);
+            line-height: 1.3;
         }
 
-        /* What I Do Section */
+        /* ===== SERVICES (Mobile First) ===== */
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 40px;
         }
 
-        .service-card {
-            padding: 40px;
-            background: #111;
-            border: 1px solid #222;
-            transition: border-color 0.3s ease;
-        }
-
-        .service-card:hover {
-            border-color: #444;
-        }
-
         .service-card h3 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: #fff;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            color: var(--primary-text);
         }
 
         .service-card p {
             font-size: 0.95rem;
-            font-weight: 200;
+            font-weight: 300;
             line-height: 1.8;
-            color: #999;
+            color: #666;
         }
 
-        /* Focus Areas */
+        /* ===== FOCUS AREAS (Mobile First) ===== */
         .focus-areas {
-            background: #0a0a0a;
-            padding: 100px 40px;
+            background: var(--soft-sand);
+            padding: 60px 20px;
         }
 
         .focus-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
         .focus-item {
-            font-size: 1rem;
-            font-weight: 200;
-            color: #aaa;
-            padding-left: 20px;
-            border-left: 2px solid #333;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: #666;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--warm-taupe);
+        }
+
+        .focus-item:first-child {
+            border-top: 1px solid var(--warm-taupe);
         }
 
         .focus-item strong {
-            font-weight: 800;
-            color: #fff;
+            font-weight: 500;
+            color: var(--primary-text);
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
         }
 
-        /* How I Work */
+        /* ===== HOW I WORK (Mobile First) ===== */
         .how-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
 
         .how-image {
             width: 100%;
-            aspect-ratio: 4/5;
-            object-fit: cover;
+            object-fit: contain;
+            max-height: 400px;
+        }
+
+        .how-content {
+            max-width: 100%;
         }
 
         .how-content p {
-            font-size: 1.1rem;
-            font-weight: 200;
-            line-height: 2;
-            color: #aaa;
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #666;
         }
 
-        /* Story Teaser */
+        /* ===== STORY (Mobile First) ===== */
         .story-section {
-            background: #111;
-            padding: 100px 40px;
-        }
-
-        .story-content {
-            max-width: 900px;
-            margin: 0 auto;
+            background: var(--primary-bg);
+            padding: 80px 20px;
             text-align: center;
         }
 
+        .story-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .story-text {
-            font-size: 1.2rem;
-            font-weight: 200;
-            line-height: 2;
-            color: #aaa;
-            margin-bottom: 40px;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 35px;
+            font-style: italic;
         }
 
         .story-link {
             display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 800;
+            font-size: 0.7rem;
+            font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--primary-text);
             text-decoration: none;
-            padding: 15px 40px;
-            border: 1px solid #fff;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--primary-text);
+            padding-bottom: 5px;
+            transition: opacity 0.4s ease;
         }
 
         .story-link:hover {
-            background: #fff;
-            color: #000;
+            opacity: 0.6;
         }
 
-        /* Photo Grid */
+        /* ===== PHOTO GRID (Mobile First) ===== */
         .photo-section {
-            padding: 100px 40px;
+            padding: 0;
+            background: var(--soft-sand);
         }
 
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 1400px;
-            margin: 0 auto;
+            grid-template-columns: 1fr;
+            gap: 4px;
         }
 
         .photo-item {
-            aspect-ratio: 3/4;
             overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
         }
 
         .photo-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 20%;
             transition: transform 0.6s ease;
+        }
+
+        /* First photo (B&W portrait) - center on face */
+        .photo-item:nth-child(1) img {
+            object-position: center 15%;
+        }
+
+        /* Second photo (gray suit) - center horizontally */
+        .photo-item:nth-child(2) img {
+            object-position: center 40%;
+        }
+
+        /* Third photo (blue polo waterfront) - center on subject */
+        .photo-item:nth-child(3) img {
+            object-position: center 25%;
+        }
+
+        /* Fourth photo (white shirt stairs) - show full figure */
+        .photo-item:nth-child(4) img {
+            object-position: center 30%;
         }
 
         .photo-item:hover img {
             transform: scale(1.05);
         }
 
-        /* Social Links */
+        /* ===== SOCIAL LINKS (Mobile First) ===== */
         .social-section {
-            padding: 60px 40px;
+            padding: 50px 20px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 40px;
-            background: #000;
+            gap: 25px;
+            background: var(--primary-bg);
         }
 
         .social-link {
             font-size: 0.7rem;
-            font-weight: 800;
+            font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--primary-text);
             text-decoration: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .social-link:hover {
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
-        /* Footer */
+        /* ===== FOOTER (Mobile First) ===== */
         footer {
-            padding: 40px;
+            padding: 40px 20px;
             text-align: center;
             font-size: 0.7rem;
-            font-weight: 200;
-            color: #666;
+            font-weight: 300;
+            color: var(--warm-taupe);
             letter-spacing: 1px;
-            background: #000;
-            border-top: 1px solid #222;
+            background: var(--primary-bg);
+            border-top: 1px solid var(--warm-taupe);
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            .photo-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 968px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-image {
-                justify-self: center;
-                max-width: 400px;
-            }
-
-            .hero-content {
-                max-width: 100%;
-            }
-
-            .hero-name {
-                font-size: 2.5rem;
-            }
-
-            .how-section {
-                grid-template-columns: 1fr;
-            }
-
-            .focus-list {
-                grid-template-columns: 1fr;
-            }
-
+        /* ========================================
+           TABLET STYLES (min-width: 768px)
+           ======================================== */
+        @media (min-width: 768px) {
             header {
-                padding: 15px 25px;
+                padding: 20px 40px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
             }
 
             nav {
-                gap: 20px;
+                gap: 30px;
             }
 
             nav a {
-                font-size: 0.65rem;
+                display: inline-block;
+                color: var(--primary-text);
+                text-decoration: none;
+                font-size: 0.7rem;
+                font-weight: 400;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                transition: opacity 0.4s ease;
+            }
+
+            nav a:hover {
+                opacity: 0.5;
+            }
+
+            .hero {
+                padding: 120px 40px 80px;
+            }
+
+            .hero-name {
+                font-size: 3rem;
+            }
+
+            .hero-image {
+                max-width: 400px;
             }
 
             .section {
-                padding: 80px 25px;
+                padding: 80px 40px;
             }
-        }
 
-        @media (max-width: 600px) {
-            .hero-name {
+            .section-title {
                 font-size: 2rem;
             }
 
-            .photo-grid {
-                grid-template-columns: 1fr;
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
             }
 
-            nav {
-                display: none;
+            .focus-areas {
+                padding: 80px 40px;
+            }
+
+            .focus-list {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0;
+                max-width: 800px;
+            }
+
+            .focus-item {
+                padding: 25px 20px 25px 0;
+            }
+
+            .focus-item:nth-child(even) {
+                padding-left: 20px;
+                padding-right: 0;
+                border-left: 1px solid var(--warm-taupe);
+            }
+
+            .focus-item:nth-child(1),
+            .focus-item:nth-child(2) {
+                border-top: 1px solid var(--warm-taupe);
+            }
+
+            .how-section {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .how-image {
+                max-height: 500px;
+            }
+
+            .story-section {
+                padding: 100px 40px;
+            }
+
+            .story-text {
+                font-size: 1.4rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .photo-item {
+                aspect-ratio: 16/10;
             }
 
             .social-section {
-                flex-wrap: wrap;
-                gap: 25px;
+                padding: 60px 40px;
+                gap: 40px;
+            }
+        }
+
+        /* ========================================
+           DESKTOP STYLES (min-width: 1024px)
+           ======================================== */
+        @media (min-width: 1024px) {
+            header {
+                padding: 25px 60px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 3px;
+            }
+
+            nav {
+                gap: 40px;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            nav a.reserve-btn {
+                padding: 12px 28px;
+            }
+
+            .hero {
+                padding: 140px 60px 100px;
+            }
+
+            .hero-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 80px;
+                align-items: center;
+            }
+
+            .hero-content {
+                text-align: left;
+                order: 1;
+                max-width: 550px;
+            }
+
+            .hero-eyebrow {
+                font-size: 0.7rem;
+                letter-spacing: 3px;
+                margin-bottom: 30px;
+            }
+
+            .hero-name {
+                font-size: 3.5rem;
+                letter-spacing: 2px;
+                margin-bottom: 30px;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+                line-height: 2;
+                margin-bottom: 50px;
+                margin-left: 0;
+            }
+
+            .hero-image-wrapper {
+                order: 2;
+                justify-content: flex-end;
+            }
+
+            .hero-image {
+                max-width: 480px;
+                max-height: 600px;
+            }
+
+            .section {
+                padding: 120px 60px;
+            }
+
+            .section-eyebrow {
+                font-size: 0.65rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 50px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 50px;
+            }
+
+            .service-card h3 {
+                font-size: 1.4rem;
+            }
+
+            .focus-areas {
+                padding: 120px 60px;
+            }
+
+            .focus-list {
+                max-width: 900px;
+            }
+
+            .how-section {
+                gap: 100px;
+            }
+
+            .how-image {
+                max-height: 550px;
+            }
+
+            .how-content {
+                max-width: 450px;
+            }
+
+            .how-content p {
+                font-size: 1.05rem;
+                line-height: 2;
+            }
+
+            .story-section {
+                padding: 140px 60px;
+            }
+
+            .story-content {
+                max-width: 700px;
+            }
+
+            .story-text {
+                font-size: 1.5rem;
+                line-height: 2;
+                margin-bottom: 50px;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(12, 1fr);
+                grid-template-rows: 350px 350px;
+            }
+
+            .photo-item:nth-child(1) {
+                grid-column: 1 / 5;
+                grid-row: 1 / 3;
+                aspect-ratio: auto;
+            }
+
+            .photo-item:nth-child(2) {
+                grid-column: 5 / 9;
+                grid-row: 1 / 2;
+                aspect-ratio: auto;
+            }
+
+            .photo-item:nth-child(3) {
+                grid-column: 9 / 13;
+                grid-row: 1 / 2;
+                aspect-ratio: auto;
+            }
+
+            .photo-item:nth-child(4) {
+                grid-column: 5 / 13;
+                grid-row: 2 / 3;
+                aspect-ratio: auto;
+            }
+
+            .photo-item img {
+                object-position: center 25%;
+            }
+
+            .social-section {
+                padding: 80px 60px;
+                gap: 50px;
+            }
+
+            footer {
+                padding: 50px 60px;
+            }
+        }
+
+        /* ========================================
+           LARGE DESKTOP (min-width: 1440px)
+           ======================================== */
+        @media (min-width: 1440px) {
+            .hero-name {
+                font-size: 4rem;
+            }
+
+            .hero-container {
+                gap: 100px;
+            }
+
+            .photo-grid {
+                grid-template-rows: 400px 400px;
             }
         }
     </style>
@@ -430,7 +739,8 @@
         <nav>
             <a href="#about">What I Do</a>
             <a href="#story">Story</a>
-            <a href="about.html">Full Bio</a>
+            <a href="about.html">About</a>
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
 
@@ -438,19 +748,23 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
+                <p class="hero-eyebrow">Entrepreneur • Investor • Advisor</p>
                 <h1 class="hero-name">Nitin Solanki</h1>
-                <p class="hero-tagline">Entrepreneur • Investor • Advisor</p>
                 <p class="hero-description">
-                    I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation.
+                    I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation—helping leaders create clarity in complex environments.
                 </p>
+                <a href="#about" class="hero-cta">Discover More</a>
             </div>
-            <img src="images/hero.jpg" alt="Nitin Solanki" class="hero-image">
+            <div class="hero-image-wrapper">
+                <img src="images/hero.jpg" alt="Nitin Solanki" class="hero-image">
+            </div>
         </div>
     </section>
 
     <!-- What I Do Section -->
     <section class="section" id="about">
-        <p class="section-label">What I Do</p>
+        <p class="section-eyebrow">What I Do</p>
+        <h2 class="section-title">Transforming Strategy into Disciplined Execution</h2>
         <div class="services-grid">
             <div class="service-card">
                 <h3>Advisory</h3>
@@ -470,12 +784,24 @@
     <!-- Focus Areas -->
     <section class="focus-areas">
         <div class="section" style="padding-top: 0; padding-bottom: 0;">
-            <p class="section-label">Focus Areas</p>
+            <p class="section-eyebrow">Focus Areas</p>
             <div class="focus-list">
-                <div class="focus-item"><strong>Strategy → Execution</strong> — operating cadence, priorities, accountability</div>
-                <div class="focus-item"><strong>Operations</strong> — performance improvement</div>
-                <div class="focus-item"><strong>Go-to-Market</strong> — customer journey, CRM/RevOps foundations</div>
-                <div class="focus-item"><strong>Technology</strong> — data + AI readiness, modernization</div>
+                <div class="focus-item">
+                    <strong>Strategy → Execution</strong>
+                    Operating cadence, priorities, accountability
+                </div>
+                <div class="focus-item">
+                    <strong>Operations</strong>
+                    Performance improvement and optimization
+                </div>
+                <div class="focus-item">
+                    <strong>Go-to-Market</strong>
+                    Customer journey, CRM/RevOps foundations
+                </div>
+                <div class="focus-item">
+                    <strong>Technology</strong>
+                    Data + AI readiness, modernization
+                </div>
             </div>
         </div>
     </section>
@@ -485,9 +811,9 @@
         <div class="how-section">
             <img src="images/howework.jpg" alt="Nitin Solanki" class="how-image">
             <div class="how-content">
-                <p class="section-label">How I Work</p>
-                <h2 class="section-title">Relationship-First,<br>Outcome-Driven</h2>
-                <p>In high-pressure environments, I bring structure, calm, and delivery discipline—so decisions get made and progress compounds.</p>
+                <p class="section-eyebrow">How I Work</p>
+                <h2 class="section-title">Relationship-First, Outcome-Driven</h2>
+                <p>In high-pressure environments, I bring structure, calm, and delivery discipline—so decisions get made and progress compounds. Transformation succeeds when leaders communicate the why, teams understand the what, and delivery is disciplined enough to produce outcomes.</p>
             </div>
         </div>
     </section>
@@ -495,9 +821,9 @@
     <!-- Story Teaser -->
     <section class="story-section" id="story">
         <div class="story-content">
-            <p class="section-label">My Story</p>
+            <p class="section-eyebrow">My Story</p>
             <p class="story-text">
-                Born in Luanshya, Zambia, I moved to the U.S. at 10 in pursuit of bigger opportunities. Early exposure to business and customer service shaped how I lead: listen first, build trust, and solve the real problem. That foundation became my edge in high-stakes transformation work—where clarity, people, and execution matter most.
+                Born in Luanshya, Zambia, I moved to the U.S. at 10 in pursuit of bigger opportunities. Early exposure to business and customer service shaped how I lead: listen first, build trust, and solve the real problem.
             </p>
             <a href="about.html" class="story-link">Read the Full Story</a>
         </div>
@@ -507,20 +833,19 @@
     <section class="photo-section">
         <div class="photo-grid">
             <div class="photo-item">
-                <img src="images/varied2.jpg" alt="Nitin Solanki">
+                <img src="images/gridphoto1.jpg" alt="Nitin Solanki - Portrait">
             </div>
             <div class="photo-item">
-                <img src="images/varied3.jpg" alt="Nitin Solanki">
+                <img src="images/photo7.jpg" alt="Nitin Solanki - Professional">
             </div>
             <div class="photo-item">
-                <img src="images/varied4.jpg" alt="Nitin Solanki">
+                <img src="images/varied2.jpg" alt="Nitin Solanki - Waterfront">
             </div>
             <div class="photo-item">
-                <img src="images/varied5.jpg" alt="Nitin Solanki">
+                <img src="images/gridphoto2.jpg" alt="Nitin Solanki - Lifestyle">
             </div>
         </div>
     </section>
-
 
     <!-- Social Links -->
     <section class="social-section">
@@ -532,8 +857,20 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Nitin Solanki. All Rights Reserved.</p>
+        <p>&copy; 2026 Nitin Solanki. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 
 </body>
 </html>
