@@ -38,7 +38,7 @@
             font-size: 16px;
         }
 
-        /* Typography - Serif for headlines */
+        /* Typography - Serif for headlines (Lyon Display equivalent) */
         h1, h2, h3, h4 {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 400;
@@ -51,16 +51,17 @@
             display: block;
         }
 
-        /* ===== HEADER (Mobile First) ===== */
+        /* ===== HEADER - AMAN STYLE (Mobile First) ===== */
+        /* Structure: Hamburger (left) - Logo (center) - Reserve (right) */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
+            padding: 18px 20px;
+            display: grid;
+            grid-template-columns: 50px 1fr 50px;
             align-items: center;
             background: rgba(243, 238, 231, 0.95);
             backdrop-filter: blur(10px);
@@ -72,6 +73,43 @@
             box-shadow: 0 1px 0 rgba(0,0,0,0.05);
         }
 
+        /* Hamburger Menu Button */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--primary-text);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Logo - Centered */
         .logo {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 1.1rem;
@@ -79,33 +117,102 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--primary-text);
+            text-decoration: none;
+            text-align: center;
+            justify-self: center;
         }
 
-        nav {
+        /* Reserve Button - Right */
+        .header-cta {
             display: flex;
-            gap: 15px;
-            align-items: center;
+            justify-content: flex-end;
         }
 
-        nav a {
-            display: none; /* Hide text links on mobile */
-        }
-
-        nav a.reserve-btn {
+        .reserve-btn {
             display: inline-block;
             color: #fff;
             background: var(--accent-dark);
             text-decoration: none;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 10px 20px;
+            padding: 10px 16px;
             transition: opacity 0.4s ease;
         }
 
-        nav a.reserve-btn:hover {
+        .reserve-btn:hover {
             opacity: 0.85;
+        }
+
+        /* Full-Screen Navigation Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary-bg);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-overlay nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--primary-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-overlay nav a:hover {
+            opacity: 0.5;
+        }
+
+        .nav-social {
+            position: absolute;
+            bottom: 60px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-social a {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-social a:hover {
+            color: var(--primary-text);
+        }
+
+        /* Desktop Navigation Links (hidden on mobile) */
+        .desktop-nav {
+            display: none;
         }
 
         /* ===== HERO (Mobile First) ===== */
@@ -362,22 +469,18 @@
             transition: transform 0.6s ease;
         }
 
-        /* First photo (B&W portrait) - center on face */
         .photo-item:nth-child(1) img {
             object-position: center 15%;
         }
 
-        /* Second photo (gray suit) - center horizontally */
         .photo-item:nth-child(2) img {
             object-position: center 40%;
         }
 
-        /* Third photo (blue polo waterfront) - center on subject */
         .photo-item:nth-child(3) img {
             object-position: center 25%;
         }
 
-        /* Fourth photo (white shirt stairs) - show full figure */
         .photo-item:nth-child(4) img {
             object-position: center 30%;
         }
@@ -428,29 +531,20 @@
         @media (min-width: 768px) {
             header {
                 padding: 20px 40px;
+                grid-template-columns: 60px 1fr 100px;
             }
 
             .logo {
                 font-size: 1.2rem;
             }
 
-            nav {
-                gap: 30px;
-            }
-
-            nav a {
-                display: inline-block;
-                color: var(--primary-text);
-                text-decoration: none;
+            .reserve-btn {
                 font-size: 0.7rem;
-                font-weight: 400;
-                letter-spacing: 1.5px;
-                text-transform: uppercase;
-                transition: opacity 0.4s ease;
+                padding: 10px 20px;
             }
 
-            nav a:hover {
-                opacity: 0.5;
+            .nav-overlay nav a {
+                font-size: 2.5rem;
             }
 
             .hero {
@@ -543,7 +637,8 @@
            ======================================== */
         @media (min-width: 1024px) {
             header {
-                padding: 25px 60px;
+                padding: 22px 60px;
+                grid-template-columns: 50px 1fr auto;
             }
 
             .logo {
@@ -551,16 +646,43 @@
                 letter-spacing: 3px;
             }
 
-            nav {
+            /* Show desktop nav on large screens */
+            .desktop-nav {
+                display: flex;
+                align-items: center;
                 gap: 40px;
+                justify-self: end;
             }
 
-            nav a {
+            .desktop-nav a {
+                color: var(--primary-text);
+                text-decoration: none;
                 font-size: 0.75rem;
+                font-weight: 400;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                transition: opacity 0.4s ease;
             }
 
-            nav a.reserve-btn {
+            .desktop-nav a:hover {
+                opacity: 0.5;
+            }
+
+            .desktop-nav .reserve-btn {
                 padding: 12px 28px;
+            }
+
+            /* Hide mobile CTA on desktop */
+            .header-cta {
+                display: none;
+            }
+
+            .hamburger span {
+                width: 24px;
+            }
+
+            .nav-overlay nav a {
+                font-size: 3rem;
             }
 
             .hero {
@@ -729,20 +851,49 @@
                 grid-template-rows: 400px 400px;
             }
         }
+
+        /* Body scroll lock when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header - Aman Style: Hamburger (left) | Logo (center) | Reserve (right) -->
     <header>
-        <div class="logo">Nitin Solanki</div>
-        <nav>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="index.html" class="logo">Nitin Solanki</a>
+        <div class="header-cta">
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
+        </div>
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
             <a href="#about">What I Do</a>
             <a href="#story">Story</a>
             <a href="about.html">About</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
+
+    <!-- Full-Screen Navigation Overlay -->
+    <div class="nav-overlay">
+        <nav>
+            <a href="#about">What I Do</a>
+            <a href="#story">Story</a>
+            <a href="about.html">About</a>
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">Connect</a>
+        </nav>
+        <div class="nav-social">
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">LinkedIn</a>
+            <a href="https://www.instagram.com/nitinsolanki" target="_blank">Instagram</a>
+            <a href="https://x.com/nitinsolanki" target="_blank">X</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -861,6 +1012,31 @@
     </footer>
 
     <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navLinks = document.querySelectorAll('.nav-overlay nav a');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+
+            // Update aria-expanded
+            const isExpanded = this.classList.contains('active');
+            this.setAttribute('aria-expanded', isExpanded);
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
