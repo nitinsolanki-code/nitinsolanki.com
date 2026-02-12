@@ -18,6 +18,231 @@
             --accent-dark: #000000;
         }
 
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            opacity: 0;
+            animation: logoFadeIn 1.2s ease forwards;
+        }
+
+        .loading-line {
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            margin-top: 30px;
+            transform: scaleX(0);
+            animation: lineExpand 1s ease 0.4s forwards;
+        }
+
+        @keyframes logoFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lineExpand {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Staggered animations for grid items */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-item:nth-child(1) { transition-delay: 0s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.2s; }
+        .stagger-item:nth-child(4) { transition-delay: 0.3s; }
+
+        /* ===== VIDEO HERO ===== */
+        .video-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .video-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0) 30%,
+                rgba(0, 0, 0, 0) 70%,
+                rgba(0, 0, 0, 0.3) 100%
+            );
+            pointer-events: none;
+        }
+
+        .video-hero-content {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        .video-hero-content .hero-eyebrow {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .video-hero-content .hero-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
+        }
+
+        @media (min-width: 768px) {
+            .video-hero-content {
+                bottom: 100px;
+            }
+
+            .video-hero-content .hero-name {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .video-hero-content {
+                bottom: 120px;
+            }
+
+            .video-hero-content .hero-eyebrow {
+                font-size: 0.7rem;
+                letter-spacing: 4px;
+            }
+
+            .video-hero-content .hero-name {
+                font-size: 4.5rem;
+                letter-spacing: 3px;
+            }
+        }
+
         /* ===== RESET & BASE (Mobile First) ===== */
         * {
             margin: 0;
@@ -839,6 +1064,12 @@
 </head>
 <body>
 
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <span class="loading-logo">Nitin Solanki</span>
+        <div class="loading-line"></div>
+    </div>
+
     <!-- Header - Aman Style: Hamburger (left) | Logo (center) | Reserve (right) -->
     <header>
         <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -874,10 +1105,25 @@
         </div>
     </div>
 
+    <!-- Video Hero -->
+    <section class="video-hero">
+        <video autoplay muted loop playsinline>
+            <source src="videos/hero.mp4" type="video/mp4">
+        </video>
+        <div class="video-hero-overlay"></div>
+        <div class="video-hero-content">
+            <p class="hero-eyebrow">Entrepreneur • Investor • Advisor</p>
+            <h1 class="hero-name">Nitin Solanki</h1>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-content">
+            <div class="hero-content fade-in-left">
                 <p class="hero-eyebrow">Entrepreneur • Investor • Advisor</p>
                 <h1 class="hero-name">Nitin Solanki</h1>
                 <p class="hero-description">
@@ -885,7 +1131,7 @@
                 </p>
                 <a href="#about" class="hero-cta">Discover More</a>
             </div>
-            <div class="hero-image-wrapper">
+            <div class="hero-image-wrapper fade-in-right">
                 <img src="images/hero.jpg" alt="Nitin Solanki" class="hero-image">
             </div>
         </div>
@@ -893,18 +1139,18 @@
 
     <!-- What I Do Section -->
     <section class="section" id="about">
-        <p class="section-eyebrow">What I Do</p>
-        <h2 class="section-title">Transforming Strategy into Disciplined Execution</h2>
+        <p class="section-eyebrow fade-in">What I Do</p>
+        <h2 class="section-title fade-in">Transforming Strategy into Disciplined Execution</h2>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card stagger-item">
                 <h3>Advisory</h3>
                 <p>I work with founders and leadership teams to create clarity, align stakeholders, and turn strategy into execution—without chaos.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card stagger-item">
                 <h3>Investing</h3>
                 <p>I invest in businesses where strong operators and disciplined systems create durable outcomes.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card stagger-item">
                 <h3>Transformation</h3>
                 <p>I help teams modernize the way they operate—customer systems, data, and AI readiness—so growth is scalable, measurable, and repeatable.</p>
             </div>
@@ -914,21 +1160,21 @@
     <!-- Focus Areas -->
     <section class="focus-areas">
         <div class="section" style="padding-top: 0; padding-bottom: 0;">
-            <p class="section-eyebrow">Focus Areas</p>
+            <p class="section-eyebrow fade-in">Focus Areas</p>
             <div class="focus-list">
-                <div class="focus-item">
+                <div class="focus-item stagger-item">
                     <strong>Strategy → Execution</strong>
                     Operating cadence, priorities, accountability
                 </div>
-                <div class="focus-item">
+                <div class="focus-item stagger-item">
                     <strong>Operations</strong>
                     Performance improvement and optimization
                 </div>
-                <div class="focus-item">
+                <div class="focus-item stagger-item">
                     <strong>Go-to-Market</strong>
                     Customer journey, CRM/RevOps foundations
                 </div>
-                <div class="focus-item">
+                <div class="focus-item stagger-item">
                     <strong>Technology</strong>
                     Data + AI readiness, modernization
                 </div>
@@ -939,8 +1185,8 @@
     <!-- How I Work -->
     <section class="section">
         <div class="how-section">
-            <img src="images/howework.jpg" alt="Nitin Solanki" class="how-image">
-            <div class="how-content">
+            <img src="images/howework.jpg" alt="Nitin Solanki" class="how-image fade-in-left">
+            <div class="how-content fade-in-right">
                 <p class="section-eyebrow">How I Work</p>
                 <h2 class="section-title">Relationship-First, Outcome-Driven</h2>
                 <p>In high-pressure environments, I bring structure, calm, and delivery discipline—so decisions get made and progress compounds. Transformation succeeds when leaders communicate the why, teams understand the what, and delivery is disciplined enough to produce outcomes.</p>
@@ -950,7 +1196,7 @@
 
     <!-- Story Teaser -->
     <section class="story-section" id="story">
-        <div class="story-content">
+        <div class="story-content fade-in">
             <p class="section-eyebrow">My Story</p>
             <p class="story-text">
                 Born in Luanshya, Zambia, I moved to the U.S. at 10 in pursuit of bigger opportunities. Early exposure to business and customer service shaped how I lead: listen first, build trust, and solve the real problem.
@@ -962,13 +1208,13 @@
     <!-- Photo Grid -->
     <section class="photo-section">
         <div class="photo-grid">
-            <div class="photo-item">
+            <div class="photo-item stagger-item">
                 <img src="images/gridphoto1.jpg" alt="Nitin Solanki - Portrait">
             </div>
-            <div class="photo-item">
+            <div class="photo-item stagger-item">
                 <img src="images/photo7.jpg" alt="Nitin Solanki - Professional">
             </div>
-            <div class="photo-item">
+            <div class="photo-item stagger-item">
                 <img src="images/gridphoto2.jpg" alt="Nitin Solanki - Lifestyle">
             </div>
         </div>
@@ -988,7 +1234,38 @@
     </footer>
 
     <script>
-        // Hamburger Menu Toggle
+        // ===== LOADING SCREEN =====
+        window.addEventListener('load', function() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            // Wait for logo animation to complete, then fade out
+            setTimeout(function() {
+                loadingScreen.classList.add('hidden');
+            }, 1800);
+        });
+
+        // ===== SCROLL ANIMATIONS (Intersection Observer) =====
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const animationObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Unobserve after animation triggers (one-time animation)
+                    animationObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .stagger-item').forEach(el => {
+            animationObserver.observe(el);
+        });
+
+        // ===== HAMBURGER MENU =====
         const hamburger = document.querySelector('.hamburger');
         const navOverlay = document.querySelector('.nav-overlay');
         const navLinks = document.querySelectorAll('.nav-overlay nav a');
@@ -1013,7 +1290,7 @@
             });
         });
 
-        // Header scroll effect
+        // ===== HEADER SCROLL EFFECT =====
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {

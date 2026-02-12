@@ -18,6 +18,123 @@
             --accent-dark: #000000;
         }
 
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            opacity: 0;
+            animation: logoFadeIn 1.2s ease forwards;
+        }
+
+        .loading-line {
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            margin-top: 30px;
+            transform: scaleX(0);
+            animation: lineExpand 1s ease 0.4s forwards;
+        }
+
+        @keyframes logoFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lineExpand {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Staggered animations for list items */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-item:nth-child(1) { transition-delay: 0s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.15s; }
+        .stagger-item:nth-child(4) { transition-delay: 0.2s; }
+        .stagger-item:nth-child(5) { transition-delay: 0.25s; }
+        .stagger-item:nth-child(6) { transition-delay: 0.3s; }
+        .stagger-item:nth-child(7) { transition-delay: 0.35s; }
+        .stagger-item:nth-child(8) { transition-delay: 0.4s; }
+        .stagger-item:nth-child(9) { transition-delay: 0.45s; }
+
         /* ===== RESET & BASE (Mobile First) ===== */
         * {
             margin: 0;
@@ -735,6 +852,12 @@
 </head>
 <body>
 
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <span class="loading-logo">Nitin Solanki</span>
+        <div class="loading-line"></div>
+    </div>
+
     <!-- Header - Aman Style: Hamburger (left) | Logo (center) | Reserve (right) -->
     <header>
         <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -771,7 +894,7 @@
     </div>
 
     <!-- Page Hero -->
-    <section class="page-hero">
+    <section class="page-hero fade-in">
         <span class="eyebrow">The Journey</span>
         <h1 class="page-title">About</h1>
         <p class="page-subtitle">
@@ -783,7 +906,7 @@
     <div class="content">
 
         <!-- Early Life -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Origins</p>
             <h2 class="section-heading">Early Life: Zambia to America</h2>
             <p>
@@ -794,10 +917,10 @@
             </p>
         </div>
 
-        <img src="images/zambia.jpg" alt="Young Nitin in Zambia" class="featured-image">
+        <img src="images/zambia.jpg" alt="Young Nitin in Zambia" class="featured-image fade-in">
 
         <!-- Growing Up -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Foundation</p>
             <h2 class="section-heading">Growing Up in the U.S.: The Motel Business</h2>
             <p>
@@ -809,7 +932,7 @@
         </div>
 
         <!-- Early Work -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Early Career</p>
             <h2 class="section-heading">Banking and Structure</h2>
             <p>
@@ -820,10 +943,10 @@
             </p>
         </div>
 
-        <img src="images/early2002.jpg" alt="Nitin Solanki 2002" class="featured-image portrait">
+        <img src="images/early2002.jpg" alt="Nitin Solanki 2002" class="featured-image portrait fade-in">
 
         <!-- Consulting -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Professional Growth</p>
             <h2 class="section-heading">College to Consulting</h2>
             <p>
@@ -843,10 +966,10 @@
             </p>
         </div>
 
-        <img src="images/professional2010.jpg" alt="Nitin Solanki 2010" class="featured-image portrait">
+        <img src="images/professional2010.jpg" alt="Nitin Solanki 2010" class="featured-image portrait fade-in">
 
         <!-- Clients -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Experience</p>
             <h2 class="section-heading">Client Depth</h2>
             <p>
@@ -856,15 +979,15 @@
                 I've had the opportunity to work with organizations such as:
             </p>
             <div class="client-list">
-                <span class="client-item">Eli Lilly</span>
-                <span class="client-item">Johnson & Johnson</span>
-                <span class="client-item">AstraZeneca</span>
-                <span class="client-item">Wells Fargo</span>
-                <span class="client-item">T. Rowe Price</span>
-                <span class="client-item">Charles Schwab</span>
-                <span class="client-item">ExxonMobil</span>
-                <span class="client-item">DaVita</span>
-                <span class="client-item">City of New York</span>
+                <span class="client-item stagger-item">Eli Lilly</span>
+                <span class="client-item stagger-item">Johnson & Johnson</span>
+                <span class="client-item stagger-item">AstraZeneca</span>
+                <span class="client-item stagger-item">Wells Fargo</span>
+                <span class="client-item stagger-item">T. Rowe Price</span>
+                <span class="client-item stagger-item">Charles Schwab</span>
+                <span class="client-item stagger-item">ExxonMobil</span>
+                <span class="client-item stagger-item">DaVita</span>
+                <span class="client-item stagger-item">City of New York</span>
             </div>
             <p>
                 That breadth teaches you something important: technology alone doesn't transform anything—people do. Strategy alone doesn't create value—execution does.
@@ -872,30 +995,30 @@
         </div>
 
         <!-- Beliefs -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Philosophy</p>
             <h2 class="section-heading">The Truth About Transformation</h2>
             <p>
                 Over time, a few beliefs became non-negotiable for me:
             </p>
             <div class="beliefs-list">
-                <div class="belief-item">
+                <div class="belief-item stagger-item">
                     <div class="belief-number">01</div>
                     <div class="belief-text"><strong>Transformation is human work.</strong> Systems don't resist change—people do.</div>
                 </div>
-                <div class="belief-item">
+                <div class="belief-item stagger-item">
                     <div class="belief-number">02</div>
                     <div class="belief-text"><strong>Clarity is a competitive advantage.</strong> The ability to simplify and prioritize is rare—and valuable.</div>
                 </div>
-                <div class="belief-item">
+                <div class="belief-item stagger-item">
                     <div class="belief-number">03</div>
                     <div class="belief-text"><strong>Delivery discipline beats brilliance.</strong> Consistent execution wins.</div>
                 </div>
-                <div class="belief-item">
+                <div class="belief-item stagger-item">
                     <div class="belief-number">04</div>
                     <div class="belief-text"><strong>Governance isn't bureaucracy—it's protection.</strong> It reduces rework, clarifies decisions, and keeps teams moving.</div>
                 </div>
-                <div class="belief-item">
+                <div class="belief-item stagger-item">
                     <div class="belief-number">05</div>
                     <div class="belief-text"><strong>Credibility is earned through outcomes.</strong> Trust compounds when results are real.</div>
                 </div>
@@ -906,7 +1029,7 @@
         </div>
 
         <!-- Today -->
-        <div class="section-block">
+        <div class="section-block fade-in">
             <p class="section-label">Present</p>
             <h2 class="section-heading">What I Do Today</h2>
             <p>
@@ -918,7 +1041,7 @@
         </div>
 
         <!-- Leadership Quote -->
-        <div class="quote-block">
+        <div class="quote-block fade-in">
             <p class="quote-text">
                 I lead with clarity, calm, and execution. Transformation succeeds when leaders communicate the why, teams understand the what, and delivery is disciplined enough to produce outcomes. I'm relationship-first—but I'm accountable to results—because strategy without execution is just conversation.
             </p>
@@ -927,7 +1050,7 @@
     </div>
 
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section fade-in">
         <p class="cta-eyebrow">Connect</p>
         <h2 class="cta-heading">Let's Start a Conversation</h2>
         <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="cta-link">Connect on LinkedIn</a>
@@ -947,7 +1070,38 @@
     </footer>
 
     <script>
-        // Hamburger Menu Toggle
+        // ===== LOADING SCREEN =====
+        window.addEventListener('load', function() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            // Wait for logo animation to complete, then fade out
+            setTimeout(function() {
+                loadingScreen.classList.add('hidden');
+            }, 1800);
+        });
+
+        // ===== SCROLL ANIMATIONS (Intersection Observer) =====
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const animationObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Unobserve after animation triggers (one-time animation)
+                    animationObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .stagger-item').forEach(el => {
+            animationObserver.observe(el);
+        });
+
+        // ===== HAMBURGER MENU =====
         const hamburger = document.querySelector('.hamburger');
         const navOverlay = document.querySelector('.nav-overlay');
         const navLinks = document.querySelectorAll('.nav-overlay nav a');
@@ -972,7 +1126,7 @@
             });
         });
 
-        // Header scroll effect
+        // ===== HEADER SCROLL EFFECT =====
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
