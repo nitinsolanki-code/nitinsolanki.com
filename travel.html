@@ -764,6 +764,13 @@
             padding-top: 0;
         }
 
+        /* Worked-in city marker */
+        .worked {
+            background: rgba(212, 196, 176, 0.3);
+            padding: 2px 5px;
+            border-radius: 2px;
+        }
+
         /* State grouping within country */
         .state-group {
             margin-bottom: 8px;
@@ -926,7 +933,7 @@
             .page-subtitle { font-size: 1rem; }
 
             .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 30px;
             }
 
@@ -1136,7 +1143,7 @@
     <section class="travel-stats">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-number">26</div>
+                <div class="stat-number">27</div>
                 <div class="stat-label">Countries</div>
             </div>
             <div class="stat-item">
@@ -1150,6 +1157,14 @@
             <div class="stat-item">
                 <div class="stat-number">2</div>
                 <div class="stat-label">Hemispheres</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2,368</div>
+                <div class="stat-label">Hotel Nights</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1.8M</div>
+                <div class="stat-label">Miles Flown</div>
             </div>
         </div>
     </section>
@@ -1203,55 +1218,55 @@
                         <div class="country-cities">
                             <div class="state-group">
                                 <div class="state-name">Georgia</div>
-                                <div class="state-cities">Atlanta · Millen · Augusta · Savannah</div>
+                                <div class="state-cities"><span class="worked">Atlanta</span> · Augusta · Savannah</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Florida</div>
-                                <div class="state-cities">Miami · Fort Lauderdale · Tampa · St. Petersburg · Orlando · Jacksonville · West Palm Beach · Naples</div>
+                                <div class="state-cities"><span class="worked">Miami</span> · <span class="worked">Fort Lauderdale</span> · Tampa · <span class="worked">St. Petersburg</span> · Orlando · Jacksonville · <span class="worked">West Palm Beach</span> · Naples</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">New York</div>
-                                <div class="state-cities">New York City</div>
+                                <div class="state-cities"><span class="worked">New York City</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">New Jersey</div>
-                                <div class="state-cities">Newark · Jersey City · Edison · Princeton · Morristown</div>
+                                <div class="state-cities">Newark · Jersey City · Edison · <span class="worked">Princeton</span> · <span class="worked">Morristown</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Delaware</div>
-                                <div class="state-cities">Wilmington</div>
+                                <div class="state-cities"><span class="worked">Wilmington</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">California</div>
-                                <div class="state-cities">San Francisco · San Jose · Los Angeles · San Diego · Sacramento · Redding</div>
+                                <div class="state-cities"><span class="worked">San Francisco</span> · <span class="worked">San Jose</span> · <span class="worked">Los Angeles</span> · San Diego · Sacramento · Redding</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Texas</div>
-                                <div class="state-cities">Houston · Dallas · Fort Worth · Austin</div>
+                                <div class="state-cities"><span class="worked">Houston</span> · <span class="worked">Dallas</span> · Fort Worth · Austin</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Illinois</div>
-                                <div class="state-cities">Chicago</div>
+                                <div class="state-cities"><span class="worked">Chicago</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Washington</div>
-                                <div class="state-cities">Seattle · Bellevue</div>
+                                <div class="state-cities">Seattle · <span class="worked">Bellevue</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Massachusetts</div>
-                                <div class="state-cities">Boston · Cape Cod</div>
+                                <div class="state-cities"><span class="worked">Boston</span> · Cape Cod</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Pennsylvania</div>
-                                <div class="state-cities">Philadelphia · Pittsburgh</div>
+                                <div class="state-cities"><span class="worked">Philadelphia</span> · Pittsburgh · Harrisburg</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Michigan</div>
-                                <div class="state-cities">Detroit</div>
+                                <div class="state-cities">Detroit · <span class="worked">Jackson</span> · Lansing · Ann Arbor</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Minnesota</div>
-                                <div class="state-cities">Minneapolis</div>
+                                <div class="state-cities"><span class="worked">Minneapolis</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Arizona</div>
@@ -1259,11 +1274,11 @@
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Virginia</div>
-                                <div class="state-cities">Richmond · Reston · Arlington</div>
+                                <div class="state-cities"><span class="worked">Richmond</span> · <span class="worked">Reston</span> · <span class="worked">Arlington</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">North Carolina</div>
-                                <div class="state-cities">Charlotte · Raleigh · Durham · Winston-Salem</div>
+                                <div class="state-cities"><span class="worked">Charlotte</span> · <span class="worked">Raleigh</span> · Durham · <span class="worked">Winston-Salem</span> · Chapel Hill</div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">South Carolina</div>
@@ -1271,15 +1286,15 @@
                             </div>
                             <div class="state-group">
                                 <div class="state-name">District of Columbia</div>
-                                <div class="state-cities">Washington DC</div>
+                                <div class="state-cities"><span class="worked">Washington DC</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Indiana</div>
-                                <div class="state-cities">Indianapolis</div>
+                                <div class="state-cities"><span class="worked">Indianapolis</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">Ohio</div>
-                                <div class="state-cities">Findlay</div>
+                                <div class="state-cities"><span class="worked">Findlay</span></div>
                             </div>
                             <div class="state-group">
                                 <div class="state-name">New Mexico</div>
@@ -1294,6 +1309,30 @@
                                 <div class="state-cities">New Orleans</div>
                             </div>
                             <div class="state-group">
+                                <div class="state-name">Maryland</div>
+                                <div class="state-cities"><span class="worked">Baltimore</span></div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Connecticut</div>
+                                <div class="state-cities"><span class="worked">Hartford</span></div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Tennessee</div>
+                                <div class="state-cities"><span class="worked">Nashville</span></div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Kentucky</div>
+                                <div class="state-cities"><span class="worked">Louisville</span> · <span class="worked">Lexington</span> · Frankfort</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Colorado</div>
+                                <div class="state-cities"><span class="worked">Denver</span></div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Oklahoma</div>
+                                <div class="state-cities">Oklahoma City</div>
+                            </div>
+                            <div class="state-group">
                                 <div class="state-name">Hawaii</div>
                                 <div class="state-cities">Honolulu · Hilo · Kahului · Līhuʻe</div>
                             </div>
@@ -1301,11 +1340,11 @@
                     </div>
                     <div class="country-item">
                         <div class="country-name">Canada</div>
-                        <div class="country-cities">Toronto · Vancouver</div>
+                        <div class="country-cities"><span class="worked">Toronto</span> · Vancouver · Niagara Falls</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">Mexico</div>
-                        <div class="country-cities">Cabo San Lucas · Cancun · Tijuana · Cozumel</div>
+                        <div class="country-cities">Cabo San Lucas · Cancun · Riviera Maya · Tijuana · Cozumel</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">Costa Rica</div>
@@ -1321,19 +1360,19 @@
                     </div>
                     <div class="country-item">
                         <div class="country-name">Grenada</div>
-                        <div class="country-cities">&mdash;</div>
+                        <div class="country-cities">St. George's</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">U.S. Virgin Islands</div>
-                        <div class="country-cities">&mdash;</div>
+                        <div class="country-cities">St. Thomas</div>
                     </div>
                     <div class="country-item">
-                        <div class="country-name">St. Maarten</div>
-                        <div class="country-cities">&mdash;</div>
+                        <div class="country-name">Sint Maarten</div>
+                        <div class="country-cities">Philipsburg</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">Dominican Republic</div>
-                        <div class="country-cities">&mdash;</div>
+                        <div class="country-cities">Las Terrenas</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">Jamaica</div>
@@ -1342,6 +1381,10 @@
                     <div class="country-item">
                         <div class="country-name">Puerto Rico</div>
                         <div class="country-cities">San Juan</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Cayman Islands</div>
+                        <div class="country-cities">Georgetown</div>
                     </div>
                 </div>
             </div>
@@ -1367,7 +1410,7 @@
                 <div class="continent-countries">
                     <div class="country-item">
                         <div class="country-name">United Kingdom</div>
-                        <div class="country-cities">London · Birmingham · Edinburgh · Glasgow</div>
+                        <div class="country-cities"><span class="worked">London</span> · Birmingham · Nottingham · York · Leicester · Leeds · Edinburgh · Glasgow</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">France</div>
@@ -1375,11 +1418,11 @@
                     </div>
                     <div class="country-item">
                         <div class="country-name">Czech Republic</div>
-                        <div class="country-cities">Prague</div>
+                        <div class="country-cities"><span class="worked">Prague</span></div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">Switzerland</div>
-                        <div class="country-cities">Zurich</div>
+                        <div class="country-cities">Zurich · Interlaken</div>
                     </div>
                     <div class="country-item">
                         <div class="country-name">Sweden</div>
@@ -1398,12 +1441,13 @@
                 <div class="continent-countries">
                     <div class="country-item">
                         <div class="country-name">Australia</div>
-                        <div class="country-cities">Sydney · Melbourne</div>
+                        <div class="country-cities">Sydney · <span class="worked">Melbourne</span></div>
                     </div>
                 </div>
             </div>
 
         </div>
+        <div style="margin-top: 40px; font-size: 0.65rem; font-weight: 300; letter-spacing: 1.5px; color: var(--warm-taupe); text-transform: uppercase;"><span style="background: rgba(212, 196, 176, 0.3); padding: 2px 5px; border-radius: 2px;">Highlighted</span> cities denote locations where professional work was conducted</div>
     </section>
 
     <!-- Section Divider -->
@@ -1596,7 +1640,8 @@
             'India', 'United States of America', 'Zambia', 'South Africa', 'Zimbabwe',
             'Australia', 'Japan', 'United Kingdom', 'France', 'Czechia', 'Switzerland', 'Sweden',
             'Mexico', 'Costa Rica', 'Bahamas', 'Grenada', 'Dominican Rep.', 'Kenya', 'Mauritius',
-            'Canada', 'Panama', 'Jamaica', 'Greece', 'Tanzania', 'United Republic of Tanzania'
+            'Canada', 'Panama', 'Jamaica', 'Greece', 'Tanzania', 'United Republic of Tanzania',
+            'Cayman Is.'
         ];
 
         const cityPins = [
@@ -1662,6 +1707,19 @@
             { name: 'Birmingham', lat: 33.5186, lon: -86.8104, country: 'USA' },
             { name: 'New Orleans', lat: 29.9511, lon: -90.0715, country: 'USA' },
             { name: 'Fort Worth', lat: 32.7555, lon: -97.3308, country: 'USA' },
+            { name: 'Baltimore', lat: 39.2904, lon: -76.6122, country: 'USA' },
+            { name: 'Hartford', lat: 41.7658, lon: -72.6734, country: 'USA' },
+            { name: 'Jackson', lat: 42.2459, lon: -84.4013, country: 'USA' },
+            { name: 'Lansing', lat: 42.7325, lon: -84.5555, country: 'USA' },
+            { name: 'Ann Arbor', lat: 42.2808, lon: -83.7430, country: 'USA' },
+            { name: 'Chapel Hill', lat: 35.9132, lon: -79.0558, country: 'USA' },
+            { name: 'Nashville', lat: 36.1627, lon: -86.7816, country: 'USA' },
+            { name: 'Louisville', lat: 38.2527, lon: -85.7585, country: 'USA' },
+            { name: 'Lexington', lat: 38.0406, lon: -84.5037, country: 'USA' },
+            { name: 'Frankfort', lat: 38.2009, lon: -84.8733, country: 'USA' },
+            { name: 'Harrisburg', lat: 40.2732, lon: -76.8867, country: 'USA' },
+            { name: 'Denver', lat: 39.7392, lon: -104.9903, country: 'USA' },
+            { name: 'Oklahoma City', lat: 35.4676, lon: -97.5164, country: 'USA' },
             // India
             { name: 'Mumbai', lat: 19.076, lon: 72.8777, country: 'India' },
             { name: 'Valsad', lat: 20.5992, lon: 72.9342, country: 'India' },
@@ -1677,10 +1735,15 @@
             { name: 'Birmingham', lat: 52.4862, lon: -1.8904, country: 'UK' },
             { name: 'Edinburgh', lat: 55.9533, lon: -3.1883, country: 'UK' },
             { name: 'Glasgow', lat: 55.8642, lon: -4.2518, country: 'UK' },
+            { name: 'Nottingham', lat: 52.9548, lon: -1.1581, country: 'UK' },
+            { name: 'York', lat: 53.9591, lon: -1.0815, country: 'UK' },
+            { name: 'Leicester', lat: 52.6369, lon: -1.1398, country: 'UK' },
+            { name: 'Leeds', lat: 53.8008, lon: -1.5491, country: 'UK' },
             // Europe
             { name: 'Paris', lat: 48.8566, lon: 2.3522, country: 'France' },
             { name: 'Prague', lat: 50.0755, lon: 14.4378, country: 'Czech Republic' },
             { name: 'Zurich', lat: 47.3769, lon: 8.5417, country: 'Switzerland' },
+            { name: 'Interlaken', lat: 46.6863, lon: 7.8632, country: 'Switzerland' },
             { name: 'Stockholm', lat: 59.3293, lon: 18.0686, country: 'Sweden' },
             // Mexico
             { name: 'Cabo San Lucas', lat: 22.8905, lon: -109.9167, country: 'Mexico' },
@@ -1700,6 +1763,7 @@
             // Canada
             { name: 'Toronto', lat: 43.6532, lon: -79.3832, country: 'Canada' },
             { name: 'Vancouver', lat: 49.2827, lon: -123.1207, country: 'Canada' },
+            { name: 'Niagara Falls', lat: 43.0896, lon: -79.0849, country: 'Canada' },
             // Costa Rica
             { name: 'Tamarindo', lat: 10.2996, lon: -85.8373, country: 'Costa Rica' },
             // Panama
@@ -1707,6 +1771,7 @@
             // Mexico (additional)
             { name: 'Tijuana', lat: 32.5149, lon: -117.0382, country: 'Mexico' },
             { name: 'Cozumel', lat: 20.4318, lon: -86.9203, country: 'Mexico' },
+            { name: 'Riviera Maya', lat: 20.6305, lon: -87.0786, country: 'Mexico' },
             // South Africa
             { name: 'Cape Town', lat: -33.9249, lon: 18.4241, country: 'South Africa' },
             { name: 'Port Elizabeth', lat: -33.9608, lon: 25.6022, country: 'South Africa' },
@@ -1720,8 +1785,18 @@
             { name: 'San Juan', lat: 18.4655, lon: -66.1057, country: 'Puerto Rico' },
             // Jamaica
             { name: 'Montego Bay', lat: 18.4762, lon: -77.8939, country: 'Jamaica' },
+            // Cayman Islands
+            { name: 'Georgetown', lat: 19.2869, lon: -81.3674, country: 'Cayman Islands' },
+            // Dominican Republic
+            { name: 'Las Terrenas', lat: 19.3106, lon: -69.5425, country: 'Dominican Republic' },
             // Greece
-            { name: 'Athens', lat: 37.9838, lon: 23.7275, country: 'Greece' }
+            { name: 'Athens', lat: 37.9838, lon: 23.7275, country: 'Greece' },
+            // U.S. Virgin Islands
+            { name: 'St. Thomas', lat: 18.3358, lon: -64.9307, country: 'U.S. Virgin Islands' },
+            // Sint Maarten
+            { name: 'Philipsburg', lat: 18.026, lon: -63.0458, country: 'Sint Maarten' },
+            // Grenada
+            { name: "St. George's", lat: 12.0564, lon: -61.7485, country: 'Grenada' }
         ];
 
         const mapContainer = document.getElementById('world-map');
