@@ -881,6 +881,36 @@
             color: #666;
         }
 
+        /* Zoomed country highlight */
+        .country.zoomed-highlight {
+            fill: #6B5E50 !important;
+            stroke: var(--primary-bg) !important;
+            stroke-width: 1px;
+        }
+
+        /* Map reset button */
+        .map-reset-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-text);
+            color: var(--primary-bg);
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .map-reset-btn:hover {
+            opacity: 0.8;
+        }
+
         /* ===== TOOLTIP ===== */
         .map-tooltip {
             position: absolute;
@@ -1112,13 +1142,14 @@
     <section class="page-hero">
         <p class="page-eyebrow fade-in line-accent line-accent-center">Journeys</p>
         <h1 class="page-title fade-in">Travel</h1>
-        <p class="page-subtitle fade-in">From Luanshya to Atlanta, the places that have shaped perspective, purpose, and connection.</p>
+        <p class="page-subtitle fade-in">From Luanshya to Palm Beach, the places that have shaped perspective, purpose, and connection.</p>
     </section>
 
     <!-- Map Section -->
     <section class="map-section">
         <div class="map-container" id="world-map">
             <div class="map-tooltip" id="map-tooltip"></div>
+            <button class="map-reset-btn" onclick="resetZoom()" style="opacity:0; pointer-events:none;">Reset View</button>
         </div>
         <div class="map-legend">
             <div class="legend-item">
@@ -1809,18 +1840,130 @@
             .attr('viewBox', `0 0 ${containerWidth} ${mapHeight}`)
             .attr('preserveAspectRatio', 'xMidYMid meet');
 
+        // Main group for zoom transforms
+        const g = svg.append('g');
+
         const projection = d3.geoNaturalEarth1()
             .scale(containerWidth / 5.5)
             .translate([containerWidth / 2, mapHeight / 2]);
 
         const path = d3.geoPath().projection(projection);
 
+        // Zoom state
+        let activeCountry = null;
+        let isZoomed = false;
+
+        // Country name mapping for city pins
+        const countryNameMap = {
+            'United States of America': ['USA'],
+            'United Kingdom': ['UK'],
+            'India': ['India'],
+            'Zambia': ['Zambia'],
+            'South Africa': ['South Africa'],
+            'Zimbabwe': ['Zimbabwe'],
+            'Australia': ['Australia'],
+            'Japan': ['Japan'],
+            'France': ['France'],
+            'Czechia': ['Czech Republic'],
+            'Switzerland': ['Switzerland'],
+            'Sweden': ['Sweden'],
+            'Mexico': ['Mexico'],
+            'Costa Rica': ['Costa Rica'],
+            'Bahamas': ['Bahamas'],
+            'Kenya': ['Kenya'],
+            'Canada': ['Canada'],
+            'Panama': ['Panama'],
+            'Jamaica': ['Jamaica'],
+            'Greece': ['Greece'],
+            'Tanzania': ['Tanzania'],
+            'United Republic of Tanzania': ['Tanzania'],
+            'Dominican Rep.': ['Dominican Republic'],
+            'Grenada': ['Grenada'],
+            'Cayman Is.': ['Cayman Islands'],
+            'Puerto Rico': ['Puerto Rico']
+        };
+
+        // D3 zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([1, 12])
+            .on('zoom', function(event) {
+                g.attr('transform', event.transform);
+                // Scale pins and labels inversely to maintain consistent size
+                const k = event.transform.k;
+                g.selectAll('.city-pin circle.pin-dot').attr('r', d => (d.lived ? 3 : 2) / k);
+                g.selectAll('.city-pin circle.pin-outer').attr('r', d => (d.lived ? 7 : 5) / k);
+                g.selectAll('.city-pin circle.pin-ring-lived').attr('r', 5 / k);
+                g.selectAll('.city-pin circle.pin-lived-pulse').attr('r', 5 / k);
+                g.selectAll('.country').style('stroke-width', 0.5 / k);
+                // Keep city labels hidden (shown only on hover via tooltip)
+            });
+
+        svg.call(zoom);
+
+        // Reset zoom function
+        function resetZoom() {
+            activeCountry = null;
+            isZoomed = false;
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+            );
+            // Remove highlight from all countries
+            g.selectAll('.country.zoomed-highlight').classed('zoomed-highlight', false);
+            // Hide reset button
+            d3.select('.map-reset-btn').style('opacity', 0).style('pointer-events', 'none');
+        }
+
+        // Zoom to country function
+        function zoomToCountry(event, d) {
+            tooltip.classList.remove('active');
+            const isVisited = visitedCountries.includes(d.properties.name);
+            if (!isVisited) return;
+
+            // If clicking same country, reset
+            if (activeCountry === d) {
+                resetZoom();
+                return;
+            }
+
+            activeCountry = d;
+            isZoomed = true;
+
+            // Highlight the active country
+            g.selectAll('.country.zoomed-highlight').classed('zoomed-highlight', false);
+            g.selectAll('.country').filter(c => c === d).classed('zoomed-highlight', true);
+
+            // Calculate bounds and zoom
+            const [[x0, y0], [x1, y1]] = path.bounds(d);
+            const dx = x1 - x0;
+            const dy = y1 - y0;
+            const x = (x0 + x1) / 2;
+            const y = (y0 + y1) / 2;
+            const scale = Math.max(1, Math.min(10, 0.85 / Math.max(dx / containerWidth, dy / mapHeight)));
+            const translate = [containerWidth / 2 - scale * x, mapHeight / 2 - scale * y];
+
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+            );
+
+            // Show reset button
+            d3.select('.map-reset-btn').style('opacity', 1).style('pointer-events', 'all');
+        }
+
         // Load world data
         d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(function(world) {
             const countries = topojson.feature(world, world.objects.countries);
 
+            // Background rect for click-to-reset
+            g.append('rect')
+                .attr('width', containerWidth)
+                .attr('height', mapHeight)
+                .attr('fill', 'transparent')
+                .on('click', resetZoom);
+
             // Draw countries
-            svg.selectAll('.country')
+            g.selectAll('.country')
                 .data(countries.features)
                 .enter()
                 .append('path')
@@ -1829,10 +1972,12 @@
                     return 'country' + (isVisited ? ' visited' : '');
                 })
                 .attr('d', path)
+                .style('cursor', d => visitedCountries.includes(d.properties.name) ? 'pointer' : 'default')
+                .on('click', zoomToCountry)
                 .on('mouseenter', function(event, d) {
                     const isVisited = visitedCountries.includes(d.properties.name);
                     if (d.properties.name) {
-                        tooltip.textContent = d.properties.name + (isVisited ? ' ✓' : '');
+                        tooltip.textContent = d.properties.name + (isVisited ? ' — Click to explore' : '');
                         tooltip.classList.add('active');
                     }
                 })
@@ -1846,7 +1991,7 @@
                 });
 
             // Draw city pins
-            const pinGroups = svg.selectAll('.city-pin-group')
+            const pinGroups = g.selectAll('.city-pin-group')
                 .data(cityPins)
                 .enter()
                 .append('g')
@@ -1904,7 +2049,6 @@
 
         }).catch(function(error) {
             console.log('Map data loading error:', error);
-            // Fallback: show a message
             mapContainer.innerHTML = '<p style="text-align:center; padding:60px 20px; color:#666; font-size:0.9rem;">Map loading...</p>';
         });
     </script>
