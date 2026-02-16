@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel – Nitin Solanki</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+    <style>
+        /* ===== AMAN BRAND COLORS ===== */
+        :root {
+            --primary-bg: #F3EEE7;
+            --primary-text: #313131;
+            --warm-taupe: #D4C4B0;
+            --soft-sand: #E8DFD3;
+            --accent-dark: #000000;
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            opacity: 0;
+            animation: logoFadeIn 1.2s ease forwards;
+        }
+
+        .loading-line {
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            margin-top: 30px;
+            transform: scaleX(0);
+            animation: lineExpand 1s ease 0.4s forwards;
+        }
+
+        @keyframes logoFadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes lineExpand {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== HOVER ANIMATIONS ===== */
+        .hover-lift {
+            transition: opacity 0.4s ease;
+        }
+
+        .hover-lift:hover {
+            opacity: 0.7;
+        }
+
+        /* ===== SIGNATURE HORIZONTAL LINE MOTIFS ===== */
+        .line-accent {
+            position: relative;
+        }
+
+        .line-accent::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .line-accent.visible::before {
+            transform: scaleX(1);
+        }
+
+        .line-accent-center::before {
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+        }
+
+        .line-accent-center.visible::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--warm-taupe), transparent);
+            margin: 80px auto;
+            max-width: 200px;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .section-divider.visible {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--warm-taupe);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1);
+            transition: opacity 0.4s ease, transform 0.2s ease, border-color 0.3s ease;
+        }
+
+        .custom-cursor.visible { opacity: 0.7; }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.4);
+            border-color: var(--primary-text);
+            opacity: 0.5;
+        }
+
+        .custom-cursor.click {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--warm-taupe);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-dot.visible { opacity: 1; }
+
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor, .cursor-dot { display: none !important; }
+        }
+
+        /* ===== TEXT REVEAL ===== */
+        .text-reveal { overflow: hidden; }
+
+        .text-reveal-inner {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
+        }
+
+        .text-reveal.visible .text-reveal-inner {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .char-reveal .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+        }
+
+        .char-reveal.visible .char {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Logo macron A styling (Aman-inspired) */
+        .logo-a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-a::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 15%;
+            width: 70%;
+            height: 1px;
+            background: var(--primary-text);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.7;
+            font-weight: 300;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 20px;
+            display: grid;
+            grid-template-columns: 44px 1fr auto;
+            align-items: center;
+            gap: 12px;
+            background: rgba(243, 238, 231, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(243, 238, 231, 0.98);
+            border-bottom: 1px solid rgba(212, 196, 176, 0.3);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--primary-text);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            text-decoration: none;
+            text-align: center;
+            justify-self: center;
+            white-space: nowrap;
+        }
+
+        .header-cta {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .reserve-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-text);
+            background: transparent;
+            border: 1px solid var(--primary-text);
+            text-decoration: none;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 10px 14px;
+            min-height: 44px;
+            white-space: nowrap;
+            transition: opacity 0.4s ease;
+        }
+
+        .reserve-btn:hover { opacity: 0.6; }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary-bg);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .nav-overlay.active { opacity: 1; visibility: visible; }
+
+        .nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-overlay nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--primary-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-overlay nav a:hover { opacity: 0.5; }
+
+        .nav-social {
+            position: absolute;
+            bottom: 60px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-social a {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-social a:hover { color: var(--primary-text); }
+
+        .desktop-nav { display: none; }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            margin-top: 80px;
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .page-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--primary-text);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #666;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* ===== MAP SECTION ===== */
+        .map-section {
+            padding: 20px 0 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .map-container {
+            width: 100%;
+            position: relative;
+            background: var(--soft-sand);
+        }
+
+        .map-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Country styling */
+        .country {
+            fill: var(--warm-taupe);
+            stroke: var(--soft-sand);
+            stroke-width: 0.5;
+            transition: fill 0.4s ease, opacity 0.4s ease;
+        }
+
+        .country:hover {
+            opacity: 0.8;
+        }
+
+        .country.visited {
+            fill: #7A6E62;
+            stroke: var(--soft-sand);
+        }
+
+        .country.visited:hover {
+            fill: #6B5E50;
+        }
+
+        /* City pin styling */
+        .city-pin {
+            cursor: pointer;
+        }
+
+        .city-pin circle.pin-outer {
+            fill: none;
+            stroke: var(--primary-bg);
+            stroke-width: 1.5;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .city-pin:hover circle.pin-outer {
+            opacity: 1;
+        }
+
+        .city-pin circle.pin-dot {
+            fill: var(--primary-bg);
+            transition: r 0.3s ease;
+        }
+
+        .city-pin circle.pin-ring {
+            fill: none;
+            stroke: var(--primary-bg);
+            stroke-width: 0.8;
+            opacity: 0.5;
+        }
+
+        /* Pin pulse animation */
+        @keyframes pinPulse {
+            0% { r: 3; opacity: 0.6; }
+            100% { r: 8; opacity: 0; }
+        }
+
+        .city-pin circle.pin-pulse {
+            fill: none;
+            stroke: var(--primary-bg);
+            stroke-width: 0.5;
+            animation: pinPulse 2.5s ease-out infinite;
+        }
+
+        /* Lived-in city pin styling */
+        .city-pin.lived circle.pin-dot {
+            fill: var(--primary-bg);
+        }
+
+        .city-pin.lived circle.pin-ring-lived {
+            fill: none;
+            stroke: var(--primary-bg);
+            stroke-width: 1;
+            opacity: 0.6;
+        }
+
+        @keyframes livedPulse {
+            0% { r: 5; opacity: 0.4; }
+            100% { r: 10; opacity: 0; }
+        }
+
+        .city-pin.lived circle.pin-lived-pulse {
+            fill: none;
+            stroke: var(--primary-bg);
+            stroke-width: 0.5;
+            animation: livedPulse 3s ease-out infinite;
+        }
+
+        /* Resided section */
+        .resided-section {
+            padding: 0 20px 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .resided-section .section-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-bottom: 40px;
+        }
+
+        .resided-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .resided-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--warm-taupe);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .resided-item:first-child {
+            border-top: 1px solid var(--warm-taupe);
+        }
+
+        .resided-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .resided-city {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: var(--primary-text);
+        }
+
+        .resided-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .resided-detail {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            text-align: right;
+        }
+
+        .resided-years {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: var(--primary-text);
+            text-align: right;
+        }
+
+        /* City label */
+        .city-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 8px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            fill: var(--primary-bg);
+            text-anchor: middle;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .city-pin:hover + .city-label,
+        .city-label.always-show {
+            opacity: 1;
+        }
+
+        /* ===== TRAVEL STATS ===== */
+        .travel-stats {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary-text);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+        }
+
+        /* ===== COUNTRIES LIST ===== */
+        .countries-section {
+            padding: 0 20px 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .countries-section .section-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-bottom: 40px;
+        }
+
+        .country-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .country-item {
+            padding: 25px 0;
+            border-bottom: 1px solid var(--warm-taupe);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .country-item:first-child {
+            border-top: 1px solid var(--warm-taupe);
+        }
+
+        .country-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .country-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: var(--primary-text);
+            margin-bottom: 6px;
+        }
+
+        .country-cities {
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--warm-taupe);
+            text-transform: uppercase;
+        }
+
+        .country-continent {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        /* Continent group headers */
+        .continent-group {
+            margin-bottom: 0;
+        }
+
+        .continent-header {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--primary-text);
+            padding: 40px 0 15px;
+            position: relative;
+        }
+
+        .continent-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background: var(--warm-taupe);
+        }
+
+        .continent-group:first-child .continent-header {
+            padding-top: 0;
+        }
+
+        /* State grouping within country */
+        .state-group {
+            margin-bottom: 8px;
+        }
+
+        .state-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .state-name {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            margin-bottom: 2px;
+        }
+
+        .state-cities {
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--warm-taupe);
+            text-transform: uppercase;
+        }
+
+        /* ===== SOCIAL LINKS ===== */
+        .social-section {
+            padding: 50px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            background: var(--primary-bg);
+        }
+
+        .social-link {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+
+        .social-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-text);
+            transition: width 0.4s ease;
+        }
+
+        .social-link:hover { color: var(--warm-taupe); }
+        .social-link:hover::after { width: 100%; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: var(--warm-taupe);
+            letter-spacing: 1px;
+            background: var(--primary-bg);
+            border-top: 1px solid var(--warm-taupe);
+        }
+
+        /* ===== MAP LEGEND ===== */
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 25px 20px;
+            background: var(--soft-sand);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 1px;
+        }
+
+        .legend-swatch.visited {
+            background: #7A6E62;
+        }
+
+        .legend-swatch.unvisited {
+            background: var(--warm-taupe);
+        }
+
+        .legend-label {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        /* ===== TOOLTIP ===== */
+        .map-tooltip {
+            position: absolute;
+            background: var(--primary-text);
+            color: var(--primary-bg);
+            padding: 8px 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        .map-tooltip.active {
+            opacity: 1;
+        }
+
+        body.menu-open { overflow: hidden; }
+
+        /* ========================================
+           TABLET (min-width: 768px)
+           ======================================== */
+        @media (min-width: 768px) {
+            header {
+                padding: 20px 40px;
+                grid-template-columns: 50px 1fr auto;
+                gap: 20px;
+            }
+
+            .logo { font-size: 1.2rem; }
+
+            .reserve-btn {
+                font-size: 0.65rem;
+                padding: 11px 20px;
+            }
+
+            .nav-overlay nav a { font-size: 2.5rem; }
+
+            .page-hero {
+                margin-top: 80px;
+                padding: 80px 40px 50px;
+            }
+
+            .page-title { font-size: 3rem; }
+            .page-subtitle { font-size: 1rem; }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+
+            .stat-number { font-size: 3rem; }
+
+            .travel-stats { padding: 80px 40px; }
+            .countries-section { padding: 0 40px 100px; }
+            .resided-section { padding: 0 40px 100px; }
+
+            .social-section { padding: 60px 40px; gap: 40px; }
+
+            .city-label { font-size: 7px; }
+        }
+
+        /* ========================================
+           DESKTOP (min-width: 1024px)
+           ======================================== */
+        @media (min-width: 1024px) {
+            header {
+                padding: 22px 60px;
+                grid-template-columns: 50px 1fr auto;
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 3px;
+            }
+
+            .desktop-nav {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+                justify-self: end;
+            }
+
+            .desktop-nav a {
+                color: var(--primary-text);
+                text-decoration: none;
+                font-size: 0.75rem;
+                font-weight: 400;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                transition: opacity 0.4s ease;
+            }
+
+            .desktop-nav a:hover { opacity: 0.5; }
+
+            .desktop-nav .reserve-btn {
+                font-size: 0.7rem;
+                padding: 12px 28px;
+                border-color: var(--primary-text);
+            }
+
+            .header-cta { display: none; }
+            .hamburger span { width: 24px; }
+            .nav-overlay nav a { font-size: 3rem; }
+
+            .page-hero {
+                margin-top: 100px;
+                padding: 100px 60px 60px;
+            }
+
+            .page-title {
+                font-size: 3.5rem;
+                letter-spacing: 2px;
+            }
+
+            .page-subtitle {
+                font-size: 1.05rem;
+                max-width: 600px;
+            }
+
+            .travel-stats { padding: 100px 60px; }
+            .countries-section { padding: 0 60px 120px; }
+            .resided-section { padding: 0 60px 120px; }
+
+            .resided-list {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0;
+            }
+
+            .resided-item {
+                padding: 25px 25px 25px 0;
+            }
+
+            .resided-item:nth-child(even) {
+                padding-left: 25px;
+                padding-right: 0;
+                border-left: 1px solid var(--warm-taupe);
+            }
+
+            .resided-item:nth-child(1),
+            .resided-item:nth-child(2) {
+                border-top: 1px solid var(--warm-taupe);
+            }
+
+            .continent-countries {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0;
+            }
+
+            .continent-countries .country-item {
+                padding: 30px 25px 30px 0;
+            }
+
+            .continent-countries .country-item:nth-child(even) {
+                padding-left: 25px;
+                padding-right: 0;
+                border-left: 1px solid var(--warm-taupe);
+            }
+
+            .continent-countries .country-item:nth-child(1),
+            .continent-countries .country-item:nth-child(2) {
+                border-top: 1px solid var(--warm-taupe);
+            }
+
+            .continent-header {
+                font-size: 1.8rem;
+            }
+
+            .social-section { padding: 80px 60px; gap: 50px; }
+            footer { padding: 50px 60px; }
+
+            .city-label { font-size: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <span class="loading-logo">Nitin Sol<span class="logo-a">a</span>nki</span>
+        <div class="loading-line"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="index.html" class="logo">Nitin Sol<span class="logo-a">a</span>nki</a>
+        <div class="header-cta">
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
+        </div>
+        <nav class="desktop-nav">
+            <a href="index.html#about">What I Do</a>
+            <a href="index.html#story">Story</a>
+            <a href="about.html">About</a>
+            <a href="travel.html">Travel</a>
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
+        </nav>
+    </header>
+
+    <!-- Full-Screen Navigation Overlay -->
+    <div class="nav-overlay">
+        <nav>
+            <a href="index.html#about">What I Do</a>
+            <a href="index.html#story">Story</a>
+            <a href="about.html">About</a>
+            <a href="travel.html">Travel</a>
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">Connect</a>
+        </nav>
+        <div class="nav-social">
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">LinkedIn</a>
+            <a href="https://www.instagram.com/nitinsolanki" target="_blank">Instagram</a>
+            <a href="https://x.com/nitinsolanki" target="_blank">X</a>
+        </div>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <p class="page-eyebrow fade-in line-accent line-accent-center">Journeys</p>
+        <h1 class="page-title fade-in">Travel</h1>
+        <p class="page-subtitle fade-in">From Luanshya to Atlanta, the places that have shaped perspective, purpose, and connection.</p>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container" id="world-map">
+            <div class="map-tooltip" id="map-tooltip"></div>
+        </div>
+        <div class="map-legend">
+            <div class="legend-item">
+                <div class="legend-swatch visited"></div>
+                <span class="legend-label">Visited</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-swatch unvisited"></div>
+                <span class="legend-label">Unexplored</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-swatch resided" style="background: #7A6E62; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><div style="width: 5px; height: 5px; background: #F3EEE7; border-radius: 50%; box-shadow: 0 0 0 2px rgba(243,238,231,0.4);"></div></div>
+                <span class="legend-label">Resided</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Travel Stats -->
+    <section class="travel-stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">26</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Continents</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Cities</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Hemispheres</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Countries List -->
+    <section class="countries-section">
+        <p class="section-eyebrow fade-in line-accent">Places Visited</p>
+        <div style="height: 50px;"></div>
+        <div class="country-list">
+
+            <!-- AFRICA -->
+            <div class="continent-group fade-in">
+                <div class="continent-header">Africa</div>
+                <div class="continent-countries">
+                    <div class="country-item">
+                        <div class="country-name">Zambia</div>
+                        <div class="country-cities">Luanshya · Lusaka · Livingstone · Kitwe · Ndola</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">South Africa</div>
+                        <div class="country-cities">Cape Town · Port Elizabeth · Knysna</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Zimbabwe</div>
+                        <div class="country-cities">Bulawayo · Harare · Victoria Falls</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Kenya</div>
+                        <div class="country-cities">Nairobi · Mombasa</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Tanzania</div>
+                        <div class="country-cities">Dar es Salaam · Arusha</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Mauritius</div>
+                        <div class="country-cities">&mdash;</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AMERICAS -->
+            <div class="continent-group fade-in">
+                <div class="continent-header">Americas</div>
+                <div class="continent-countries">
+                    <div class="country-item">
+                        <div class="country-name">United States</div>
+                        <div class="country-cities">
+                            <div class="state-group">
+                                <div class="state-name">Georgia</div>
+                                <div class="state-cities">Atlanta · Millen · Augusta · Savannah</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Florida</div>
+                                <div class="state-cities">Miami · Fort Lauderdale · Tampa · St. Petersburg · Orlando · Jacksonville · West Palm Beach · Naples</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">New York</div>
+                                <div class="state-cities">New York City</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">New Jersey</div>
+                                <div class="state-cities">Newark · Jersey City · Edison · Princeton · Morristown</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Delaware</div>
+                                <div class="state-cities">Wilmington</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">California</div>
+                                <div class="state-cities">San Francisco · San Jose · Los Angeles · San Diego · Sacramento · Redding</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Texas</div>
+                                <div class="state-cities">Houston · Dallas · Fort Worth · Austin</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Illinois</div>
+                                <div class="state-cities">Chicago</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Washington</div>
+                                <div class="state-cities">Seattle · Bellevue</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Massachusetts</div>
+                                <div class="state-cities">Boston · Cape Cod</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Pennsylvania</div>
+                                <div class="state-cities">Philadelphia · Pittsburgh</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Michigan</div>
+                                <div class="state-cities">Detroit</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Minnesota</div>
+                                <div class="state-cities">Minneapolis</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Arizona</div>
+                                <div class="state-cities">Phoenix</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Virginia</div>
+                                <div class="state-cities">Richmond · Reston · Arlington</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">North Carolina</div>
+                                <div class="state-cities">Charlotte · Raleigh · Durham · Winston-Salem</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">South Carolina</div>
+                                <div class="state-cities">Columbia · Hilton Head · Charleston · Bamberg · Orangeburg</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">District of Columbia</div>
+                                <div class="state-cities">Washington DC</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Indiana</div>
+                                <div class="state-cities">Indianapolis</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Ohio</div>
+                                <div class="state-cities">Findlay</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">New Mexico</div>
+                                <div class="state-cities">Albuquerque</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Alabama</div>
+                                <div class="state-cities">Birmingham</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Louisiana</div>
+                                <div class="state-cities">New Orleans</div>
+                            </div>
+                            <div class="state-group">
+                                <div class="state-name">Hawaii</div>
+                                <div class="state-cities">Honolulu · Hilo · Kahului · Līhuʻe</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Canada</div>
+                        <div class="country-cities">Toronto · Vancouver</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Mexico</div>
+                        <div class="country-cities">Cabo San Lucas · Cancun · Tijuana · Cozumel</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Costa Rica</div>
+                        <div class="country-cities">Tamarindo</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Panama</div>
+                        <div class="country-cities">Panama City</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Bahamas</div>
+                        <div class="country-cities">Nassau</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Grenada</div>
+                        <div class="country-cities">&mdash;</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">U.S. Virgin Islands</div>
+                        <div class="country-cities">&mdash;</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">St. Maarten</div>
+                        <div class="country-cities">&mdash;</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Dominican Republic</div>
+                        <div class="country-cities">&mdash;</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Jamaica</div>
+                        <div class="country-cities">Montego Bay</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Puerto Rico</div>
+                        <div class="country-cities">San Juan</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ASIA -->
+            <div class="continent-group fade-in">
+                <div class="continent-header">Asia</div>
+                <div class="continent-countries">
+                    <div class="country-item">
+                        <div class="country-name">India</div>
+                        <div class="country-cities">Mumbai · Valsad</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Japan</div>
+                        <div class="country-cities">Tokyo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EUROPE -->
+            <div class="continent-group fade-in">
+                <div class="continent-header">Europe</div>
+                <div class="continent-countries">
+                    <div class="country-item">
+                        <div class="country-name">United Kingdom</div>
+                        <div class="country-cities">London · Birmingham · Edinburgh · Glasgow</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">France</div>
+                        <div class="country-cities">Paris</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Czech Republic</div>
+                        <div class="country-cities">Prague</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Switzerland</div>
+                        <div class="country-cities">Zurich</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Sweden</div>
+                        <div class="country-cities">Stockholm</div>
+                    </div>
+                    <div class="country-item">
+                        <div class="country-name">Greece</div>
+                        <div class="country-cities">Athens</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OCEANIA -->
+            <div class="continent-group fade-in">
+                <div class="continent-header">Oceania</div>
+                <div class="continent-countries">
+                    <div class="country-item">
+                        <div class="country-name">Australia</div>
+                        <div class="country-cities">Sydney · Melbourne</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Places Resided -->
+    <section class="resided-section">
+        <p class="section-eyebrow fade-in line-accent">Places of Residence</p>
+        <div style="height: 50px;"></div>
+        <div class="resided-list">
+            <div class="resided-item">
+                <div class="resided-city">Luanshya</div>
+                <div class="resided-info">
+                    <div class="resided-years">1975 – 1985</div>
+                    <div class="resided-detail">Zambia · Africa</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">Boston</div>
+                <div class="resided-info">
+                    <div class="resided-years">1985</div>
+                    <div class="resided-detail">Massachusetts · USA</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">Sacramento</div>
+                <div class="resided-info">
+                    <div class="resided-years">1986</div>
+                    <div class="resided-detail">California · USA</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">Redding</div>
+                <div class="resided-info">
+                    <div class="resided-years">1986 – 1987</div>
+                    <div class="resided-detail">California · USA</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">Bamberg</div>
+                <div class="resided-info">
+                    <div class="resided-years">1987</div>
+                    <div class="resided-detail">South Carolina · USA</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">Millen</div>
+                <div class="resided-info">
+                    <div class="resided-years">1987 – 1996</div>
+                    <div class="resided-detail">Georgia · USA</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">Atlanta</div>
+                <div class="resided-info">
+                    <div class="resided-years">1996 – 2006</div>
+                    <div class="resided-detail">Georgia · USA</div>
+                </div>
+            </div>
+            <div class="resided-item">
+                <div class="resided-city">West Palm Beach</div>
+                <div class="resided-info">
+                    <div class="resided-years">2006 – Present</div>
+                    <div class="resided-detail">Florida · USA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-section">
+        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="social-link">LinkedIn</a>
+        <a href="https://www.instagram.com/nitinsolanki" target="_blank" class="social-link">Instagram</a>
+        <a href="https://www.facebook.com/nitinsolanki" target="_blank" class="social-link">Facebook</a>
+        <a href="https://x.com/nitinsolanki" target="_blank" class="social-link">X</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Nitin Solanki. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ===== LOADING SCREEN =====
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loading-screen').classList.add('hidden');
+            }, 1800);
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+
+        const animationObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    animationObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .stat-item, .country-item, .resided-item, .section-divider, .line-accent, .continent-group').forEach(el => {
+            animationObserver.observe(el);
+        });
+
+        // Stagger country items
+        document.querySelectorAll('.country-item').forEach((item, i) => {
+            item.style.transitionDelay = (i * 0.08) + 's';
+        });
+
+        // Stagger stat items
+        document.querySelectorAll('.stat-item').forEach((item, i) => {
+            item.style.transitionDelay = (i * 0.1) + 's';
+        });
+
+        // Stagger resided items
+        document.querySelectorAll('.resided-item').forEach((item, i) => {
+            item.style.transitionDelay = (i * 0.08) + 's';
+        });
+
+        // ===== HAMBURGER MENU =====
+        const hamburger = document.querySelector('.hamburger');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navLinks = document.querySelectorAll('.nav-overlay nav a');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ===== HEADER SCROLL =====
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== CUSTOM CURSOR =====
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        const cursorDot = document.createElement('div');
+        cursorDot.classList.add('cursor-dot');
+        document.body.appendChild(cursorDot);
+
+        let cursorX = 0, cursorY = 0, dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+            cursor.classList.add('visible');
+            cursorDot.classList.add('visible');
+        });
+
+        function animateCursor() {
+            dotX += (cursorX - dotX) * 0.15;
+            dotY += (cursorY - dotY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorDot.style.left = dotX + 'px';
+            cursorDot.style.top = dotY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .country-item').forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        document.addEventListener('mousedown', () => cursor.classList.add('click'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+        document.addEventListener('mouseleave', () => { cursor.classList.remove('visible'); cursorDot.classList.remove('visible'); });
+        document.addEventListener('mouseenter', () => { cursor.classList.add('visible'); cursorDot.classList.add('visible'); });
+
+        // ===== D3 WORLD MAP =====
+        const visitedCountries = [
+            'India', 'United States of America', 'Zambia', 'South Africa', 'Zimbabwe',
+            'Australia', 'Japan', 'United Kingdom', 'France', 'Czechia', 'Switzerland', 'Sweden',
+            'Mexico', 'Costa Rica', 'Bahamas', 'Grenada', 'Dominican Rep.', 'Kenya', 'Mauritius',
+            'Canada', 'Panama', 'Jamaica', 'Greece', 'Tanzania', 'United Republic of Tanzania'
+        ];
+
+        const cityPins = [
+            // USA
+            { name: 'Atlanta', lat: 33.749, lon: -84.388, country: 'USA', lived: true },
+            { name: 'Miami', lat: 25.7617, lon: -80.1918, country: 'USA' },
+            { name: 'New York', lat: 40.7128, lon: -74.006, country: 'USA' },
+            { name: 'San Francisco', lat: 37.7749, lon: -122.4194, country: 'USA' },
+            { name: 'Redding', lat: 40.5865, lon: -122.3917, country: 'USA', lived: true },
+            { name: 'Los Angeles', lat: 34.0522, lon: -118.2437, country: 'USA' },
+            { name: 'San Diego', lat: 32.7157, lon: -117.1611, country: 'USA' },
+            { name: 'Sacramento', lat: 38.5816, lon: -121.4944, country: 'USA', lived: true },
+            { name: 'Phoenix', lat: 33.4484, lon: -112.074, country: 'USA' },
+            { name: 'Dallas', lat: 32.7767, lon: -96.797, country: 'USA' },
+            { name: 'Austin', lat: 30.2672, lon: -97.7431, country: 'USA' },
+            { name: 'Houston', lat: 29.7604, lon: -95.3698, country: 'USA' },
+            { name: 'Chicago', lat: 41.8781, lon: -87.6298, country: 'USA' },
+            { name: 'Minneapolis', lat: 44.9778, lon: -93.265, country: 'USA' },
+            { name: 'Detroit', lat: 42.3314, lon: -83.0458, country: 'USA' },
+            { name: 'Pittsburgh', lat: 40.4406, lon: -79.9959, country: 'USA' },
+            { name: 'Philadelphia', lat: 39.9526, lon: -75.1652, country: 'USA' },
+            { name: 'Boston', lat: 42.3601, lon: -71.0589, country: 'USA', lived: true },
+            { name: 'Washington DC', lat: 38.9072, lon: -77.0369, country: 'USA' },
+            { name: 'Richmond', lat: 37.5407, lon: -77.436, country: 'USA' },
+            { name: 'Charlotte', lat: 35.2271, lon: -80.8431, country: 'USA' },
+            { name: 'West Palm Beach', lat: 26.7153, lon: -80.0534, country: 'USA', lived: true },
+            { name: 'Tampa', lat: 27.9506, lon: -82.4572, country: 'USA' },
+            { name: 'Orlando', lat: 28.5383, lon: -81.3792, country: 'USA' },
+            { name: 'Naples', lat: 26.142, lon: -81.7948, country: 'USA' },
+            { name: 'Jacksonville', lat: 30.3322, lon: -81.6557, country: 'USA' },
+            { name: 'Savannah', lat: 32.0809, lon: -81.0912, country: 'USA' },
+            { name: 'Augusta', lat: 33.474, lon: -81.975, country: 'USA' },
+            { name: 'Millen', lat: 32.8041, lon: -81.9479, country: 'USA', lived: true },
+            { name: 'Columbia', lat: 34.0007, lon: -81.0348, country: 'USA' },
+            { name: 'Seattle', lat: 47.6062, lon: -122.3321, country: 'USA' },
+            { name: 'Honolulu', lat: 21.3069, lon: -157.8583, country: 'USA' },
+            { name: 'Hilo', lat: 19.7241, lon: -155.0868, country: 'USA' },
+            { name: 'Kahului', lat: 20.8893, lon: -156.4729, country: 'USA' },
+            { name: 'Līhuʻe', lat: 21.9811, lon: -159.3711, country: 'USA' },
+            { name: 'Raleigh', lat: 35.7796, lon: -78.6382, country: 'USA' },
+            { name: 'Durham', lat: 35.994, lon: -78.8986, country: 'USA' },
+            { name: 'Winston-Salem', lat: 36.0999, lon: -80.2442, country: 'USA' },
+            { name: 'Albuquerque', lat: 35.0844, lon: -106.6504, country: 'USA' },
+            { name: 'Hilton Head', lat: 32.2163, lon: -80.7526, country: 'USA' },
+            { name: 'Charleston', lat: 32.7765, lon: -79.9311, country: 'USA' },
+            { name: 'Bamberg', lat: 33.2971, lon: -81.0348, country: 'USA', lived: true },
+            { name: 'Orangeburg', lat: 33.4918, lon: -80.8556, country: 'USA' },
+            { name: 'Cape Cod', lat: 41.6688, lon: -70.2962, country: 'USA' },
+            { name: 'Indianapolis', lat: 39.7684, lon: -86.1581, country: 'USA' },
+            { name: 'Bellevue', lat: 47.6101, lon: -122.2015, country: 'USA' },
+            { name: 'Reston', lat: 38.9687, lon: -77.3411, country: 'USA' },
+            { name: 'Arlington', lat: 38.8799, lon: -77.1068, country: 'USA' },
+            { name: 'Findlay', lat: 41.0442, lon: -83.6499, country: 'USA' },
+            { name: 'Fort Lauderdale', lat: 26.1224, lon: -80.1373, country: 'USA' },
+            { name: 'St. Petersburg', lat: 27.7676, lon: -82.6403, country: 'USA' },
+            { name: 'San Jose', lat: 37.3382, lon: -121.8863, country: 'USA' },
+            { name: 'Newark', lat: 40.7357, lon: -74.1724, country: 'USA' },
+            { name: 'Jersey City', lat: 40.7178, lon: -74.0431, country: 'USA' },
+            { name: 'Edison', lat: 40.5187, lon: -74.4121, country: 'USA' },
+            { name: 'Princeton', lat: 40.3573, lon: -74.6672, country: 'USA' },
+            { name: 'Morristown', lat: 40.7968, lon: -74.4815, country: 'USA' },
+            { name: 'Wilmington', lat: 39.7391, lon: -75.5398, country: 'USA' },
+            { name: 'Birmingham', lat: 33.5186, lon: -86.8104, country: 'USA' },
+            { name: 'New Orleans', lat: 29.9511, lon: -90.0715, country: 'USA' },
+            { name: 'Fort Worth', lat: 32.7555, lon: -97.3308, country: 'USA' },
+            // India
+            { name: 'Mumbai', lat: 19.076, lon: 72.8777, country: 'India' },
+            { name: 'Valsad', lat: 20.5992, lon: 72.9342, country: 'India' },
+            // Africa
+            { name: 'Luanshya', lat: -13.1367, lon: 28.4167, country: 'Zambia', lived: true },
+            // Australia
+            { name: 'Sydney', lat: -33.8688, lon: 151.2093, country: 'Australia' },
+            { name: 'Melbourne', lat: -37.8136, lon: 144.9631, country: 'Australia' },
+            // Japan
+            { name: 'Tokyo', lat: 35.6762, lon: 139.6503, country: 'Japan' },
+            // UK
+            { name: 'London', lat: 51.5074, lon: -0.1278, country: 'UK' },
+            { name: 'Birmingham', lat: 52.4862, lon: -1.8904, country: 'UK' },
+            { name: 'Edinburgh', lat: 55.9533, lon: -3.1883, country: 'UK' },
+            { name: 'Glasgow', lat: 55.8642, lon: -4.2518, country: 'UK' },
+            // Europe
+            { name: 'Paris', lat: 48.8566, lon: 2.3522, country: 'France' },
+            { name: 'Prague', lat: 50.0755, lon: 14.4378, country: 'Czech Republic' },
+            { name: 'Zurich', lat: 47.3769, lon: 8.5417, country: 'Switzerland' },
+            { name: 'Stockholm', lat: 59.3293, lon: 18.0686, country: 'Sweden' },
+            // Mexico
+            { name: 'Cabo San Lucas', lat: 22.8905, lon: -109.9167, country: 'Mexico' },
+            { name: 'Cancun', lat: 21.1619, lon: -86.8515, country: 'Mexico' },
+            // Caribbean
+            { name: 'Nassau', lat: 25.0343, lon: -77.3963, country: 'Bahamas' },
+            // Kenya
+            { name: 'Nairobi', lat: -1.2921, lon: 36.8219, country: 'Kenya' },
+            { name: 'Mombasa', lat: -4.0435, lon: 39.6682, country: 'Kenya' },
+            // Tanzania
+            { name: 'Dar es Salaam', lat: -6.7924, lon: 39.2083, country: 'Tanzania' },
+            { name: 'Arusha', lat: -3.3869, lon: 36.6830, country: 'Tanzania' },
+            // Zimbabwe
+            { name: 'Bulawayo', lat: -20.1325, lon: 28.6265, country: 'Zimbabwe' },
+            { name: 'Harare', lat: -17.8252, lon: 31.0335, country: 'Zimbabwe' },
+            { name: 'Victoria Falls', lat: -17.9243, lon: 25.8572, country: 'Zimbabwe' },
+            // Canada
+            { name: 'Toronto', lat: 43.6532, lon: -79.3832, country: 'Canada' },
+            { name: 'Vancouver', lat: 49.2827, lon: -123.1207, country: 'Canada' },
+            // Costa Rica
+            { name: 'Tamarindo', lat: 10.2996, lon: -85.8373, country: 'Costa Rica' },
+            // Panama
+            { name: 'Panama City', lat: 8.9824, lon: -79.5199, country: 'Panama' },
+            // Mexico (additional)
+            { name: 'Tijuana', lat: 32.5149, lon: -117.0382, country: 'Mexico' },
+            { name: 'Cozumel', lat: 20.4318, lon: -86.9203, country: 'Mexico' },
+            // South Africa
+            { name: 'Cape Town', lat: -33.9249, lon: 18.4241, country: 'South Africa' },
+            { name: 'Port Elizabeth', lat: -33.9608, lon: 25.6022, country: 'South Africa' },
+            { name: 'Knysna', lat: -34.0356, lon: 23.0488, country: 'South Africa' },
+            // Zambia (additional)
+            { name: 'Lusaka', lat: -15.3875, lon: 28.3228, country: 'Zambia' },
+            { name: 'Livingstone', lat: -17.8419, lon: 25.8544, country: 'Zambia' },
+            { name: 'Kitwe', lat: -12.8024, lon: 28.2132, country: 'Zambia' },
+            { name: 'Ndola', lat: -12.9587, lon: 28.6366, country: 'Zambia' },
+            // Puerto Rico (US Territory)
+            { name: 'San Juan', lat: 18.4655, lon: -66.1057, country: 'Puerto Rico' },
+            // Jamaica
+            { name: 'Montego Bay', lat: 18.4762, lon: -77.8939, country: 'Jamaica' },
+            // Greece
+            { name: 'Athens', lat: 37.9838, lon: 23.7275, country: 'Greece' }
+        ];
+
+        const mapContainer = document.getElementById('world-map');
+        const tooltip = document.getElementById('map-tooltip');
+        const containerWidth = mapContainer.clientWidth;
+        const mapHeight = Math.max(containerWidth * 0.5, 300);
+
+        const svg = d3.select('#world-map')
+            .append('svg')
+            .attr('viewBox', `0 0 ${containerWidth} ${mapHeight}`)
+            .attr('preserveAspectRatio', 'xMidYMid meet');
+
+        const projection = d3.geoNaturalEarth1()
+            .scale(containerWidth / 5.5)
+            .translate([containerWidth / 2, mapHeight / 2]);
+
+        const path = d3.geoPath().projection(projection);
+
+        // Load world data
+        d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(function(world) {
+            const countries = topojson.feature(world, world.objects.countries);
+
+            // Draw countries
+            svg.selectAll('.country')
+                .data(countries.features)
+                .enter()
+                .append('path')
+                .attr('class', d => {
+                    const isVisited = visitedCountries.includes(d.properties.name);
+                    return 'country' + (isVisited ? ' visited' : '');
+                })
+                .attr('d', path)
+                .on('mouseenter', function(event, d) {
+                    const isVisited = visitedCountries.includes(d.properties.name);
+                    if (d.properties.name) {
+                        tooltip.textContent = d.properties.name + (isVisited ? ' ✓' : '');
+                        tooltip.classList.add('active');
+                    }
+                })
+                .on('mousemove', function(event) {
+                    const rect = mapContainer.getBoundingClientRect();
+                    tooltip.style.left = (event.clientX - rect.left + 10) + 'px';
+                    tooltip.style.top = (event.clientY - rect.top - 30) + 'px';
+                })
+                .on('mouseleave', function() {
+                    tooltip.classList.remove('active');
+                });
+
+            // Draw city pins
+            const pinGroups = svg.selectAll('.city-pin-group')
+                .data(cityPins)
+                .enter()
+                .append('g')
+                .attr('class', d => 'city-pin' + (d.lived ? ' lived' : ''))
+                .attr('transform', d => {
+                    const coords = projection([d.lon, d.lat]);
+                    return `translate(${coords[0]}, ${coords[1]})`;
+                });
+
+            // Lived-in pulse ring (only for lived cities)
+            pinGroups.filter(d => d.lived)
+                .append('circle')
+                .attr('class', 'pin-lived-pulse')
+                .attr('r', 5);
+
+            // Lived-in static ring (only for lived cities)
+            pinGroups.filter(d => d.lived)
+                .append('circle')
+                .attr('class', 'pin-ring-lived')
+                .attr('r', 5);
+
+            // Outer ring (shows on hover for all)
+            pinGroups.append('circle')
+                .attr('class', 'pin-outer')
+                .attr('r', d => d.lived ? 7 : 5)
+                .style('fill', 'none')
+                .style('stroke', '#F3EEE7')
+                .style('stroke-width', 1)
+                .style('opacity', 0);
+
+            // Inner dot (larger for lived cities)
+            pinGroups.append('circle')
+                .attr('class', 'pin-dot')
+                .attr('r', d => d.lived ? 3 : 2)
+                .style('fill', '#F3EEE7');
+
+            // Add hover for pins
+            pinGroups
+                .style('cursor', 'pointer')
+                .on('mouseenter', function(event, d) {
+                    const label = d.lived ? d.name + ', ' + d.country + ' · Resided' : d.name + ', ' + d.country;
+                    tooltip.textContent = label;
+                    tooltip.classList.add('active');
+                    d3.select(this).select('.pin-outer').style('opacity', 1);
+                })
+                .on('mousemove', function(event) {
+                    const rect = mapContainer.getBoundingClientRect();
+                    tooltip.style.left = (event.clientX - rect.left + 10) + 'px';
+                    tooltip.style.top = (event.clientY - rect.top - 30) + 'px';
+                })
+                .on('mouseleave', function() {
+                    tooltip.classList.remove('active');
+                    d3.select(this).select('.pin-outer').style('opacity', 0);
+                });
+
+        }).catch(function(error) {
+            console.log('Map data loading error:', error);
+            // Fallback: show a message
+            mapContainer.innerHTML = '<p style="text-align:center; padding:60px 20px; color:#666; font-size:0.9rem;">Map loading...</p>';
+        });
+    </script>
+
+</body>
+</html>

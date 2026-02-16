@@ -373,15 +373,10 @@
         }
 
         .video-hero video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            object-position: center center;
         }
 
         .video-hero-overlay {
@@ -400,35 +395,20 @@
             pointer-events: none;
         }
 
-        .video-hero-content {
+        /* Logo macron A styling (Aman-inspired) */
+        .logo-a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-a::after {
+            content: '';
             position: absolute;
-            bottom: 50px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: #fff;
-            z-index: 10;
-            padding: 0 20px;
-        }
-
-        .video-hero-content .hero-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #fff;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
-        }
-
-        .video-hero-content .hero-name {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            color: #fff;
-            margin-bottom: 0;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3);
+            top: -1px;
+            left: 15%;
+            width: 70%;
+            height: 1px;
+            background: var(--primary-text);
         }
 
         .scroll-indicator {
@@ -457,14 +437,6 @@
                 height: 75vh;
             }
 
-            .video-hero-content {
-                bottom: 80px;
-            }
-
-            .video-hero-content .hero-name {
-                font-size: 3.5rem;
-            }
-
             .scroll-indicator {
                 bottom: 25px;
             }
@@ -479,24 +451,8 @@
                 height: 100vh;
             }
 
-            .video-hero-content {
-                bottom: 120px;
-            }
-
             .scroll-indicator {
                 bottom: 30px;
-            }
-
-            .video-hero-content .hero-eyebrow {
-                font-size: 0.75rem;
-                font-weight: 500;
-                letter-spacing: 4px;
-                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
-            }
-
-            .video-hero-content .hero-name {
-                font-size: 4.5rem;
-                letter-spacing: 3px;
             }
         }
 
@@ -1398,7 +1354,7 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen">
-        <span class="loading-logo">Nitin Solanki</span>
+        <span class="loading-logo">Nitin Sol<span class="logo-a">a</span>nki</span>
         <div class="loading-line"></div>
     </div>
 
@@ -1409,7 +1365,7 @@
             <span></span>
             <span></span>
         </button>
-        <a href="index.html" class="logo">Nitin Solanki</a>
+        <a href="index.html" class="logo">Nitin Sol<span class="logo-a">a</span>nki</a>
         <div class="header-cta">
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </div>
@@ -1418,6 +1374,7 @@
             <a href="#about">What I Do</a>
             <a href="#story">Story</a>
             <a href="about.html">About</a>
+            <a href="travel.html">Travel</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
@@ -1428,6 +1385,7 @@
             <a href="#about">What I Do</a>
             <a href="#story">Story</a>
             <a href="about.html">About</a>
+            <a href="travel.html">Travel</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">Connect</a>
         </nav>
         <div class="nav-social">
@@ -1443,10 +1401,6 @@
             <source src="videos/hero.mp4" type="video/mp4">
         </video>
         <div class="video-hero-overlay"></div>
-        <div class="video-hero-content">
-            <p class="hero-eyebrow">Entrepreneur • Investor • Advisor</p>
-            <h1 class="hero-name">Nitin Solanki</h1>
-        </div>
         <div class="scroll-indicator">
             <span></span>
         </div>

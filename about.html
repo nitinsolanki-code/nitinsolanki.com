@@ -439,6 +439,22 @@
             white-space: nowrap;
         }
 
+        /* Logo macron A styling (Aman-inspired) */
+        .logo-a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-a::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 15%;
+            width: 70%;
+            height: 1px;
+            background: var(--primary-text);
+        }
+
         /* Reserve Button - Right */
         .header-cta {
             display: flex;
@@ -1081,7 +1097,7 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen">
-        <span class="loading-logo">Nitin Solanki</span>
+        <span class="loading-logo">Nitin Sol<span class="logo-a">a</span>nki</span>
         <div class="loading-line"></div>
     </div>
 
@@ -1092,7 +1108,7 @@
             <span></span>
             <span></span>
         </button>
-        <a href="index.html" class="logo">Nitin Solanki</a>
+        <a href="index.html" class="logo">Nitin Sol<span class="logo-a">a</span>nki</a>
         <div class="header-cta">
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </div>
@@ -1101,6 +1117,7 @@
             <a href="index.html#about">What I Do</a>
             <a href="index.html#story">Story</a>
             <a href="index.html">Home</a>
+            <a href="travel.html">Travel</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
@@ -1111,6 +1128,7 @@
             <a href="index.html">Home</a>
             <a href="index.html#about">What I Do</a>
             <a href="index.html#story">Story</a>
+            <a href="travel.html">Travel</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">Connect</a>
         </nav>
         <div class="nav-social">
