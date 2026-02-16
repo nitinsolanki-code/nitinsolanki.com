@@ -376,8 +376,9 @@
             z-index: 1000;
             padding: 18px 20px;
             display: grid;
-            grid-template-columns: 50px 1fr 50px;
+            grid-template-columns: 44px 1fr auto;
             align-items: center;
+            gap: 12px;
             background: rgba(243, 238, 231, 0.95);
             backdrop-filter: blur(10px);
             transition: all 0.4s ease;
@@ -427,7 +428,7 @@
         /* Logo - Centered */
         .logo {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -435,6 +436,7 @@
             text-decoration: none;
             text-align: center;
             justify-self: center;
+            white-space: nowrap;
         }
 
         /* Reserve Button - Right */
@@ -446,20 +448,23 @@
         .reserve-btn {
             display: inline-flex;
             align-items: center;
-            color: #fff;
-            background: var(--accent-dark);
+            justify-content: center;
+            color: var(--primary-text);
+            background: transparent;
+            border: 1px solid var(--primary-text);
             text-decoration: none;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 12px 20px;
+            padding: 10px 14px;
             min-height: 44px;
+            white-space: nowrap;
             transition: opacity 0.4s ease;
         }
 
         .reserve-btn:hover {
-            opacity: 0.85;
+            opacity: 0.6;
         }
 
         /* Full-Screen Navigation Overlay */
@@ -806,7 +811,8 @@
         @media (min-width: 768px) {
             header {
                 padding: 20px 40px;
-                grid-template-columns: 60px 1fr 100px;
+                grid-template-columns: 50px 1fr auto;
+                gap: 20px;
             }
 
             .logo {
@@ -814,8 +820,8 @@
             }
 
             .reserve-btn {
-                font-size: 0.7rem;
-                padding: 10px 20px;
+                font-size: 0.65rem;
+                padding: 11px 20px;
             }
 
             .nav-overlay nav a {
@@ -898,6 +904,7 @@
             header {
                 padding: 22px 60px;
                 grid-template-columns: 50px 1fr auto;
+                gap: 20px;
             }
 
             .logo {
@@ -928,7 +935,9 @@
             }
 
             .desktop-nav .reserve-btn {
+                font-size: 0.7rem;
                 padding: 12px 28px;
+                border-color: var(--primary-text);
             }
 
             /* Hide mobile CTA on desktop */
