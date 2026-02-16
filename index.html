@@ -130,6 +130,239 @@
         .stagger-item:nth-child(3) { transition-delay: 0.2s; }
         .stagger-item:nth-child(4) { transition-delay: 0.3s; }
 
+        /* ===== ENHANCED HOVER ANIMATIONS ===== */
+        /* Brand: "Subtle -- slight opacity change or underline animation, never aggressive transforms" */
+        /* Brand: "Shadows: Avoided -- flatness and subtlety preferred over depth effects" */
+        .hover-lift {
+            transition: opacity 0.4s ease;
+        }
+
+        .hover-lift:hover {
+            opacity: 0.7;
+        }
+
+        .hover-underline {
+            position: relative;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.4s ease;
+        }
+
+        .hover-underline:hover::after {
+            width: 100%;
+        }
+
+        /* ===== PARALLAX IMAGES ===== */
+        .parallax-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .parallax-image {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* ===== SIGNATURE HORIZONTAL LINE MOTIFS ===== */
+        .line-accent {
+            position: relative;
+        }
+
+        .line-accent::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .line-accent.visible::before {
+            transform: scaleX(1);
+        }
+
+        /* Centered line accent variant */
+        .line-accent-center::before {
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+        }
+
+        .line-accent-center.visible::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* Section divider lines */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--warm-taupe), transparent);
+            margin: 80px auto;
+            max-width: 200px;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .section-divider.visible {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* Animated extending line from headers */
+        .extending-line {
+            position: relative;
+            display: inline-block;
+        }
+
+        .extending-line::after {
+            content: '';
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+        }
+
+        .extending-line.visible::after {
+            transform: scaleX(1);
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--warm-taupe);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1);
+            transition: opacity 0.4s ease, transform 0.2s ease, border-color 0.3s ease;
+        }
+
+        .custom-cursor.visible {
+            opacity: 0.7;
+        }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.4);
+            border-color: var(--primary-text);
+            opacity: 0.5;
+        }
+
+        .custom-cursor.click {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        /* Cursor dot (inner) */
+        .cursor-dot {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--warm-taupe);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-dot.visible {
+            opacity: 1;
+        }
+
+        /* Hide custom cursor on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor,
+            .cursor-dot {
+                display: none !important;
+            }
+        }
+
+        /* ===== TEXT REVEAL ANIMATIONS ===== */
+        .text-reveal {
+            overflow: hidden;
+        }
+
+        .text-reveal-inner {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
+        }
+
+        .text-reveal.visible .text-reveal-inner {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Staggered word reveal */
+        .word-reveal .word {
+            display: inline-block;
+            overflow: hidden;
+            margin-right: 0.25em;
+        }
+
+        .word-reveal .word-inner {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .word-reveal.visible .word-inner {
+            transform: translateY(0);
+        }
+
+        /* Character reveal animation */
+        .char-reveal .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+        }
+
+        .char-reveal.visible .char {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fade up with blur */
+        .fade-blur {
+            opacity: 0;
+            transform: translateY(20px);
+            filter: blur(5px);
+            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+        }
+
+        .fade-blur.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* ===== SMOOTH SCROLL ENHANCEMENT ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* ===== VIDEO HERO ===== */
         .video-hero {
             position: relative;
@@ -299,7 +532,7 @@
 
         header.scrolled {
             background: rgba(243, 238, 231, 0.98);
-            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(212, 196, 176, 0.3);
         }
 
         /* Hamburger Menu Button */
@@ -362,11 +595,14 @@
             color: #fff;
             background: var(--accent-dark);
             text-decoration: none;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 10px 16px;
+            padding: 12px 20px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
             transition: opacity 0.4s ease;
         }
 
@@ -505,13 +741,30 @@
             text-transform: uppercase;
             color: var(--primary-text);
             text-decoration: none;
-            border-bottom: 1px solid var(--primary-text);
             padding-bottom: 5px;
-            transition: opacity 0.4s ease;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+
+        .hero-cta::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary-text);
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: transform 0.4s ease, background-color 0.4s ease;
         }
 
         .hero-cta:hover {
-            opacity: 0.6;
+            color: var(--warm-taupe);
+        }
+
+        .hero-cta:hover::after {
+            background: var(--warm-taupe);
         }
 
         .hero-image-wrapper {
@@ -663,13 +916,30 @@
             text-transform: uppercase;
             color: var(--primary-text);
             text-decoration: none;
-            border-bottom: 1px solid var(--primary-text);
             padding-bottom: 5px;
-            transition: opacity 0.4s ease;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+
+        .story-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary-text);
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: transform 0.4s ease, background-color 0.4s ease;
         }
 
         .story-link:hover {
-            opacity: 0.6;
+            color: var(--warm-taupe);
+        }
+
+        .story-link:hover::after {
+            background: var(--warm-taupe);
         }
 
         /* ===== PHOTO GRID (Mobile First) ===== */
@@ -737,11 +1007,27 @@
             text-transform: uppercase;
             color: var(--primary-text);
             text-decoration: none;
-            transition: opacity 0.4s ease;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+
+        .social-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-text);
+            transition: width 0.4s ease;
         }
 
         .social-link:hover {
-            opacity: 0.5;
+            color: var(--warm-taupe);
+        }
+
+        .social-link:hover::after {
+            width: 100%;
         }
 
         /* ===== FOOTER (Mobile First) ===== */
@@ -1155,9 +1441,12 @@
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
     <!-- What I Do Section -->
     <section class="section" id="about">
-        <p class="section-eyebrow fade-in">What I Do</p>
+        <p class="section-eyebrow fade-in line-accent">What I Do</p>
         <h2 class="section-title fade-in">Transforming Strategy into Disciplined Execution</h2>
         <div class="services-grid">
             <div class="service-card stagger-item">
@@ -1178,7 +1467,7 @@
     <!-- Focus Areas -->
     <section class="focus-areas">
         <div class="section" style="padding-top: 0; padding-bottom: 0;">
-            <p class="section-eyebrow fade-in">Focus Areas</p>
+            <p class="section-eyebrow fade-in line-accent">Focus Areas</p>
             <div class="focus-list">
                 <div class="focus-item stagger-item">
                     <strong>Strategy → Execution</strong>
@@ -1205,17 +1494,20 @@
         <div class="how-section">
             <img src="images/howework.jpg" alt="Nitin Solanki" class="how-image fade-in-left">
             <div class="how-content fade-in-right">
-                <p class="section-eyebrow">How I Work</p>
+                <p class="section-eyebrow line-accent">How I Work</p>
                 <h2 class="section-title">Relationship-First, Outcome-Driven</h2>
                 <p>In high-pressure environments, I bring structure, calm, and delivery discipline—so decisions get made and progress compounds. Transformation succeeds when leaders communicate the why, teams understand the what, and delivery is disciplined enough to produce outcomes.</p>
             </div>
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
     <!-- Story Teaser -->
     <section class="story-section" id="story">
         <div class="story-content fade-in">
-            <p class="section-eyebrow">My Story</p>
+            <p class="section-eyebrow line-accent line-accent-center">My Story</p>
             <p class="story-text">
                 Born in Luanshya, Zambia, I moved to the U.S. at 10 in pursuit of bigger opportunities. Early exposure to business and customer service shaped how I lead: listen first, build trust, and solve the real problem.
             </p>
@@ -1317,6 +1609,181 @@
                 header.classList.remove('scrolled');
             }
         });
+
+        // ===== PARALLAX EFFECT ON IMAGES =====
+        const parallaxImages = document.querySelectorAll('.hero-image, .how-image, .photo-item img');
+
+        function updateParallax() {
+            parallaxImages.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                // Check if image is in viewport
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    // Calculate parallax offset (subtle movement)
+                    const scrollPercent = (windowHeight - rect.top) / (windowHeight + rect.height);
+                    const translateY = (scrollPercent - 0.5) * 20; // 20px max movement
+
+                    img.style.transform = `translateY(${translateY}px) scale(1.02)`;
+                }
+            });
+        }
+
+        // Throttled scroll handler for performance
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial call
+        updateParallax();
+
+        // ===== CUSTOM CURSOR =====
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        const cursorDot = document.createElement('div');
+        cursorDot.classList.add('cursor-dot');
+        document.body.appendChild(cursorDot);
+
+        let cursorX = 0, cursorY = 0;
+        let dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+
+            // Show cursors
+            cursor.classList.add('visible');
+            cursorDot.classList.add('visible');
+        });
+
+        // Smooth cursor following with lerp
+        function animateCursor() {
+            // Lerp for smooth following
+            dotX += (cursorX - dotX) * 0.15;
+            dotY += (cursorY - dotY) * 0.15;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorDot.style.left = dotX + 'px';
+            cursorDot.style.top = dotY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effects on interactive elements
+        const hoverTargets = document.querySelectorAll('a, button, .service-card, .focus-item, .photo-item');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Cursor click effect
+        document.addEventListener('mousedown', () => cursor.classList.add('click'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.classList.remove('visible');
+            cursorDot.classList.remove('visible');
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.classList.add('visible');
+            cursorDot.classList.add('visible');
+        });
+
+        // ===== TEXT REVEAL ANIMATION SETUP =====
+        // Split text into words for hero name
+        function splitTextIntoWords(element) {
+            const text = element.textContent;
+            const words = text.split(' ');
+            element.innerHTML = '';
+            element.classList.add('word-reveal');
+
+            words.forEach((word, index) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.classList.add('word');
+                const innerSpan = document.createElement('span');
+                innerSpan.classList.add('word-inner');
+                innerSpan.textContent = word;
+                innerSpan.style.transitionDelay = (index * 0.1) + 's';
+                wordSpan.appendChild(innerSpan);
+                element.appendChild(wordSpan);
+            });
+        }
+
+        // Split text into characters for eyebrow text
+        function splitTextIntoChars(element) {
+            const text = element.textContent;
+            element.innerHTML = '';
+            element.classList.add('char-reveal');
+
+            text.split('').forEach((char, index) => {
+                const charSpan = document.createElement('span');
+                charSpan.classList.add('char');
+                charSpan.textContent = char === ' ' ? '\u00A0' : char;
+                charSpan.style.transitionDelay = (index * 0.03) + 's';
+                element.appendChild(charSpan);
+            });
+        }
+
+        // Apply text reveal to hero elements (not video hero, that shows immediately)
+        const heroNameElement = document.querySelector('.hero .hero-name');
+        const heroEyebrowElement = document.querySelector('.hero .hero-eyebrow');
+
+        if (heroNameElement) {
+            splitTextIntoWords(heroNameElement);
+        }
+
+        if (heroEyebrowElement) {
+            splitTextIntoChars(heroEyebrowElement);
+        }
+
+        // Apply text reveal to section titles
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.classList.add('text-reveal');
+            const inner = document.createElement('span');
+            inner.classList.add('text-reveal-inner');
+            inner.textContent = title.textContent;
+            title.textContent = '';
+            title.appendChild(inner);
+        });
+
+        // Enhanced observer for new animation classes
+        const revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Observe text reveal elements
+        document.querySelectorAll('.text-reveal, .word-reveal, .char-reveal, .line-accent, .section-divider, .extending-line, .fade-blur').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ===== SMOOTH SCROLL WITH LERP (Optional Enhancement) =====
+        // This provides buttery-smooth scrolling on desktop
+        let smoothScrollEnabled = false;
+
+        // Only enable on desktop with good performance
+        if (window.matchMedia('(min-width: 1024px)').matches && !('ontouchstart' in window)) {
+            // Smooth scroll is already handled by CSS scroll-behavior: smooth
+            // This additional JS provides lerp-based smoothing for scroll-linked animations
+            smoothScrollEnabled = true;
+        }
     </script>
 
 </body>

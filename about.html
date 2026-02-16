@@ -135,6 +135,205 @@
         .stagger-item:nth-child(8) { transition-delay: 0.4s; }
         .stagger-item:nth-child(9) { transition-delay: 0.45s; }
 
+        /* ===== ENHANCED HOVER ANIMATIONS ===== */
+        /* Brand: "Subtle -- slight opacity change or underline animation, never aggressive transforms" */
+        .hover-lift {
+            transition: opacity 0.4s ease;
+        }
+
+        .hover-lift:hover {
+            opacity: 0.7;
+        }
+
+        .hover-underline {
+            position: relative;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.4s ease;
+        }
+
+        .hover-underline:hover::after {
+            width: 100%;
+        }
+
+        /* ===== PARALLAX IMAGES ===== */
+        .parallax-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .parallax-image {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* ===== SIGNATURE HORIZONTAL LINE MOTIFS ===== */
+        .line-accent {
+            position: relative;
+        }
+
+        .line-accent::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .line-accent.visible::before {
+            transform: scaleX(1);
+        }
+
+        /* Centered line accent variant */
+        .line-accent-center::before {
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+        }
+
+        .line-accent-center.visible::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* Section divider lines */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--warm-taupe), transparent);
+            margin: 80px auto;
+            max-width: 200px;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .section-divider.visible {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--warm-taupe);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1);
+            transition: opacity 0.4s ease, transform 0.2s ease, border-color 0.3s ease;
+        }
+
+        .custom-cursor.visible {
+            opacity: 0.7;
+        }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.4);
+            border-color: var(--primary-text);
+            opacity: 0.5;
+        }
+
+        .custom-cursor.click {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--warm-taupe);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-dot.visible {
+            opacity: 1;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor,
+            .cursor-dot {
+                display: none !important;
+            }
+        }
+
+        /* ===== TEXT REVEAL ANIMATIONS ===== */
+        .text-reveal {
+            overflow: hidden;
+        }
+
+        .text-reveal-inner {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
+        }
+
+        .text-reveal.visible .text-reveal-inner {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .word-reveal .word {
+            display: inline-block;
+            overflow: hidden;
+            margin-right: 0.25em;
+        }
+
+        .word-reveal .word-inner {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .word-reveal.visible .word-inner {
+            transform: translateY(0);
+        }
+
+        .char-reveal .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+        }
+
+        .char-reveal.visible .char {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-blur {
+            opacity: 0;
+            transform: translateY(20px);
+            filter: blur(5px);
+            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+        }
+
+        .fade-blur.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
         /* ===== RESET & BASE (Mobile First) ===== */
         * {
             margin: 0;
@@ -186,7 +385,7 @@
 
         header.scrolled {
             background: rgba(243, 238, 231, 0.98);
-            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(212, 196, 176, 0.3);
         }
 
         /* Hamburger Menu Button */
@@ -245,15 +444,17 @@
         }
 
         .reserve-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             color: #fff;
             background: var(--accent-dark);
             text-decoration: none;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 10px 16px;
+            padding: 12px 20px;
+            min-height: 44px;
             transition: opacity 0.4s ease;
         }
 
@@ -538,6 +739,7 @@
             background: var(--accent-dark);
             text-decoration: none;
             padding: 14px 35px;
+            min-height: 44px;
             transition: opacity 0.4s ease;
         }
 
@@ -563,11 +765,27 @@
             text-transform: uppercase;
             color: var(--primary-text);
             text-decoration: none;
-            transition: opacity 0.4s ease;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+
+        .social-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-text);
+            transition: width 0.4s ease;
         }
 
         .social-link:hover {
-            opacity: 0.5;
+            color: var(--warm-taupe);
+        }
+
+        .social-link:hover::after {
+            width: 100%;
         }
 
         /* ===== FOOTER (Mobile First) ===== */
@@ -907,7 +1125,7 @@
 
         <!-- Early Life -->
         <div class="section-block fade-in">
-            <p class="section-label">Origins</p>
+            <p class="section-label line-accent">Origins</p>
             <h2 class="section-heading">Early Life: Zambia to America</h2>
             <p>
                 I was born in Luanshya, Zambia. My early childhood there was stable and meaningful—we didn't leave out of hardship. My family moved to the United States when I was 10 because they were thinking long-term: education, opportunity, and a bigger future.
@@ -919,9 +1137,12 @@
 
         <img src="images/zambia.jpg" alt="Young Nitin in Zambia" class="featured-image fade-in">
 
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
         <!-- Growing Up -->
         <div class="section-block fade-in">
-            <p class="section-label">Foundation</p>
+            <p class="section-label line-accent">Foundation</p>
             <h2 class="section-heading">Growing Up in the U.S.: The Motel Business</h2>
             <p>
                 In the U.S., those same lessons continued through the motel business. If you want a real-world education in people and problem-solving, spend time in hospitality. There's always interaction—needs, complaints, questions, and unexpected issues that have to be handled professionally.
@@ -933,7 +1154,7 @@
 
         <!-- Early Work -->
         <div class="section-block fade-in">
-            <p class="section-label">Early Career</p>
+            <p class="section-label line-accent">Early Career</p>
             <h2 class="section-heading">Banking and Structure</h2>
             <p>
                 After high school, I worked at a bank as a drive-through teller. It taught me what it means to represent an institution: consistency, reliability, process discipline, and delivering service at a high standard—every day, not just when it's convenient.
@@ -945,9 +1166,12 @@
 
         <img src="images/early2002.jpg" alt="Nitin Solanki 2002" class="featured-image portrait fade-in">
 
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
         <!-- Consulting -->
         <div class="section-block fade-in">
-            <p class="section-label">Professional Growth</p>
+            <p class="section-label line-accent">Professional Growth</p>
             <h2 class="section-heading">College to Consulting</h2>
             <p>
                 As I transitioned from college into the professional world, consulting immediately made sense for my personality and strengths. Consulting is a people business. Yes, it involves technology, process, and strategy—but at its core, it's about earning trust quickly, understanding what a client truly needs (often before they can articulate it), aligning stakeholders with competing priorities, navigating ambiguity, and delivering outcomes under real pressure.
@@ -970,7 +1194,7 @@
 
         <!-- Clients -->
         <div class="section-block fade-in">
-            <p class="section-label">Experience</p>
+            <p class="section-label line-accent">Experience</p>
             <h2 class="section-heading">Client Depth</h2>
             <p>
                 Across my consulting career, I've supported a wide range of organizations—large enterprises, smaller teams, domestic engagements across the U.S., and international work that broadened my perspective.
@@ -994,9 +1218,12 @@
             </p>
         </div>
 
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
         <!-- Beliefs -->
         <div class="section-block fade-in">
-            <p class="section-label">Philosophy</p>
+            <p class="section-label line-accent">Philosophy</p>
             <h2 class="section-heading">The Truth About Transformation</h2>
             <p>
                 Over time, a few beliefs became non-negotiable for me:
@@ -1030,7 +1257,7 @@
 
         <!-- Today -->
         <div class="section-block fade-in">
-            <p class="section-label">Present</p>
+            <p class="section-label line-accent">Present</p>
             <h2 class="section-heading">What I Do Today</h2>
             <p>
                 Today, my identity is simple: I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation.
@@ -1051,7 +1278,7 @@
 
     <!-- CTA Section -->
     <section class="cta-section fade-in">
-        <p class="cta-eyebrow">Connect</p>
+        <p class="cta-eyebrow line-accent line-accent-center">Connect</p>
         <h2 class="cta-heading">Let's Start a Conversation</h2>
         <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="cta-link">Connect on LinkedIn</a>
     </section>
@@ -1134,6 +1361,160 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+
+        // ===== PARALLAX EFFECT ON IMAGES =====
+        const parallaxImages = document.querySelectorAll('.featured-image');
+
+        function updateParallax() {
+            parallaxImages.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                // Check if image is in viewport
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    // Calculate parallax offset (subtle movement)
+                    const scrollPercent = (windowHeight - rect.top) / (windowHeight + rect.height);
+                    const translateY = (scrollPercent - 0.5) * 30; // 30px max movement
+
+                    img.style.transform = `translateY(${translateY}px)`;
+                }
+            });
+        }
+
+        // Throttled scroll handler for performance
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial call
+        updateParallax();
+
+        // ===== CUSTOM CURSOR =====
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        const cursorDot = document.createElement('div');
+        cursorDot.classList.add('cursor-dot');
+        document.body.appendChild(cursorDot);
+
+        let cursorX = 0, cursorY = 0;
+        let dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+            cursor.classList.add('visible');
+            cursorDot.classList.add('visible');
+        });
+
+        function animateCursor() {
+            dotX += (cursorX - dotX) * 0.15;
+            dotY += (cursorY - dotY) * 0.15;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorDot.style.left = dotX + 'px';
+            cursorDot.style.top = dotY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const hoverTargets = document.querySelectorAll('a, button, .belief-item, .client-item');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        document.addEventListener('mousedown', () => cursor.classList.add('click'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+        document.addEventListener('mouseleave', () => {
+            cursor.classList.remove('visible');
+            cursorDot.classList.remove('visible');
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.classList.add('visible');
+            cursorDot.classList.add('visible');
+        });
+
+        // ===== TEXT REVEAL ANIMATION SETUP =====
+        function splitTextIntoWords(element) {
+            const text = element.textContent;
+            const words = text.split(' ');
+            element.innerHTML = '';
+            element.classList.add('word-reveal');
+
+            words.forEach((word, index) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.classList.add('word');
+                const innerSpan = document.createElement('span');
+                innerSpan.classList.add('word-inner');
+                innerSpan.textContent = word;
+                innerSpan.style.transitionDelay = (index * 0.08) + 's';
+                wordSpan.appendChild(innerSpan);
+                element.appendChild(wordSpan);
+            });
+        }
+
+        function splitTextIntoChars(element) {
+            const text = element.textContent;
+            element.innerHTML = '';
+            element.classList.add('char-reveal');
+
+            text.split('').forEach((char, index) => {
+                const charSpan = document.createElement('span');
+                charSpan.classList.add('char');
+                charSpan.textContent = char === ' ' ? '\u00A0' : char;
+                charSpan.style.transitionDelay = (index * 0.03) + 's';
+                element.appendChild(charSpan);
+            });
+        }
+
+        // Apply text reveal to page title
+        const pageTitleElement = document.querySelector('.page-title');
+        const pageEyebrowElement = document.querySelector('.page-hero .eyebrow');
+
+        if (pageTitleElement) {
+            splitTextIntoWords(pageTitleElement);
+        }
+
+        if (pageEyebrowElement) {
+            splitTextIntoChars(pageEyebrowElement);
+        }
+
+        // Apply text reveal to section headings
+        document.querySelectorAll('.section-heading').forEach(heading => {
+            heading.classList.add('text-reveal');
+            const inner = document.createElement('span');
+            inner.classList.add('text-reveal-inner');
+            inner.textContent = heading.textContent;
+            heading.textContent = '';
+            heading.appendChild(inner);
+        });
+
+        // Enhanced observer for new animation classes
+        const revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.text-reveal, .word-reveal, .char-reveal, .line-accent, .section-divider, .fade-blur').forEach(el => {
+            revealObserver.observe(el);
         });
     </script>
 
