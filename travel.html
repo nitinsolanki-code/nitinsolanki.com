@@ -211,20 +211,24 @@
             transform: translateY(0);
         }
 
-        /* Logo macron A styling (Aman-inspired) */
+        /* Aman-inspired A — crossbar-less chevron */
         .logo-a {
             position: relative;
             display: inline-block;
+            color: transparent;
         }
 
         .logo-a::after {
             content: '';
             position: absolute;
-            top: -1px;
-            left: 15%;
-            width: 70%;
-            height: 1px;
-            background: var(--primary-text);
+            top: 0.08em;
+            left: 5%;
+            width: 90%;
+            height: 0.75em;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 20'%3E%3Cline x1='7' y1='0.5' x2='0.5' y2='19.5' stroke='%23313131' stroke-width='1.1'/%3E%3Cline x1='7' y1='0.5' x2='13.5' y2='19.5' stroke='%23313131' stroke-width='1.1'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         /* ===== RESET & BASE ===== */
@@ -257,7 +261,7 @@
             z-index: 1000;
             padding: 18px 20px;
             display: grid;
-            grid-template-columns: 44px 1fr auto;
+            grid-template-columns: auto 1fr auto;
             align-items: center;
             gap: 12px;
             background: rgba(243, 238, 231, 0.95);
@@ -270,32 +274,59 @@
             border-bottom: 1px solid rgba(212, 196, 176, 0.3);
         }
 
+        /* Hamburger Menu Button — Aman Style */
         .hamburger {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            width: 44px;
-            height: 44px;
+            align-items: center;
+            gap: 10px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 10px 0;
+            padding: 0;
             z-index: 1001;
         }
 
-        .hamburger span {
+        .hamburger-lines {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 20px;
+            height: 14px;
+        }
+
+        .hamburger-lines span {
             display: block;
-            width: 22px;
-            height: 1.5px;
+            width: 100%;
+            height: 1px;
             background: var(--primary-text);
-            margin: 3px 0;
             transition: all 0.3s ease;
         }
 
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .hamburger-lines span:first-child {
+            margin-bottom: 5px;
+        }
+
+        .hamburger-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            display: none;
+        }
+
+        .hamburger.active .hamburger-lines span:first-child {
+            transform: rotate(45deg) translate(2px, 2px);
+        }
+
+        .hamburger.active .hamburger-lines span:last-child {
+            transform: rotate(-45deg) translate(2px, -2px);
+        }
+
+        .hamburger.active .hamburger-label {
+            visibility: hidden;
+        }
 
         .logo {
             font-family: 'Cormorant Garamond', Georgia, serif;
@@ -941,8 +972,12 @@
         @media (min-width: 768px) {
             header {
                 padding: 20px 40px;
-                grid-template-columns: 50px 1fr auto;
+                grid-template-columns: auto 1fr auto;
                 gap: 20px;
+            }
+
+            .hamburger-label {
+                display: block;
             }
 
             .logo { font-size: 1.2rem; }
@@ -984,7 +1019,7 @@
         @media (min-width: 1024px) {
             header {
                 padding: 22px 60px;
-                grid-template-columns: 50px 1fr auto;
+                grid-template-columns: auto 1fr auto;
                 gap: 20px;
             }
 
@@ -1019,7 +1054,7 @@
             }
 
             .header-cta { display: none; }
-            .hamburger span { width: 24px; }
+            .hamburger-lines { width: 22px; }
             .nav-overlay nav a { font-size: 3rem; }
 
             .page-hero {
@@ -1098,18 +1133,20 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen">
-        <span class="loading-logo">Nitin Sol<span class="logo-a">a</span>nki</span>
+        <span class="loading-logo">Nitin Solanki</span>
         <div class="loading-line"></div>
     </div>
 
     <!-- Header -->
     <header>
         <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
+            <div class="hamburger-lines">
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hamburger-label">Menu</span>
         </button>
-        <a href="index.html" class="logo">Nitin Sol<span class="logo-a">a</span>nki</a>
+        <a href="index.html" class="logo">Nitin Solanki</a>
         <div class="header-cta">
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </div>
@@ -1118,6 +1155,7 @@
             <a href="index.html#story">Story</a>
             <a href="about.html">About</a>
             <a href="travel.html">Travel</a>
+            <a href="career.html">Career</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
@@ -1129,6 +1167,7 @@
             <a href="index.html#story">Story</a>
             <a href="about.html">About</a>
             <a href="travel.html">Travel</a>
+            <a href="career.html">Career</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">Connect</a>
         </nav>
         <div class="nav-social">
