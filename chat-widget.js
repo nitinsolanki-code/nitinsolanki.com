@@ -111,10 +111,11 @@ class NitinChatWidget {
           top: 0;
           right: 0;
           width: 100%;
-          height: 100vh;
+          height: 100%;
+          height: 100dvh;
           border: none;
           border-radius: 0;
-          transform: translateY(-100vh);
+          transform: translateY(-100%);
           padding-bottom: env(safe-area-inset-bottom);
         }
 
@@ -306,16 +307,23 @@ class NitinChatWidget {
 
       #nitin-chat-input {
         flex: 1;
-        background: transparent;
-        border: none;
+        background: white;
+        border: 1px solid var(--chat-warm-taupe);
+        border-radius: 6px;
         outline: none;
         font-family: 'Inter', sans-serif;
-        font-size: 0.85rem;
+        font-size: 16px;
         color: var(--chat-primary-text);
         resize: none;
         max-height: 80px;
-        padding: 0;
+        padding: 10px 12px;
         line-height: 1.5;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      #nitin-chat-input:focus {
+        border-color: var(--chat-primary-text);
       }
 
       #nitin-chat-input::placeholder {
@@ -323,19 +331,17 @@ class NitinChatWidget {
       }
 
       #nitin-chat-send {
-        background: transparent;
+        background: var(--chat-primary-text);
         border: none;
+        border-radius: 6px;
         cursor: pointer;
         font-family: 'Inter', sans-serif;
-        font-size: 1.2rem;
-        color: var(--chat-primary-text);
-        padding: 0;
-        width: 20px;
-        height: 20px;
+        font-size: 1rem;
+        color: var(--chat-primary-bg);
+        padding: 10px 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: 0.6;
         transition: opacity 0.4s ease;
         flex-shrink: 0;
       }
@@ -370,11 +376,12 @@ class NitinChatWidget {
         }
 
         #nitin-chat-input-area {
-          padding: 16px 20px;
+          padding: 12px 16px;
+          padding-bottom: calc(12px + env(safe-area-inset-bottom));
         }
 
         #nitin-chat-input {
-          font-size: 0.8rem;
+          font-size: 16px;
         }
       }
     `;
@@ -508,7 +515,6 @@ class NitinChatWidget {
   openPanel() {
     this.isOpen = true;
     this.panel.classList.add('open');
-    this.inputField.focus();
 
     // Show greeting if no messages
     if (this.messageHistory.length === 0) {
@@ -516,6 +522,11 @@ class NitinChatWidget {
     }
 
     this.scrollToBottom();
+
+    // Delay focus for iOS Safari — keyboard won't appear if focus fires too early
+    setTimeout(() => {
+      this.inputField.focus();
+    }, 400);
   }
 
   closePanel() {
