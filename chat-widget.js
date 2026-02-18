@@ -4,7 +4,7 @@
 const CHAT_CONFIG = {
   apiEndpoint: 'https://nitin-chat-api.nitin-k-solanki.workers.dev',
   maxHistory: 10,
-  greeting: "Hello! I can tell you about Nitin's career, industries, advisory work, and expertise. What would you like to know?"
+  greeting: "Ask me anything about Nitin — his career, values, perspective, or what drives him."
 };
 
 class NitinChatWidget {
@@ -39,43 +39,52 @@ class NitinChatWidget {
         box-sizing: border-box;
       }
 
-      /* Trigger Button */
-      #nitin-chat-trigger {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 9998;
-        width: 60px;
-        height: 60px;
-        border: 1px solid var(--chat-primary-text);
-        background: var(--chat-primary-bg);
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
+      /* Trigger Button - Circle style in header */
+      #nitin-chat-trigger,
+      #nitin-chat-trigger-desktop {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-family: 'Inter', sans-serif;
-        font-size: 0.6rem;
-        font-weight: 500;
-        letter-spacing: 2px;
-        text-transform: uppercase;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
         color: var(--chat-primary-text);
-        transition: opacity 0.4s ease;
+        background: transparent;
+        border: 1px solid var(--chat-primary-text);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.5rem;
+        font-weight: 400;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
         padding: 0;
+        cursor: pointer;
+        transition: opacity 0.4s ease;
+        flex-shrink: 0;
       }
 
-      #nitin-chat-trigger:hover {
+      #nitin-chat-trigger:hover,
+      #nitin-chat-trigger-desktop:hover {
         opacity: 0.6;
       }
 
-      #nitin-chat-trigger:active {
+      #nitin-chat-trigger:active,
+      #nitin-chat-trigger-desktop:active {
         opacity: 0.5;
+      }
+
+      @media (min-width: 768px) {
+        #nitin-chat-trigger,
+        #nitin-chat-trigger-desktop {
+          width: 46px;
+          height: 46px;
+          font-size: 0.55rem;
+        }
       }
 
       /* Chat Panel - Desktop */
       #nitin-chat-panel {
         position: fixed;
-        bottom: 80px;
+        top: 70px;
         right: 30px;
         width: 380px;
         height: 520px;
@@ -84,7 +93,7 @@ class NitinChatWidget {
         z-index: 9999;
         display: flex;
         flex-direction: column;
-        transform: translateY(600px);
+        transform: translateY(-20px);
         opacity: 0;
         transition: transform 0.4s ease, opacity 0.4s ease;
         pointer-events: none;
@@ -98,27 +107,26 @@ class NitinChatWidget {
 
       /* Chat Panel - Mobile */
       @media (max-width: 768px) {
-        #nitin-chat-trigger {
-          width: 50px;
-          height: 50px;
-          bottom: 20px;
-          right: 20px;
-          font-size: 0.55rem;
-        }
-
         #nitin-chat-panel {
-          bottom: 0;
+          top: 0;
           right: 0;
           width: 100%;
           height: 100vh;
           border: none;
           border-radius: 0;
-          transform: translateY(100vh);
+          transform: translateY(-100vh);
           padding-bottom: env(safe-area-inset-bottom);
         }
 
         #nitin-chat-panel.open {
           transform: translateY(0);
+        }
+      }
+
+      @media (min-width: 1200px) {
+        #nitin-chat-panel {
+          top: 80px;
+          right: 60px;
         }
       }
 
@@ -378,7 +386,26 @@ class NitinChatWidget {
     const trigger = document.createElement('button');
     trigger.id = 'nitin-chat-trigger';
     trigger.textContent = 'Ask';
-    trigger.setAttribute('aria-label', 'Open chat with Nitin');
+    trigger.setAttribute('aria-label', 'Chat with nico.ai');
+
+    // Inject trigger into header nav areas
+    const headerCta = document.querySelector('.header-cta');
+    if (headerCta) {
+      headerCta.insertBefore(trigger, headerCta.firstChild);
+      headerCta.style.gap = '8px';
+    }
+    const desktopNav = document.querySelector('.desktop-nav');
+    if (desktopNav) {
+      const desktopTrigger = trigger.cloneNode(true);
+      desktopTrigger.id = 'nitin-chat-trigger-desktop';
+      const connectBtn = desktopNav.querySelector('.reserve-btn');
+      if (connectBtn) {
+        desktopNav.insertBefore(desktopTrigger, connectBtn);
+      } else {
+        desktopNav.appendChild(desktopTrigger);
+      }
+      this._desktopTrigger = desktopTrigger;
+    }
 
     // Create chat panel
     const panel = document.createElement('div');
@@ -388,8 +415,8 @@ class NitinChatWidget {
     const header = document.createElement('div');
     header.id = 'nitin-chat-header';
     header.innerHTML = `
-      <h2 id="nitin-chat-title">Nitin's AI</h2>
-      <p id="nitin-chat-subtitle">Ask me anything about Nitin's career and expertise</p>
+      <h2 id="nitin-chat-title">nico.ai</h2>
+      <p id="nitin-chat-subtitle">Ask me anything about Nitin</p>
       <button id="nitin-chat-close" aria-label="Close chat"></button>
     `;
 
@@ -415,9 +442,16 @@ class NitinChatWidget {
     panel.appendChild(messagesContainer);
     panel.appendChild(inputArea);
 
-    // Add to DOM
-    document.body.appendChild(trigger);
+    // Add panel to DOM (trigger is already in header)
     document.body.appendChild(panel);
+    // Fallback: if no header found, append trigger to body as fixed
+    if (!headerCta && !desktopNav) {
+      trigger.style.position = 'fixed';
+      trigger.style.top = '20px';
+      trigger.style.right = '20px';
+      trigger.style.zIndex = '9998';
+      document.body.appendChild(trigger);
+    }
 
     // Store references
     this.trigger = trigger;
@@ -429,8 +463,11 @@ class NitinChatWidget {
   }
 
   attachEventListeners() {
-    // Trigger button
+    // Trigger button(s)
     this.trigger.addEventListener('click', () => this.togglePanel());
+    if (this._desktopTrigger) {
+      this._desktopTrigger.addEventListener('click', () => this.togglePanel());
+    }
 
     // Close button
     this.closeButton.addEventListener('click', () => this.closePanel());

@@ -226,6 +226,54 @@ export default {
       });
     }
 
+    // GET /logs — retrieve saved questions (protected by secret key)
+    if (request.method === 'GET') {
+      const url = new URL(request.url);
+      if (url.pathname === '/logs') {
+        const authKey = url.searchParams.get('key');
+        if (!authKey || authKey !== env.LOGS_SECRET) {
+          return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+            status: 401,
+            headers: corsHeaders(),
+          });
+        }
+
+        if (!env.CHAT_LOGS) {
+          return new Response(JSON.stringify({ error: 'Logging not configured' }), {
+            status: 503,
+            headers: corsHeaders(),
+          });
+        }
+
+        try {
+          const list = await env.CHAT_LOGS.list({ prefix: 'q:', limit: 100 });
+          const logs = [];
+          for (const key of list.keys) {
+            const value = await env.CHAT_LOGS.get(key.name);
+            if (value) {
+              logs.push(JSON.parse(value));
+            }
+          }
+          // Sort newest first
+          logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+          return new Response(JSON.stringify({ logs, count: logs.length }), {
+            status: 200,
+            headers: corsHeaders(),
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ error: 'Failed to retrieve logs' }), {
+            status: 500,
+            headers: corsHeaders(),
+          });
+        }
+      }
+
+      return new Response(JSON.stringify({ status: 'Nico.AI is running' }), {
+        status: 200,
+        headers: corsHeaders(),
+      });
+    }
+
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405,
@@ -258,6 +306,23 @@ export default {
       // Increment rate limit (if KV is configured)
       if (env.RATE_LIMIT) {
         await env.RATE_LIMIT.put(rateLimitKey, String(currentCount + 1), { expirationTtl: 60 });
+      }
+
+      // Log the question (if KV is configured)
+      if (env.CHAT_LOGS) {
+        try {
+          const timestamp = new Date().toISOString();
+          const logKey = `q:${timestamp}:${crypto.randomUUID().slice(0, 8)}`;
+          const logEntry = JSON.stringify({
+            question: message.slice(0, 500),
+            ip: clientIP.slice(0, 3) + '***', // Partial IP for privacy
+            timestamp,
+            page: request.headers.get('Referer') || 'unknown',
+          });
+          await env.CHAT_LOGS.put(logKey, logEntry, { expirationTtl: 7776000 }); // 90 days
+        } catch (logErr) {
+          console.error('Logging error:', logErr); // Don't block chat if logging fails
+        }
       }
 
       // Build messages array for Claude
