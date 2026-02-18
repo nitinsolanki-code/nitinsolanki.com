@@ -42,7 +42,7 @@ He is in a "reinvention decade" — refining his identity, pruning distractions,
 
 === ORIGIN STORY ===
 
-Born in Luanshya, Zambia. Family moved to the United States when he was 10 — not out of hardship, but thinking long-term about education, opportunity, and a bigger future. Early exposure to business and customer service shaped his leadership: listen first, build trust, solve the real problem.
+Born in Luanshya, Zambia at approximately 11:30 AM. Family moved to the United States when he was 10 — not out of hardship, but thinking long-term about education, opportunity, and a bigger future. He carries a global identity — African birthplace, Indian heritage, American adulthood. That mix shaped how he sees people, culture, ambition, and belonging. He speaks Gujarati and enjoys bringing that cultural lens into life through humor, family values, food, and tradition. He's comfortable navigating multiple worlds: traditional and modern, spiritual and business, grounded and ambitious. Early exposure to business and customer service shaped his leadership: listen first, build trust, solve the real problem.
 
 Education: B.S. Electrical Engineering from Georgia Institute of Technology.
 Professional Development: Credential of Readiness (CORe), Disruptive Strategy, and Leading with Finance — all from Harvard Business School Online.
@@ -153,6 +153,9 @@ He has significant experience in CRM strategy, data architecture, and enterprise
 - Calm, elevated, premium aesthetic: Aman resort vibe, clean, minimal, quiet luxury
 - Cares about how he presents: wardrobe, brand, visuals, website style, cinematic mood
 - Wants his life to feel like "quiet confidence": clean schedule, curated circle, intentional experiences, high signal, low noise
+- Builds lifestyle goals around South Florida and Palm Beach — matches his desired blend of sunlight, movement, community, and premium simplicity
+- Drives a 2005 Lexus SC430
+- Vegan diet
 
 === CURRENT SEASON ===
 
@@ -162,6 +165,52 @@ He has significant experience in CRM strategy, data architecture, and enterprise
 - Building a life with fewer liabilities and more ownership
 - Risk-aware now, focused on controlled upside
 
+=== BUSINESS ECOSYSTEM (MORA SOL) ===
+
+Mora Sol is Nitin's brand ecosystem — a holding structure for his different lanes:
+- Mora Sol Holdings: the holding company entity (disregarded entity structure)
+- Mora Sol Funding: positioned for funding-related investments and structured capital ideas, aligned with his risk-first, downside-protected mindset
+- Mora Sol Digital: transformation and consulting projects — technology-enabled change, operating model upgrades, CRM and data architecture strategy, and execution leadership
+
+Business concepts he's developed or exploring:
+- Disaster Savings Account (DSA): an alternative mortgage concept for homeowners with substantial equity to opt out of traditional homeowners insurance. Homeowners fund a DSA; investors earn from mortgage interest plus DSA interest. Targets low LTV (under 50%), strong collateral, first-lien position.
+- YouTube sponsorship / ad agency: matching YouTube channels with sponsorship and ad placements integrated into content
+- Equipment financing: focused on South Florida with controlled scope
+
+=== INVESTMENT PHILOSOPHY ===
+
+- Risk-first mindset: protect downside first, not chasing reckless upside
+- Likes structure, clear terms, and risk controls
+- Optimizing for a life where money supports peace, family, freedom, and legacy
+- Wants smart, repeatable strategies — not constant stress
+- In one investor structure, returns were defined by class: Class A (500K+): 30% of DSA interest; Class B (250K-500K): 20%; Class C (100K): 10%
+
+=== EMOTIONAL & INNER WORLD ===
+
+- Reflective and pattern-aware — doesn't just ask what happened, asks why it happened, what it reveals, and what needs to change
+- Values truth over comfort; would rather face reality than live in denial
+- Drawn to emotional honesty and healthy vulnerability — not drama, not avoidance
+- Respects people who can talk, own their feelings, and still stay grounded
+- Creates personal truth lists from journaling — truths about what he wants, what he deserves, and what he's learning
+
+=== INTELLECTUAL STYLE ===
+
+- Systems thinker — likes frameworks, clear decision rules, and clean execution
+- Reads people well — pays attention to incentives, psychology, and patterns
+- Comfortable with complexity: strategy, stakeholder alignment, business constraints, real-world execution
+- Doesn't get stuck in theory; likes outcomes
+- Drawn to learning that improves real life — business, money, leadership, spirituality, health, relationships, personal clarity
+
+=== LOVE & PARTNERSHIP ===
+
+- Wants a relationship built on honesty, loyalty, kindness, and emotional maturity
+- Not looking for games — looking for depth, consistency, and genuine connection
+- Attracted to self-care, fitness, communication, transparency, loyalty, generosity, empathy, kindness, authenticity, grounded values, humility, adventurousness
+- Height preference: approximately 5'0" to 5'5"
+- Diet compatibility: vegetarian strongly preferred (he is vegan). Chicken and fish acceptable; beef is not.
+- Alcohol: moderation fine; not someone who gets wasted
+- Non-negotiables in love: no dishonesty or secrecy, no manipulation or ego games, no entitlement or disrespect, no chronic inconsistency
+
 === VISION ===
 
 - A refined identity: Entrepreneur, Investor, Advisor under one strong brand
@@ -169,6 +218,8 @@ He has significant experience in CRM strategy, data architecture, and enterprise
 - A legacy plan for his kids: structure, education, values, stability
 - A life with less chaos: fewer obligations, more ownership, cleaner energy
 - Building something that outlives him
+- Long-term goal: own a home on Palm Beach Island worth at least $10 million by age 60 — not just about a house; represents stability, accomplishment, and a premium life built with discipline
+- Wants life to feel: peaceful and grounded, premium but human, fun and connected, disciplined and aligned, surrounded by real people
 
 === 5 THEMES THAT DEFINE HIM ===
 
