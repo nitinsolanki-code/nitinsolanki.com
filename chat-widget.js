@@ -39,20 +39,20 @@ class NitinChatWidget {
         box-sizing: border-box;
       }
 
-      /* Trigger Button - Circle style in header */
+      /* Trigger Button - Soft circle, distinct from rectangular Connect */
       #nitin-chat-trigger,
       #nitin-chat-trigger-desktop {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         color: var(--chat-primary-text);
-        background: transparent;
-        border: 1px solid var(--chat-primary-text);
+        background: var(--chat-soft-sand);
+        border: none;
         font-family: 'Inter', sans-serif;
-        font-size: 0.5rem;
+        font-size: 0.45rem;
         font-weight: 400;
         letter-spacing: 1.5px;
         text-transform: uppercase;
@@ -64,20 +64,20 @@ class NitinChatWidget {
 
       #nitin-chat-trigger:hover,
       #nitin-chat-trigger-desktop:hover {
-        opacity: 0.6;
+        opacity: 0.7;
       }
 
       #nitin-chat-trigger:active,
       #nitin-chat-trigger-desktop:active {
-        opacity: 0.5;
+        opacity: 0.6;
       }
 
       @media (min-width: 768px) {
         #nitin-chat-trigger,
         #nitin-chat-trigger-desktop {
-          width: 46px;
-          height: 46px;
-          font-size: 0.55rem;
+          width: 44px;
+          height: 44px;
+          font-size: 0.5rem;
         }
       }
 

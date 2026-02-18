@@ -9,7 +9,6 @@ compatibility_date = "2024-01-01"
 # id = "your-kv-namespace-id"
 
 # Question logging KV namespace
-# Uncomment after creating: wrangler kv:namespace create "CHAT_LOGS"
-# [[kv_namespaces]]
-# binding = "CHAT_LOGS"
-# id = "4049447070"
+[[kv_namespaces]]
+binding = "CHAT_LOGS"
+id = "07c2da7b7dd14d9d92eca3ec13b8dc27"
