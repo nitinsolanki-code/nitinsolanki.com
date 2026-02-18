@@ -150,7 +150,7 @@ export default {
           'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-5-20250514',
+          model: 'claude-3-haiku-20240307',
           max_tokens: 500,
           system: SYSTEM_PROMPT,
           messages: messages,
@@ -160,7 +160,7 @@ export default {
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Claude API error:', response.status, errorText);
-        return new Response(JSON.stringify({ error: 'AI service temporarily unavailable.' }), {
+        return new Response(JSON.stringify({ error: 'AI service temporarily unavailable.', debug: errorText }), {
           status: 502,
           headers: corsHeaders(),
         });
