@@ -325,6 +325,35 @@ export default {
         }
       }
 
+      // GET /dashboard — visual analytics page
+      if (url.pathname === '/dashboard') {
+        const authKey = url.searchParams.get('key');
+        if (!authKey || authKey !== env.LOGS_SECRET) {
+          return new Response('Unauthorized', { status: 401 });
+        }
+
+        if (!env.CHAT_LOGS) {
+          return new Response('Logging not configured', { status: 503 });
+        }
+
+        try {
+          const list = await env.CHAT_LOGS.list({ prefix: 'q:', limit: 500 });
+          const logs = [];
+          for (const key of list.keys) {
+            const value = await env.CHAT_LOGS.get(key.name);
+            if (value) logs.push(JSON.parse(value));
+          }
+          logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+          return new Response(buildDashboardHTML(logs), {
+            status: 200,
+            headers: { 'Content-Type': 'text/html; charset=utf-8' },
+          });
+        } catch (err) {
+          return new Response('Error loading dashboard', { status: 500 });
+        }
+      }
+
       return new Response(JSON.stringify({ status: 'Nico.AI is running' }), {
         status: 200,
         headers: corsHeaders(),
@@ -449,4 +478,160 @@ function corsHeaders() {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
+}
+
+function esc(str) { return str.replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+function buildDashboardHTML(logs) {
+  const totalQuestions = logs.length;
+
+  // Questions per day (last 30 days)
+  const dailyCounts = {};
+  const now = new Date();
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    dailyCounts[d.toISOString().split('T')[0]] = 0;
+  }
+  logs.forEach(l => {
+    const day = l.timestamp.split('T')[0];
+    if (dailyCounts.hasOwnProperty(day)) dailyCounts[day]++;
+  });
+
+  // Questions by page
+  const pageCounts = {};
+  logs.forEach(l => {
+    const page = l.page ? l.page.replace(/https?:\/\/[^/]+/, '').replace(/\/$/, '') || '/' : 'unknown';
+    pageCounts[page] = (pageCounts[page] || 0) + 1;
+  });
+
+  // Questions by hour of day
+  const hourCounts = new Array(24).fill(0);
+  logs.forEach(l => {
+    const hour = new Date(l.timestamp).getHours();
+    hourCounts[hour]++;
+  });
+
+  // Common words (basic keyword extraction)
+  const stopWords = new Set(['what','how','is','the','a','an','and','or','to','in','of','for','on','with','about','does','do','can','his','he','me','i','my','was','are','has','have','this','that','it','from','who','why','where','when','tell','would','you','nitin']);
+  const wordCounts = {};
+  logs.forEach(l => {
+    const words = l.question.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/);
+    words.forEach(w => {
+      if (w.length > 2 && !stopWords.has(w)) {
+        wordCounts[w] = (wordCounts[w] || 0) + 1;
+      }
+    });
+  });
+  const topWords = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]).slice(0, 15);
+
+  // Build chart data
+  const chartDays = Object.keys(dailyCounts);
+  const chartValues = Object.values(dailyCounts);
+  const maxDaily = Math.max(...chartValues, 1);
+
+  const activeDays = chartValues.filter(v => v > 0).length;
+  const avgPerDay = activeDays > 0 ? Math.round(chartValues.reduce((a, b) => a + b, 0) / activeDays * 10) / 10 : 0;
+  const lastDate = logs.length > 0 ? new Date(logs[0].timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—';
+
+  // Build bars
+  const bars = chartValues.map(function(v, i) {
+    var pct = Math.max(v / maxDaily * 100, 2);
+    return '<div class="bar" style="height: ' + pct + '%" title="' + chartDays[i] + ': ' + v + ' questions"></div>';
+  }).join('');
+
+  // Build page rows
+  const pageRows = Object.entries(pageCounts).sort(function(a, b) { return b[1] - a[1]; }).map(function(entry) {
+    return '<div class="page-item"><span>' + esc(entry[0]) + '</span><span class="count-badge">' + entry[1] + '</span></div>';
+  }).join('');
+
+  // Build word tags
+  var wordTags = '';
+  if (topWords.length === 0) {
+    wordTags = '<span style="color: #999; font-size: 0.8rem;">Not enough data yet</span>';
+  } else {
+    var maxCount = topWords[0][1] || 1;
+    wordTags = topWords.map(function(entry) {
+      var size = Math.min(0.7 + (entry[1] / maxCount) * 0.5, 1.2);
+      return '<span class="word-tag" style="font-size: ' + size + 'rem">' + esc(entry[0]) + ' <small>(' + entry[1] + ')</small></span>';
+    }).join('');
+  }
+
+  // Build question rows
+  var questionRows = '';
+  if (logs.length === 0) {
+    questionRows = '<div class="question-item"><span style="color: #999;">No questions yet</span></div>';
+  } else {
+    questionRows = logs.slice(0, 50).map(function(l) {
+      var date = new Date(l.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      var pg = l.page ? l.page.replace(/https?:\/\/[^/]+/, '') || '/' : 'unknown';
+      return '<div class="question-item"><span class="question-text">' + esc(l.question) + '</span><span class="question-meta">' + date + ' &middot; ' + esc(pg) + '</span></div>';
+    }).join('');
+  }
+
+  var html = [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '<meta charset="UTF-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '<title>nico.ai Dashboard</title>',
+    '<style>',
+    '* { box-sizing: border-box; margin: 0; padding: 0; }',
+    'body { font-family: Inter, -apple-system, sans-serif; background: #F3EEE7; color: #313131; padding: 40px 20px; max-width: 1000px; margin: 0 auto; }',
+    'h1 { font-family: Georgia, serif; font-size: 1.6rem; font-weight: 400; letter-spacing: 1px; margin-bottom: 8px; }',
+    '.subtitle { color: #999; font-size: 0.8rem; margin-bottom: 40px; }',
+    '.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }',
+    '.stat-card { background: white; padding: 24px; border: 1px solid #E8DFD3; }',
+    '.stat-number { font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-bottom: 4px; }',
+    '.stat-label { font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: #999; }',
+    '.section { margin-bottom: 40px; }',
+    '.section-title { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 16px; }',
+    '.chart-container { background: white; border: 1px solid #E8DFD3; padding: 24px; }',
+    '.bar-chart { display: flex; align-items: flex-end; gap: 3px; height: 120px; }',
+    '.bar { flex: 1; background: #D4C4B0; min-width: 4px; border-radius: 2px 2px 0 0; transition: background 0.2s; }',
+    '.bar:hover { background: #313131; }',
+    '.bar-label { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.6rem; color: #999; }',
+    '.page-list, .question-list { background: white; border: 1px solid #E8DFD3; }',
+    '.page-item, .question-item { padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F3EEE7; font-size: 0.85rem; }',
+    '.page-item:last-child, .question-item:last-child { border-bottom: none; }',
+    '.count-badge { background: #E8DFD3; padding: 2px 10px; font-size: 0.75rem; border-radius: 10px; }',
+    '.question-item { flex-direction: column; align-items: flex-start; gap: 6px; }',
+    '.question-text { font-size: 0.85rem; }',
+    '.question-meta { font-size: 0.7rem; color: #999; }',
+    '.word-cloud { background: white; border: 1px solid #E8DFD3; padding: 24px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }',
+    '.word-tag { padding: 4px 12px; background: #F3EEE7; border: 1px solid #E8DFD3; font-size: 0.75rem; border-radius: 20px; }',
+    '.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }',
+    '@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } body { padding: 20px 16px; } }',
+    '</style>',
+    '</head>',
+    '<body>',
+    '<h1>nico.ai</h1>',
+    '<p class="subtitle">Chatbot Analytics Dashboard</p>',
+    '<div class="stats-row">',
+    '<div class="stat-card"><div class="stat-number">' + totalQuestions + '</div><div class="stat-label">Total Questions</div></div>',
+    '<div class="stat-card"><div class="stat-number">' + Object.keys(pageCounts).length + '</div><div class="stat-label">Pages Active</div></div>',
+    '<div class="stat-card"><div class="stat-number">' + lastDate + '</div><div class="stat-label">Last Question</div></div>',
+    '<div class="stat-card"><div class="stat-number">' + avgPerDay + '</div><div class="stat-label">Avg / Active Day</div></div>',
+    '</div>',
+    '<div class="section">',
+    '<div class="section-title">Questions &mdash; Last 30 Days</div>',
+    '<div class="chart-container">',
+    '<div class="bar-chart">' + bars + '</div>',
+    '<div class="bar-label"><span>' + chartDays[0] + '</span><span>' + chartDays[chartDays.length - 1] + '</span></div>',
+    '</div>',
+    '</div>',
+    '<div class="two-col">',
+    '<div class="section"><div class="section-title">By Page</div><div class="page-list">' + pageRows + '</div></div>',
+    '<div class="section"><div class="section-title">Popular Topics</div><div class="word-cloud">' + wordTags + '</div></div>',
+    '</div>',
+    '<div class="section">',
+    '<div class="section-title">Recent Questions</div>',
+    '<div class="question-list">' + questionRows + '</div>',
+    '</div>',
+    '</body>',
+    '</html>'
+  ].join('\n');
+
+  return html;
 }
