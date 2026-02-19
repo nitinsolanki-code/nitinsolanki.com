@@ -831,7 +831,7 @@ class NitinChatWidget {
 
     const connectChip = document.createElement('button');
     connectChip.className = 'nitin-chat-chip connect';
-    connectChip.textContent = 'Connect with Nitin';
+    connectChip.textContent = 'Collaborate';
     connectChip.addEventListener('click', () => {
       this.removeChips();
       this.startLeadFlow();
@@ -855,7 +855,7 @@ class NitinChatWidget {
     const nudge = document.createElement('button');
     nudge.className = 'nitin-chat-nudge';
     nudge.id = 'nitin-chat-nudge';
-    nudge.innerHTML = 'Want Nitin to reach out? <strong>Leave your info</strong>';
+    nudge.innerHTML = 'Interested in collaborating? <strong>Leave your info</strong>';
     nudge.addEventListener('click', () => {
       nudge.remove();
       this.startLeadFlow();
@@ -891,7 +891,7 @@ class NitinChatWidget {
     return [
       {
         key: 'name',
-        question: "I'd love to connect you with Nitin. What's your name?",
+        question: "Great — I'll get your info to Nitin. What's your name?",
         placeholder: 'Your full name',
         inputType: 'text',
         validate: (v) => v.length >= 2 ? null : 'Please enter your name.',
@@ -920,7 +920,7 @@ class NitinChatWidget {
     ];
   }
 
-  handleLeadInput(text) {
+  async handleLeadInput(text) {
     const steps = this.getLeadSteps();
     const currentStep = steps[this._leadStep];
 
@@ -962,7 +962,7 @@ class NitinChatWidget {
       }, 300);
     } else {
       // All steps complete — submit lead
-      this.submitLead();
+      await this.submitLead();
     }
   }
 

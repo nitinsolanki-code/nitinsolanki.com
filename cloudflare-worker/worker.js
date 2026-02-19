@@ -298,9 +298,10 @@ export default {
       });
     }
 
+    const url = new URL(request.url);
+
     // GET /logs — retrieve saved questions (protected by secret key)
     if (request.method === 'GET') {
-      const url = new URL(request.url);
       if (url.pathname === '/logs') {
         const authKey = url.searchParams.get('key');
         if (!authKey || authKey !== env.LOGS_SECRET) {
