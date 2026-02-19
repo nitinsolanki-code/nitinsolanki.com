@@ -424,6 +424,70 @@ class NitinChatWidget {
         50% { height: 12px; }
       }
 
+      /* Quick Action Chips */
+      .nitin-chat-chips {
+        display: flex;
+        gap: 8px;
+        padding: 0 24px;
+        flex-wrap: wrap;
+      }
+
+      .nitin-chat-chip {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--chat-warm-taupe);
+        background: transparent;
+        color: var(--chat-primary-text);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .nitin-chat-chip:hover {
+        background: var(--chat-soft-sand);
+      }
+
+      .nitin-chat-chip.connect {
+        background: var(--chat-primary-text);
+        color: var(--chat-primary-bg);
+        border-color: var(--chat-primary-text);
+      }
+
+      .nitin-chat-chip.connect:hover {
+        opacity: 0.85;
+      }
+
+      /* Lead Nudge */
+      .nitin-chat-nudge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 16px;
+        margin: 4px 24px;
+        background: var(--chat-soft-sand);
+        border: none;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        color: var(--chat-primary-text);
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+        animation: nitin-nudge-in 0.4s ease;
+      }
+
+      .nitin-chat-nudge:hover {
+        opacity: 0.8;
+      }
+
+      @keyframes nitin-nudge-in {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
       /* Error Message */
       .nitin-chat-error {
         color: var(--chat-accent-dark);
@@ -602,9 +666,10 @@ class NitinChatWidget {
     this.isOpen = true;
     this.panel.classList.add('open');
 
-    // Show greeting if no messages
+    // Show greeting and chips if first open
     if (this.messageHistory.length === 0) {
       this.addMessage(CHAT_CONFIG.greeting, 'ai');
+      this.showQuickChips();
     }
 
     this.scrollToBottom();
@@ -681,6 +746,12 @@ class NitinChatWidget {
     const wasVoiceInput = this._lastInputWasVoice || false;
     this._lastInputWasVoice = false;
 
+    // Remove quick chips on first send
+    this.removeChips();
+
+    // Track user message count for lead nudge
+    this._userMessageCount = (this._userMessageCount || 0) + 1;
+
     // Add user message
     this.addMessage(text, 'user');
     this.inputField.value = '';
@@ -717,6 +788,11 @@ class NitinChatWidget {
 
       this.addMessage(aiMessage, 'ai');
 
+      // Show lead nudge after 3 user messages
+      if (this._userMessageCount === 3) {
+        setTimeout(() => this.showLeadNudge(), 800);
+      }
+
       // Speak the response if the question was asked by voice
       if (wasVoiceInput) {
         this.speakResponse(aiMessage);
@@ -730,6 +806,60 @@ class NitinChatWidget {
       this.isWaitingForResponse = false;
       this.inputField.focus();
     }
+  }
+
+  // ===== QUICK ACTIONS & LEAD NUDGE =====
+
+  showQuickChips() {
+    const chipContainer = document.createElement('div');
+    chipContainer.className = 'nitin-chat-chips';
+    chipContainer.id = 'nitin-chat-chips';
+
+    const askChip = document.createElement('button');
+    askChip.className = 'nitin-chat-chip';
+    askChip.textContent = 'Ask a question';
+    askChip.addEventListener('click', () => {
+      this.removeChips();
+      this.inputField.focus();
+    });
+
+    const connectChip = document.createElement('button');
+    connectChip.className = 'nitin-chat-chip connect';
+    connectChip.textContent = 'Connect with Nitin';
+    connectChip.addEventListener('click', () => {
+      this.removeChips();
+      this.inputField.value = "I'd like to connect with Nitin";
+      this.sendMessage();
+    });
+
+    chipContainer.appendChild(askChip);
+    chipContainer.appendChild(connectChip);
+    this.messagesContainer.appendChild(chipContainer);
+    this.scrollToBottom();
+  }
+
+  removeChips() {
+    const chips = document.getElementById('nitin-chat-chips');
+    if (chips) chips.remove();
+  }
+
+  showLeadNudge() {
+    // Don't show if already shown or if lead already captured
+    if (this._nudgeShown || this._leadCaptured) return;
+    this._nudgeShown = true;
+
+    const nudge = document.createElement('button');
+    nudge.className = 'nitin-chat-nudge';
+    nudge.id = 'nitin-chat-nudge';
+    nudge.innerHTML = 'Want Nitin to reach out? <strong>Leave your info</strong>';
+    nudge.addEventListener('click', () => {
+      nudge.remove();
+      this.inputField.value = "I'd like to connect with Nitin — happy to share my info";
+      this.sendMessage();
+    });
+
+    this.messagesContainer.appendChild(nudge);
+    this.scrollToBottom();
   }
 
   // ===== VOICE FEATURES =====
