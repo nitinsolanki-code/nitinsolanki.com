@@ -384,6 +384,41 @@ export default {
       });
     }
 
+    // === LEAD SUBMISSION ENDPOINT ===
+    if (url.pathname === '/lead' && request.method === 'POST') {
+      try {
+        const leadData = await request.json();
+        const cf = request.cf || {};
+
+        const lead = {
+          name: (leadData.name || '').slice(0, 100),
+          email: (leadData.email || '').slice(0, 100),
+          phone: (leadData.phone || '').slice(0, 30),
+          interest: (leadData.interest || '').slice(0, 500),
+          timestamp: new Date().toISOString(),
+          page: request.headers.get('Referer') || 'unknown',
+          city: cf.city || 'unknown',
+          region: cf.region || 'unknown',
+          country: cf.country || 'unknown',
+          source: 'chat-widget',
+        };
+
+        const leadKey = 'lead:' + Date.now() + ':' + Math.random().toString(36).slice(2, 8);
+        await env.CHAT_LOGS.put(leadKey, JSON.stringify(lead), { expirationTtl: 31536000 });
+
+        return new Response(JSON.stringify({ success: true }), {
+          status: 200,
+          headers: corsHeaders(),
+        });
+      } catch (err) {
+        console.error('Lead save error:', err);
+        return new Response(JSON.stringify({ error: 'Failed to save lead' }), {
+          status: 500,
+          headers: corsHeaders(),
+        });
+      }
+    }
+
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405,
@@ -649,8 +684,11 @@ function buildDashboardHTML(logs, leads) {
       var date = new Date(l.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
       var loc = (l.city && l.city !== 'unknown') ? ' &middot; ' + esc(l.city) + ', ' + esc(l.country || '') : '';
       var pg = l.page ? l.page.replace(/https?:\/\/[^/]+/, '') || '/' : '';
+      var phone = l.phone ? '<div class="lead-detail">Phone: ' + esc(l.phone) + '</div>' : '';
+      var interest = l.interest ? '<div class="lead-detail">Interest: ' + esc(l.interest) + '</div>' : '';
+      // Backward compat: show conversation if present (old format)
       var convo = '';
-      if (l.conversation && l.conversation.length > 0) {
+      if (!l.phone && !l.interest && l.conversation && l.conversation.length > 0) {
         convo = '<div class="lead-convo">' + l.conversation.map(function(c) { return '<div class="convo-line">' + esc(c) + '</div>'; }).join('') + '</div>';
       }
       return '<div class="lead-item">' +
@@ -658,6 +696,7 @@ function buildDashboardHTML(logs, leads) {
         '<div><strong>' + esc(l.name || 'Unknown') + '</strong></div>' +
         '<div class="lead-email">' + esc(l.email || 'Unknown') + '</div>' +
         '</div>' +
+        phone + interest +
         '<div class="question-meta">' + date + loc + (pg ? ' &middot; ' + esc(pg) : '') + '</div>' +
         convo +
         '</div>';
@@ -702,6 +741,7 @@ function buildDashboardHTML(logs, leads) {
     '.lead-item:last-child { border-bottom: none; }',
     '.lead-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }',
     '.lead-email { font-size: 0.8rem; color: #666; }',
+    '.lead-detail { font-size: 0.8rem; color: #555; margin-top: 4px; }',
     '.lead-convo { margin-top: 8px; padding: 10px 12px; background: #F3EEE7; border-radius: 4px; font-size: 0.75rem; max-height: 120px; overflow-y: auto; }',
     '.convo-line { margin-bottom: 4px; line-height: 1.4; }',
     '.leads-badge { display: inline-block; background: #313131; color: #F3EEE7; padding: 2px 10px; border-radius: 10px; font-size: 0.75rem; margin-left: 8px; }',

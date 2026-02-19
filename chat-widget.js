@@ -738,6 +738,12 @@ class NitinChatWidget {
   async sendMessage() {
     const text = this.inputField.value.trim();
 
+    // During lead flow, route to lead handler (allow empty for phone skip)
+    if (this._inLeadFlow) {
+      this.handleLeadInput(text);
+      return;
+    }
+
     if (!text || this.isWaitingForResponse) {
       return;
     }
@@ -808,7 +814,7 @@ class NitinChatWidget {
     }
   }
 
-  // ===== QUICK ACTIONS & LEAD NUDGE =====
+  // ===== QUICK ACTIONS & LEAD CAPTURE FLOW =====
 
   showQuickChips() {
     const chipContainer = document.createElement('div');
@@ -828,8 +834,7 @@ class NitinChatWidget {
     connectChip.textContent = 'Connect with Nitin';
     connectChip.addEventListener('click', () => {
       this.removeChips();
-      this.inputField.value = "I'd like to connect with Nitin";
-      this.sendMessage();
+      this.startLeadFlow();
     });
 
     chipContainer.appendChild(askChip);
@@ -844,7 +849,6 @@ class NitinChatWidget {
   }
 
   showLeadNudge() {
-    // Don't show if already shown or if lead already captured
     if (this._nudgeShown || this._leadCaptured) return;
     this._nudgeShown = true;
 
@@ -854,12 +858,136 @@ class NitinChatWidget {
     nudge.innerHTML = 'Want Nitin to reach out? <strong>Leave your info</strong>';
     nudge.addEventListener('click', () => {
       nudge.remove();
-      this.inputField.value = "I'd like to connect with Nitin — happy to share my info";
-      this.sendMessage();
+      this.startLeadFlow();
     });
 
     this.messagesContainer.appendChild(nudge);
     this.scrollToBottom();
+  }
+
+  // ===== STRUCTURED LEAD CAPTURE =====
+
+  startLeadFlow() {
+    if (this._leadCaptured) return;
+    this._inLeadFlow = true;
+    this._leadData = {};
+    this._leadStep = 0;
+
+    // Remove nudge if present
+    const nudge = document.getElementById('nitin-chat-nudge');
+    if (nudge) nudge.remove();
+
+    // Disable normal input behavior during lead flow
+    this.inputField.removeAttribute('disabled');
+
+    const steps = this.getLeadSteps();
+    this.addMessage(steps[0].question, 'ai');
+    this.inputField.placeholder = steps[0].placeholder;
+    this.inputField.type = steps[0].inputType || 'text';
+    this.inputField.focus();
+  }
+
+  getLeadSteps() {
+    return [
+      {
+        key: 'name',
+        question: "I'd love to connect you with Nitin. What's your name?",
+        placeholder: 'Your full name',
+        inputType: 'text',
+        validate: (v) => v.length >= 2 ? null : 'Please enter your name.',
+      },
+      {
+        key: 'email',
+        question: null, // Set dynamically with name
+        placeholder: 'your@email.com',
+        inputType: 'email',
+        validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "That doesn't look like a valid email. Try again?",
+      },
+      {
+        key: 'phone',
+        question: 'And a phone number? (optional — just hit send to skip)',
+        placeholder: '(555) 123-4567 or skip',
+        inputType: 'tel',
+        validate: () => null, // Optional
+      },
+      {
+        key: 'interest',
+        question: 'Last one — what are you interested in connecting about?',
+        placeholder: 'Business, collaboration, consulting...',
+        inputType: 'text',
+        validate: () => null, // Optional
+      },
+    ];
+  }
+
+  handleLeadInput(text) {
+    const steps = this.getLeadSteps();
+    const currentStep = steps[this._leadStep];
+
+    // Show what user typed
+    this.addMessage(text, 'user');
+    this.inputField.value = '';
+
+    // Validate
+    const error = currentStep.validate(text);
+    if (error) {
+      this.addMessage(error, 'ai');
+      return;
+    }
+
+    // Save value (phone can be skipped)
+    if (currentStep.key === 'phone' && text.trim() === '') {
+      this._leadData.phone = '';
+    } else {
+      this._leadData[currentStep.key] = text.trim();
+    }
+
+    // Move to next step
+    this._leadStep++;
+
+    if (this._leadStep < steps.length) {
+      const nextStep = steps[this._leadStep];
+      let question = nextStep.question;
+
+      // Personalize email question with their name
+      if (nextStep.key === 'email') {
+        question = 'Nice to meet you, ' + this._leadData.name + ". What's your email?";
+      }
+
+      setTimeout(() => {
+        this.addMessage(question, 'ai');
+        this.inputField.placeholder = nextStep.placeholder;
+        this.inputField.type = nextStep.inputType || 'text';
+        this.inputField.focus();
+      }, 300);
+    } else {
+      // All steps complete — submit lead
+      this.submitLead();
+    }
+  }
+
+  async submitLead() {
+    this.inputField.placeholder = 'Type or tap mic...';
+    this.inputField.type = 'text';
+
+    // Show confirmation
+    const name = this._leadData.name || '';
+    const firstName = name.split(' ')[0];
+    this.addMessage("Thanks, " + firstName + "! I've passed your info to Nitin — he'll be in touch soon. Feel free to keep asking me anything in the meantime.", 'ai');
+
+    this._inLeadFlow = false;
+    this._leadCaptured = true;
+
+    // Send to worker
+    try {
+      await fetch(CHAT_CONFIG.apiEndpoint + '/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this._leadData),
+      });
+    } catch (err) {
+      console.error('Lead submit error:', err);
+    }
   }
 
   // ===== VOICE FEATURES =====
