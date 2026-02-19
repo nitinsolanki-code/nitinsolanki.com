@@ -355,6 +355,75 @@ class NitinChatWidget {
         opacity: 0.3;
       }
 
+      /* Mic Button */
+      #nitin-chat-mic {
+        background: transparent;
+        border: 1px solid var(--chat-warm-taupe);
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      #nitin-chat-mic svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--chat-primary-text);
+        transition: fill 0.3s ease;
+      }
+
+      #nitin-chat-mic:hover {
+        border-color: var(--chat-primary-text);
+      }
+
+      #nitin-chat-mic.listening {
+        background: var(--chat-primary-text);
+        border-color: var(--chat-primary-text);
+        animation: nitin-mic-pulse 1.5s ease-in-out infinite;
+      }
+
+      #nitin-chat-mic.listening svg {
+        fill: var(--chat-primary-bg);
+      }
+
+      @keyframes nitin-mic-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+      }
+
+      #nitin-chat-mic.unsupported {
+        display: none;
+      }
+
+      /* Speaking indicator */
+      .nitin-chat-speaking {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 6px;
+      }
+
+      .nitin-chat-speaking span {
+        display: inline-block;
+        width: 3px;
+        height: 10px;
+        background: var(--chat-primary-text);
+        border-radius: 1px;
+        animation: nitin-speak-bar 0.8s ease-in-out infinite;
+      }
+
+      .nitin-chat-speaking span:nth-child(2) { animation-delay: 0.15s; }
+      .nitin-chat-speaking span:nth-child(3) { animation-delay: 0.3s; }
+
+      @keyframes nitin-speak-bar {
+        0%, 100% { height: 4px; }
+        50% { height: 12px; }
+      }
+
       /* Error Message */
       .nitin-chat-error {
         color: var(--chat-accent-dark);
@@ -435,10 +504,16 @@ class NitinChatWidget {
     const inputArea = document.createElement('div');
     inputArea.id = 'nitin-chat-input-area';
     inputArea.innerHTML = `
+      <button id="nitin-chat-mic" aria-label="Voice input">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5z"/>
+          <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+        </svg>
+      </button>
       <input
         type="text"
         id="nitin-chat-input"
-        placeholder="Type a question..."
+        placeholder="Type or tap mic..."
         autocomplete="off"
       />
       <button id="nitin-chat-send" aria-label="Send message">→</button>
@@ -467,6 +542,14 @@ class NitinChatWidget {
     this.inputField = document.getElementById('nitin-chat-input');
     this.sendButton = document.getElementById('nitin-chat-send');
     this.closeButton = document.getElementById('nitin-chat-close');
+    this.micButton = document.getElementById('nitin-chat-mic');
+    this.isListening = false;
+    this.isSpeaking = false;
+    this.recognition = null;
+    this.synthesis = window.speechSynthesis;
+
+    // Set up speech recognition
+    this.setupSpeechRecognition();
   }
 
   attachEventListeners() {
@@ -481,6 +564,9 @@ class NitinChatWidget {
 
     // Send button
     this.sendButton.addEventListener('click', () => this.sendMessage());
+
+    // Mic button
+    this.micButton.addEventListener('click', () => this.toggleVoiceInput());
 
     // Input field
     this.inputField.addEventListener('keypress', (e) => {
@@ -591,6 +677,10 @@ class NitinChatWidget {
       return;
     }
 
+    // Track if this was a voice-initiated message
+    const wasVoiceInput = this._lastInputWasVoice || false;
+    this._lastInputWasVoice = false;
+
     // Add user message
     this.addMessage(text, 'user');
     this.inputField.value = '';
@@ -626,6 +716,11 @@ class NitinChatWidget {
       const aiMessage = data.response || 'I didn\'t receive a valid response. Please try again.';
 
       this.addMessage(aiMessage, 'ai');
+
+      // Speak the response if the question was asked by voice
+      if (wasVoiceInput) {
+        this.speakResponse(aiMessage);
+      }
     } catch (error) {
       this.removeTypingIndicator();
       console.error('Chat widget error:', error);
@@ -635,6 +730,124 @@ class NitinChatWidget {
       this.isWaitingForResponse = false;
       this.inputField.focus();
     }
+  }
+
+  // ===== VOICE FEATURES =====
+
+  setupSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      this.micButton.classList.add('unsupported');
+      return;
+    }
+
+    this.recognition = new SpeechRecognition();
+    this.recognition.continuous = false;
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'en-US';
+
+    this.recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      this.inputField.value = transcript;
+
+      // Auto-send when speech recognition returns a final result
+      if (event.results[event.results.length - 1].isFinal) {
+        this.stopListening();
+        if (transcript.trim()) {
+          this._lastInputWasVoice = true;
+          this.sendMessage();
+        }
+      }
+    };
+
+    this.recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+      this.stopListening();
+    };
+
+    this.recognition.onend = () => {
+      this.stopListening();
+    };
+  }
+
+  toggleVoiceInput() {
+    if (this.isListening) {
+      this.stopListening();
+    } else {
+      this.startListening();
+    }
+  }
+
+  startListening() {
+    if (!this.recognition) return;
+
+    // Stop any ongoing TTS
+    if (this.isSpeaking) {
+      this.synthesis.cancel();
+      this.isSpeaking = false;
+    }
+
+    this.isListening = true;
+    this.micButton.classList.add('listening');
+    this.inputField.placeholder = 'Listening...';
+    this.inputField.value = '';
+
+    try {
+      this.recognition.start();
+    } catch (e) {
+      // Already started
+      this.stopListening();
+    }
+  }
+
+  stopListening() {
+    this.isListening = false;
+    this.micButton.classList.remove('listening');
+    this.inputField.placeholder = 'Type or tap mic...';
+
+    try {
+      this.recognition.stop();
+    } catch (e) {
+      // Already stopped
+    }
+  }
+
+  speakResponse(text) {
+    if (!this.synthesis) return;
+
+    // Cancel any ongoing speech
+    this.synthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.95;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+
+    // Try to pick a natural-sounding voice
+    const voices = this.synthesis.getVoices();
+    const preferred = voices.find(v =>
+      v.name.includes('Samantha') || // iOS
+      v.name.includes('Google UK English Female') || // Chrome
+      v.name.includes('Microsoft Zira') || // Windows
+      (v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
+    ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+
+    if (preferred) utterance.voice = preferred;
+
+    this.isSpeaking = true;
+
+    utterance.onend = () => {
+      this.isSpeaking = false;
+    };
+
+    utterance.onerror = () => {
+      this.isSpeaking = false;
+    };
+
+    this.synthesis.speak(utterance);
   }
 
   scrollToBottom() {
