@@ -379,6 +379,44 @@ export default {
         }
       }
 
+      // GET /clear — delete all leads, logs, or both (protected by secret key)
+      if (url.pathname === '/clear') {
+        const authKey = url.searchParams.get('key');
+        if (!authKey || authKey !== env.LOGS_SECRET) {
+          return new Response('Unauthorized', { status: 401 });
+        }
+
+        const target = url.searchParams.get('target') || 'all'; // 'leads', 'logs', or 'all'
+        let deleted = 0;
+
+        try {
+          if (target === 'leads' || target === 'all') {
+            const leadList = await env.CHAT_LOGS.list({ prefix: 'lead:', limit: 1000 });
+            for (const key of leadList.keys) {
+              await env.CHAT_LOGS.delete(key.name);
+              deleted++;
+            }
+          }
+          if (target === 'logs' || target === 'all') {
+            const logList = await env.CHAT_LOGS.list({ prefix: 'q:', limit: 1000 });
+            for (const key of logList.keys) {
+              await env.CHAT_LOGS.delete(key.name);
+              deleted++;
+            }
+          }
+
+          return new Response(JSON.stringify({ success: true, deleted: deleted, target: target }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ error: 'Failed to clear data' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+      }
+
       return new Response(JSON.stringify({ status: 'Nico.AI is running' }), {
         status: 200,
         headers: corsHeaders(),
@@ -520,28 +558,8 @@ export default {
       const data = await response.json();
       let aiResponse = data.content?.[0]?.text || 'I apologize, but I was unable to generate a response.';
 
-      // Lead capture detection — parse structured tag from AI response
-      const leadTagMatch = aiResponse.match(/\[LEAD_CAPTURED\s+name="([^"]*)"\s+email="([^"]*)"\]/);
-      if (leadTagMatch && env.CHAT_LOGS) {
-        try {
-          const lead = {
-            name: leadTagMatch[1] || 'Unknown',
-            email: leadTagMatch[2] || 'Unknown',
-            timestamp: new Date().toISOString(),
-            page: request.headers.get('Referer') || 'unknown',
-            city: (request.cf || {}).city || 'unknown',
-            country: (request.cf || {}).country || 'unknown',
-            conversation: messages.slice(-6).map(m => m.role + ': ' + m.content.slice(0, 200)),
-          };
-
-          const leadKey = 'lead:' + Date.now() + ':' + Math.random().toString(36).slice(2, 8);
-          await env.CHAT_LOGS.put(leadKey, JSON.stringify(lead), { expirationTtl: 31536000 }); // 1 year
-        } catch (leadErr) {
-          console.error('Lead capture error:', leadErr);
-        }
-        // Strip the tag from the response
-        aiResponse = aiResponse.replace(/\s*\[LEAD_CAPTURED\s+name="[^"]*"\s+email="[^"]*"\]\s*/g, '').trim();
-      }
+      // Strip any lead capture tags the AI might still output (leads are now handled via /lead endpoint)
+      aiResponse = aiResponse.replace(/\s*\[LEAD_CAPTURED[^\]]*\]\s*/g, '').trim();
 
       return new Response(JSON.stringify({ response: aiResponse }), {
         status: 200,
