@@ -267,7 +267,22 @@ When someone wants to connect with Nitin or reach out to him:
 - For professional topics (consulting, advisory, career, business, partnerships): direct them to LinkedIn — linkedin.com/in/nitinsolanki — and say something like "You can connect with Nitin professionally on LinkedIn."
 - For personal topics (lifestyle, travel, personal interests, spirituality): suggest Facebook or Instagram — and say something like "For personal connection, you can find Nitin on Facebook or Instagram."
 - If the context is unclear or general, default to LinkedIn
-- If someone asks something not covered here, say you'd recommend connecting with Nitin directly — on LinkedIn for professional matters, or Facebook/Instagram for personal`;
+- If someone asks something not covered here, say you'd recommend connecting with Nitin directly — on LinkedIn for professional matters, or Facebook/Instagram for personal
+
+=== LEAD CAPTURE ===
+
+If someone expresses interest in working with Nitin, hiring him, collaborating, getting consulting help, or partnering — in addition to directing them to LinkedIn, offer to take their contact info so Nitin can reach out directly. Say something natural like:
+
+"I'd be happy to pass your info along to Nitin so he can reach out directly. If you'd like, just share your name and email and I'll make sure he gets it."
+
+When someone provides their name and email, respond with a natural confirmation — thank them and confirm Nitin will follow up. Then on the very last line of your response, include this exact tag with their info filled in:
+
+[LEAD_CAPTURED name="Their Full Name" email="their@email.com"]
+
+Replace the values with what they actually provided. This tag MUST be on its own line at the very end. The name and email MUST be inside the quotes. If they only gave a name but no email, still include the tag with email="unknown". If they only gave an email but no name, use name="unknown". Examples:
+
+[LEAD_CAPTURED name="Sarah Johnson" email="sarah@company.com"]
+[LEAD_CAPTURED name="Mike" email="unknown"]`;
 
 export default {
   async fetch(request, env) {
@@ -345,7 +360,16 @@ export default {
           }
           logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-          return new Response(buildDashboardHTML(logs), {
+          // Load leads
+          const leadList = await env.CHAT_LOGS.list({ prefix: 'lead:', limit: 200 });
+          const leads = [];
+          for (const key of leadList.keys) {
+            const value = await env.CHAT_LOGS.get(key.name);
+            if (value) leads.push(JSON.parse(value));
+          }
+          leads.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+          return new Response(buildDashboardHTML(logs, leads), {
             status: 200,
             headers: { 'Content-Type': 'text/html; charset=utf-8' },
           });
@@ -399,11 +423,15 @@ export default {
         try {
           const timestamp = new Date().toISOString();
           const logKey = `q:${timestamp}:${crypto.randomUUID().slice(0, 8)}`;
+          const cf = request.cf || {};
           const logEntry = JSON.stringify({
             question: message.slice(0, 500),
-            ip: clientIP.slice(0, 3) + '***', // Partial IP for privacy
+            ip: clientIP.slice(0, 3) + '***',
             timestamp,
             page: request.headers.get('Referer') || 'unknown',
+            city: cf.city || 'unknown',
+            region: cf.region || 'unknown',
+            country: cf.country || 'unknown',
           });
           await env.CHAT_LOGS.put(logKey, logEntry, { expirationTtl: 7776000 }); // 90 days
         } catch (logErr) {
@@ -454,7 +482,30 @@ export default {
       }
 
       const data = await response.json();
-      const aiResponse = data.content?.[0]?.text || 'I apologize, but I was unable to generate a response.';
+      let aiResponse = data.content?.[0]?.text || 'I apologize, but I was unable to generate a response.';
+
+      // Lead capture detection — parse structured tag from AI response
+      const leadTagMatch = aiResponse.match(/\[LEAD_CAPTURED\s+name="([^"]*)"\s+email="([^"]*)"\]/);
+      if (leadTagMatch && env.CHAT_LOGS) {
+        try {
+          const lead = {
+            name: leadTagMatch[1] || 'Unknown',
+            email: leadTagMatch[2] || 'Unknown',
+            timestamp: new Date().toISOString(),
+            page: request.headers.get('Referer') || 'unknown',
+            city: (request.cf || {}).city || 'unknown',
+            country: (request.cf || {}).country || 'unknown',
+            conversation: messages.slice(-6).map(m => m.role + ': ' + m.content.slice(0, 200)),
+          };
+
+          const leadKey = 'lead:' + Date.now() + ':' + Math.random().toString(36).slice(2, 8);
+          await env.CHAT_LOGS.put(leadKey, JSON.stringify(lead), { expirationTtl: 31536000 }); // 1 year
+        } catch (leadErr) {
+          console.error('Lead capture error:', leadErr);
+        }
+        // Strip the tag from the response
+        aiResponse = aiResponse.replace(/\s*\[LEAD_CAPTURED\s+name="[^"]*"\s+email="[^"]*"\]\s*/g, '').trim();
+      }
 
       return new Response(JSON.stringify({ response: aiResponse }), {
         status: 200,
@@ -482,7 +533,8 @@ function corsHeaders() {
 
 function esc(str) { return str.replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-function buildDashboardHTML(logs) {
+function buildDashboardHTML(logs, leads) {
+  leads = leads || [];
   const totalQuestions = logs.length;
 
   // Questions per day (last 30 days)
@@ -503,6 +555,15 @@ function buildDashboardHTML(logs) {
   logs.forEach(l => {
     const page = l.page ? l.page.replace(/https?:\/\/[^/]+/, '').replace(/\/$/, '') || '/' : 'unknown';
     pageCounts[page] = (pageCounts[page] || 0) + 1;
+  });
+
+  // Questions by location
+  const locationCounts = {};
+  logs.forEach(l => {
+    if (l.city && l.city !== 'unknown') {
+      const loc = l.city + ', ' + (l.region || l.country || '');
+      locationCounts[loc] = (locationCounts[loc] || 0) + 1;
+    }
   });
 
   // Questions by hour of day
@@ -557,6 +618,12 @@ function buildDashboardHTML(logs) {
     }).join('');
   }
 
+  // Build location rows
+  const locationRows = Object.entries(locationCounts).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 10).map(function(entry) {
+    return '<div class="page-item"><span>' + esc(entry[0]) + '</span><span class="count-badge">' + entry[1] + '</span></div>';
+  }).join('');
+  const locationContent = locationRows || '<div class="page-item"><span style="color: #999;">No location data yet</span></div>';
+
   // Build question rows
   var questionRows = '';
   if (logs.length === 0) {
@@ -565,7 +632,35 @@ function buildDashboardHTML(logs) {
     questionRows = logs.slice(0, 50).map(function(l) {
       var date = new Date(l.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
       var pg = l.page ? l.page.replace(/https?:\/\/[^/]+/, '') || '/' : 'unknown';
-      return '<div class="question-item"><span class="question-text">' + esc(l.question) + '</span><span class="question-meta">' + date + ' &middot; ' + esc(pg) + '</span></div>';
+      var loc = (l.city && l.city !== 'unknown') ? l.city + ', ' + (l.region || l.country || '') : '';
+      var meta = date + ' &middot; ' + esc(pg);
+      if (loc) meta += ' &middot; ' + esc(loc);
+      return '<div class="question-item"><span class="question-text">' + esc(l.question) + '</span><span class="question-meta">' + meta + '</span></div>';
+    }).join('');
+  }
+
+  // Build leads section
+  var leadsCount = leads.length;
+  var leadRows = '';
+  if (leads.length === 0) {
+    leadRows = '<div class="question-item"><span style="color: #999;">No leads captured yet</span></div>';
+  } else {
+    leadRows = leads.slice(0, 30).map(function(l) {
+      var date = new Date(l.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      var loc = (l.city && l.city !== 'unknown') ? ' &middot; ' + esc(l.city) + ', ' + esc(l.country || '') : '';
+      var pg = l.page ? l.page.replace(/https?:\/\/[^/]+/, '') || '/' : '';
+      var convo = '';
+      if (l.conversation && l.conversation.length > 0) {
+        convo = '<div class="lead-convo">' + l.conversation.map(function(c) { return '<div class="convo-line">' + esc(c) + '</div>'; }).join('') + '</div>';
+      }
+      return '<div class="lead-item">' +
+        '<div class="lead-header">' +
+        '<div><strong>' + esc(l.name || 'Unknown') + '</strong></div>' +
+        '<div class="lead-email">' + esc(l.email || 'Unknown') + '</div>' +
+        '</div>' +
+        '<div class="question-meta">' + date + loc + (pg ? ' &middot; ' + esc(pg) : '') + '</div>' +
+        convo +
+        '</div>';
     }).join('');
   }
 
@@ -602,7 +697,16 @@ function buildDashboardHTML(logs) {
     '.word-cloud { background: white; border: 1px solid #E8DFD3; padding: 24px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }',
     '.word-tag { padding: 4px 12px; background: #F3EEE7; border: 1px solid #E8DFD3; font-size: 0.75rem; border-radius: 20px; }',
     '.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }',
-    '@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } body { padding: 20px 16px; } }',
+    '.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }',
+    '.lead-item { padding: 16px 20px; border-bottom: 1px solid #F3EEE7; }',
+    '.lead-item:last-child { border-bottom: none; }',
+    '.lead-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }',
+    '.lead-email { font-size: 0.8rem; color: #666; }',
+    '.lead-convo { margin-top: 8px; padding: 10px 12px; background: #F3EEE7; border-radius: 4px; font-size: 0.75rem; max-height: 120px; overflow-y: auto; }',
+    '.convo-line { margin-bottom: 4px; line-height: 1.4; }',
+    '.leads-badge { display: inline-block; background: #313131; color: #F3EEE7; padding: 2px 10px; border-radius: 10px; font-size: 0.75rem; margin-left: 8px; }',
+    '@media (max-width: 600px) { .two-col, .three-col { grid-template-columns: 1fr; } body { padding: 20px 16px; } .lead-header { flex-direction: column; align-items: flex-start; gap: 2px; } }',
+    '@media (min-width: 601px) and (max-width: 900px) { .three-col { grid-template-columns: 1fr 1fr; } }',
     '</style>',
     '</head>',
     '<body>',
@@ -613,7 +717,9 @@ function buildDashboardHTML(logs) {
     '<div class="stat-card"><div class="stat-number">' + Object.keys(pageCounts).length + '</div><div class="stat-label">Pages Active</div></div>',
     '<div class="stat-card"><div class="stat-number">' + lastDate + '</div><div class="stat-label">Last Question</div></div>',
     '<div class="stat-card"><div class="stat-number">' + avgPerDay + '</div><div class="stat-label">Avg / Active Day</div></div>',
+    '<div class="stat-card"><div class="stat-number">' + leadsCount + '</div><div class="stat-label">Leads Captured</div></div>',
     '</div>',
+    leads.length > 0 ? '<div class="section"><div class="section-title">Leads<span class="leads-badge">' + leadsCount + '</span></div><div class="question-list">' + leadRows + '</div></div>' : '',
     '<div class="section">',
     '<div class="section-title">Questions &mdash; Last 30 Days</div>',
     '<div class="chart-container">',
@@ -621,8 +727,9 @@ function buildDashboardHTML(logs) {
     '<div class="bar-label"><span>' + chartDays[0] + '</span><span>' + chartDays[chartDays.length - 1] + '</span></div>',
     '</div>',
     '</div>',
-    '<div class="two-col">',
+    '<div class="three-col">',
     '<div class="section"><div class="section-title">By Page</div><div class="page-list">' + pageRows + '</div></div>',
+    '<div class="section"><div class="section-title">Visitor Locations</div><div class="page-list">' + locationContent + '</div></div>',
     '<div class="section"><div class="section-title">Popular Topics</div><div class="word-cloud">' + wordTags + '</div></div>',
     '</div>',
     '<div class="section">',
