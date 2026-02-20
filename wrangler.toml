@@ -1,0 +1,14 @@
+name = "nitin-chat-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Optional: KV namespace for rate limiting
+# Uncomment after creating: wrangler kv:namespace create "RATE_LIMIT"
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "your-kv-namespace-id"
+
+# Question logging KV namespace
+[[kv_namespaces]]
+binding = "CHAT_LOGS"
+id = "07c2da7b7dd14d9d92eca3ec13b8dc27"

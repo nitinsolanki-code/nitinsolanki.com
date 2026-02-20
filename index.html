@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nitin Solanki – Entrepreneur, Investor & Advisor</title>
-    <meta name="description" content="Nitin Solanki invests in and advises businesses on strategy, operations, go-to-market, and technology-enabled transformation. 25+ years of global consulting across 12 industries.">
-    <meta property="og:title" content="Nitin Solanki – Entrepreneur, Investor & Advisor">
-    <meta property="og:description" content="I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation—helping leaders create clarity in complex environments.">
+    <title>Nitin Solanki – Strategy, Execution & Growth</title>
+    <meta name="description" content="I help leaders and founders turn strategy into disciplined execution—so growth becomes repeatable, measurable, and calm. 25 years across 12 industries.">
+    <meta property="og:title" content="Nitin Solanki – Strategy, Execution & Growth">
+    <meta property="og:description" content="I help leaders and founders turn strategy into disciplined execution—so growth becomes repeatable, measurable, and calm.">
     <meta property="og:image" content="images/hero.jpg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -792,6 +792,33 @@
             background: var(--warm-taupe);
         }
 
+        .hero-cta-secondary {
+            color: #999;
+        }
+
+        .hero-cta-secondary::after {
+            background: #999;
+        }
+
+        .hero-cta-secondary:hover {
+            color: var(--warm-taupe);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero-proof {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--warm-taupe);
+            margin-bottom: 30px;
+        }
+
         .hero-image-wrapper {
             order: 1;
             display: flex;
@@ -1422,11 +1449,10 @@
         </div>
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
-            <a href="#about">What I Do</a>
-            <a href="#story">Story</a>
             <a href="about.html">About</a>
-            <a href="travel.html">Travel</a>
             <a href="career.html">Career</a>
+            <a href="travel.html">Travel</a>
+            <a href="workwithme.html">Work With Me</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="reserve-btn">Connect</a>
         </nav>
     </header>
@@ -1434,11 +1460,10 @@
     <!-- Full-Screen Navigation Overlay -->
     <div class="nav-overlay">
         <nav>
-            <a href="#about">What I Do</a>
-            <a href="#story">Story</a>
             <a href="about.html">About</a>
-            <a href="travel.html">Travel</a>
             <a href="career.html">Career</a>
+            <a href="travel.html">Travel</a>
+            <a href="workwithme.html">Work With Me</a>
             <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank">Connect</a>
         </nav>
         <div class="nav-social">
@@ -1465,11 +1490,15 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content fade-in-left">
-                <p class="hero-eyebrow">Entrepreneur • Investor • Advisor</p>
+                <p class="hero-eyebrow">Strategy • Execution • Growth</p>
                 <p class="hero-description">
-                    I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation—helping leaders create clarity in complex environments.
+                    I help leaders and founders turn strategy into disciplined execution—so growth becomes repeatable, measurable, and calm. 25 years across 12 industries, from Fortune 500 boardrooms to early-stage ventures.
                 </p>
-                <a href="#about" class="hero-cta">Discover More</a>
+                <p class="hero-proof">Georgia Tech • Deloitte • Accenture</p>
+                <div class="hero-ctas">
+                    <a href="workwithme.html" class="hero-cta">Work With Me</a>
+                    <a href="about.html" class="hero-cta hero-cta-secondary">My Story</a>
+                </div>
             </div>
             <div class="hero-image-wrapper fade-in-right">
                 <img src="images/hero.jpg" alt="Nitin Solanki" class="hero-image">
