@@ -652,6 +652,11 @@ class NitinChatWidget {
       this.inputField.style.height = 'auto';
       this.inputField.style.height = Math.min(this.inputField.scrollHeight, 80) + 'px';
     });
+
+    // Auto-open via URL hash or query param (e.g. nitinsolanki.com/#chat or ?chat)
+    if (window.location.hash === '#chat' || new URLSearchParams(window.location.search).has('chat')) {
+      setTimeout(() => this.openPanel(), 600);
+    }
   }
 
   togglePanel() {
