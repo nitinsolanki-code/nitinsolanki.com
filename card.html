@@ -8,12 +8,12 @@
     <meta property="og:title" content="Nitin Solanki – Contact Card">
     <meta property="og:description" content="Digital business card for Nitin Solanki.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://solanki.co/card">
+    <meta property="og:url" content="https://www.nitinsolanki.com/card">
     <meta property="og:image" content="https://www.nitinsolanki.com/images/professional2010.jpg">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Nitin Solanki – Contact Card">
     <meta name="twitter:image" content="https://www.nitinsolanki.com/images/professional2010.jpg">
-    <link rel="canonical" href="https://solanki.co/card">
+    <link rel="canonical" href="https://www.nitinsolanki.com/card">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -271,11 +271,9 @@
         <a href="tel:+13058946426">+1.305.894.6426</a>
     </div>
 
-    <!-- Websites -->
+    <!-- Website -->
     <div class="websites">
         <a href="https://www.nitinsolanki.com" target="_blank" class="website-link">nitinsolanki.com</a>
-        <span class="sep">&middot;</span>
-        <a href="https://solanki.co" target="_blank" class="website-link">solanki.co</a>
     </div>
 
     <!-- Social -->
@@ -336,36 +334,12 @@
         ctx.fillRect(0, 0, size, size);
         ctx.drawImage(img, 0, 0, size, size);
     };
-    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://solanki.co/card&color=313131&bgcolor=F3EEE7&format=png&margin=10';
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://www.nitinsolanki.com/card&color=313131&bgcolor=F3EEE7&format=png&margin=10';
 })();
 
 // vCard download
 function downloadVCard() {
-    const vcard = [
-        'BEGIN:VCARD',
-        'VERSION:3.0',
-        'FN:Nitin Solanki',
-        'N:Solanki;Nitin;;;',
-        'TEL;TYPE=CELL:+14049447070',
-        'TEL;TYPE=WORK:+13058946426',
-        'EMAIL:nitin.k.solanki@gmail.com',
-        'URL:https://www.nitinsolanki.com',
-        'URL:https://solanki.co',
-        'X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/nitinsolanki',
-        'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/nitinsolanki',
-        'NOTE:Visit https://www.nitinsolanki.com',
-        'END:VCARD'
-    ].join('\n');
-
-    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Nitin_Solanki.vcf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    window.location.href = 'Nitin_Solanki.vcf';
 }
 </script>
 
