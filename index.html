@@ -7,13 +7,36 @@
     <meta name="description" content="I help leaders and founders turn strategy into disciplined execution—so growth becomes repeatable, measurable, and calm. 25 years across 12 industries.">
     <meta property="og:title" content="Nitin Solanki – Strategy, Execution & Growth">
     <meta property="og:description" content="I help leaders and founders turn strategy into disciplined execution—so growth becomes repeatable, measurable, and calm.">
-    <meta property="og:image" content="images/hero.jpg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nitin Solanki – Entrepreneur, Investor & Advisor">
     <meta name="twitter:description" content="I invest in and advise businesses on strategy, operations, go-to-market, and technology-enabled transformation.">
-    <meta name="twitter:image" content="images/hero.jpg">
+    <meta name="twitter:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://www.nitinsolanki.com/">
+    <meta property="og:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <link rel="canonical" href="https://www.nitinsolanki.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nitin Solanki",
+      "url": "https://www.nitinsolanki.com",
+      "jobTitle": "Director",
+      "worksFor": { "@type": "Organization", "name": "Astound Digital" },
+      "description": "Entrepreneur, Investor, and Advisor with 25+ years of global management consulting across 12 industries and 40+ Fortune 500 clients.",
+      "knowsAbout": ["Strategy", "Enterprise Transformation", "CRM", "Salesforce", "Data Architecture", "Go-to-Market", "Program Management"],
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Georgia Institute of Technology" },
+        { "@type": "EducationalOrganization", "name": "Harvard Business School Online" }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/nitinsolanki"
+      ],
+      "address": { "@type": "PostalAddress", "addressRegion": "FL", "addressCountry": "US" }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -40,7 +63,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .loading-screen.hidden {
@@ -92,7 +115,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in.visible {
@@ -103,7 +126,7 @@
         .fade-in-left {
             opacity: 0;
             transform: translateX(-40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in-left.visible {
@@ -114,7 +137,7 @@
         .fade-in-right {
             opacity: 0;
             transform: translateX(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in-right.visible {
@@ -126,7 +149,7 @@
         .stagger-item {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .stagger-item.visible {
@@ -143,7 +166,7 @@
         /* Brand: "Subtle -- slight opacity change or underline animation, never aggressive transforms" */
         /* Brand: "Shadows: Avoided -- flatness and subtlety preferred over depth effects" */
         .hover-lift {
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hover-lift:hover {
@@ -162,7 +185,7 @@
             width: 0;
             height: 1px;
             background: currentColor;
-            transition: width 0.4s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hover-underline:hover::after {
@@ -221,7 +244,7 @@
             max-width: 200px;
             opacity: 0;
             transform: scaleX(0);
-            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .section-divider.visible {
@@ -258,12 +281,12 @@
             width: 20px;
             height: 20px;
             border: 1px solid var(--warm-taupe);
-            border-radius: 50%;
+            border-radius: 0;
             pointer-events: none;
             z-index: 10000;
             opacity: 0;
             transform: translate(-50%, -50%) scale(1);
-            transition: opacity 0.4s ease, transform 0.2s ease, border-color 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .custom-cursor.visible {
@@ -286,12 +309,12 @@
             width: 3px;
             height: 3px;
             background: var(--warm-taupe);
-            border-radius: 50%;
+            border-radius: 0;
             pointer-events: none;
             z-index: 10001;
             opacity: 0;
             transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cursor-dot.visible {
@@ -315,7 +338,7 @@
             display: inline-block;
             transform: translateY(100%);
             opacity: 0;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .text-reveal.visible .text-reveal-inner {
@@ -345,7 +368,7 @@
             display: inline-block;
             opacity: 0;
             transform: translateY(30px);
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .char-reveal.visible .char {
@@ -358,7 +381,7 @@
             opacity: 0;
             transform: translateY(20px);
             filter: blur(5px);
-            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-blur.visible {
@@ -531,7 +554,7 @@
             gap: 12px;
             background: rgba(243, 238, 231, 0.95);
             backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         header.scrolled {
@@ -564,7 +587,7 @@
             width: 100%;
             height: 1px;
             background: var(--primary-text);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hamburger-lines span:first-child {
@@ -623,12 +646,12 @@
             text-decoration: none;
             font-size: 0.6rem;
             font-weight: 400;
-            letter-spacing: 1.5px;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            padding: 10px 14px;
+            padding: 12px 24px;
             min-height: 44px;
             white-space: nowrap;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reserve-btn:hover {
@@ -650,7 +673,7 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay.active {
@@ -671,8 +694,8 @@
             font-weight: 300;
             color: var(--primary-text);
             text-decoration: none;
-            letter-spacing: 1px;
-            transition: opacity 0.3s ease;
+            letter-spacing: 0.15em;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay nav a:hover {
@@ -693,7 +716,7 @@
             text-transform: uppercase;
             color: var(--warm-taupe);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-social a:hover {
@@ -718,7 +741,7 @@
             display: flex;
             flex-direction: column;
             gap: 40px;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             width: 100%;
         }
@@ -741,9 +764,9 @@
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 2.5rem;
             font-weight: 300;
-            letter-spacing: 1px;
+            letter-spacing: -0.02em;
             margin-bottom: 25px;
-            line-height: 1.1;
+            line-height: 1.2;
             color: var(--primary-text);
         }
 
@@ -768,7 +791,7 @@
             text-decoration: none;
             padding-bottom: 5px;
             position: relative;
-            transition: color 0.4s ease;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-cta::after {
@@ -781,7 +804,7 @@
             background: var(--primary-text);
             transform: scaleX(1);
             transform-origin: left;
-            transition: transform 0.4s ease, background-color 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-cta:hover {
@@ -834,7 +857,7 @@
         /* ===== SECTIONS (Mobile First) ===== */
         .section {
             padding: 60px 20px;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -970,7 +993,7 @@
             text-decoration: none;
             padding-bottom: 5px;
             position: relative;
-            transition: color 0.4s ease;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .story-link::after {
@@ -983,7 +1006,7 @@
             background: var(--primary-text);
             transform: scaleX(1);
             transform-origin: left;
-            transition: transform 0.4s ease, background-color 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .story-link:hover {
@@ -994,52 +1017,79 @@
             background: var(--warm-taupe);
         }
 
-        /* ===== PHOTO GRID (Mobile First) ===== */
-        .photo-section {
-            padding: 40px 0;
-            background: var(--soft-sand);
-        }
-
-        .photo-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4px;
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .photo-item {
+        /* ===== SCROLLING PHOTO STRIP (Janu-inspired) ===== */
+        .scroll-strip {
+            padding: 80px 0 60px;
+            background: var(--primary-bg);
             overflow: hidden;
+        }
+
+        .scroll-strip-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+
+        .scroll-strip-track {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+        }
+
+        .scroll-strip-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-strip-track:active {
+            cursor: grabbing;
+        }
+
+        .scroll-strip-item {
+            flex: 0 0 260px;
             position: relative;
-            aspect-ratio: 3/4;
+            overflow: hidden;
         }
 
-        .photo-item img {
+        .scroll-strip-item img {
             width: 100%;
-            height: 100%;
+            height: 320px;
             object-fit: cover;
-            object-position: center 20%;
-            transition: transform 0.6s ease;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* B&W portrait - center on face */
-        .photo-item:nth-child(1) img {
-            object-position: center 15%;
-        }
-
-        /* Gray suit - center horizontally */
-        .photo-item:nth-child(2) img {
-            object-position: center 40%;
-        }
-
-        /* White shirt stairs - show full figure */
-        .photo-item:nth-child(3) img {
-            object-position: center 30%;
-        }
-
-        .photo-item:hover img {
+        .scroll-strip-item:hover img {
             transform: scale(1.05);
+        }
+
+        .scroll-strip-label {
+            margin-top: 12px;
+        }
+
+        .scroll-strip-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: var(--primary-text);
+        }
+
+        .scroll-strip-sub {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-top: 2px;
         }
 
         /* ===== SOCIAL LINKS (Mobile First) ===== */
@@ -1048,38 +1098,68 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
+            gap: 24px;
             background: var(--primary-bg);
         }
 
-        .social-link {
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--warm-taupe);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary-text);
+            transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-text);
+            border-color: var(--primary-text);
+            transform: scale(1.1);
+        }
+
+        .social-icon:hover svg {
+            fill: var(--primary-bg);
+        }
+
+        /* ===== CONNECT BAND (Janu-inspired newsletter section) ===== */
+        .connect-band {
+            background: #E2DBD6;
+            padding: 48px 20px;
+            text-align: center;
+        }
+
+        .connect-band-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            color: var(--primary-text);
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+
+        .connect-band-link {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid var(--primary-text);
             color: var(--primary-text);
             text-decoration: none;
-            position: relative;
-            transition: color 0.4s ease;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .social-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
+        .connect-band-link:hover {
             background: var(--primary-text);
-            transition: width 0.4s ease;
-        }
-
-        .social-link:hover {
-            color: var(--warm-taupe);
-        }
-
-        .social-link:hover::after {
-            width: 100%;
+            color: var(--primary-bg);
         }
 
         /* ===== FOOTER (Mobile First) ===== */
@@ -1192,20 +1272,16 @@
                 font-size: 1.4rem;
             }
 
-            .photo-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                padding: 0 40px;
-            }
-
-            .photo-item {
-                aspect-ratio: 2/3;
-            }
-
             .social-section {
                 padding: 60px 40px;
-                gap: 40px;
+                gap: 24px;
             }
+
+            .scroll-strip { padding: 100px 0 80px; }
+            .scroll-strip-eyebrow { padding: 0 40px; margin-bottom: 35px; }
+            .scroll-strip-track { gap: 16px; padding: 0 40px; }
+            .scroll-strip-item { flex: 0 0 300px; }
+            .scroll-strip-item img { height: 380px; }
         }
 
         /* ========================================
@@ -1236,9 +1312,9 @@
                 text-decoration: none;
                 font-size: 0.75rem;
                 font-weight: 400;
-                letter-spacing: 1.5px;
+                letter-spacing: 0.15em;
                 text-transform: uppercase;
-                transition: opacity 0.4s ease;
+                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .desktop-nav a:hover {
@@ -1288,8 +1364,8 @@
             }
 
             .hero-name {
-                font-size: 3.5rem;
-                letter-spacing: 2px;
+                font-size: 4.5rem;
+                letter-spacing: -0.02em;
                 margin-bottom: 30px;
             }
 
@@ -1371,24 +1447,15 @@
                 margin-bottom: 50px;
             }
 
-            .photo-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-                padding: 0 60px;
-            }
-
-            .photo-item {
-                aspect-ratio: 2/3;
-            }
-
-            .photo-item img {
-                object-position: center 25%;
-            }
-
             .social-section {
                 padding: 80px 60px;
-                gap: 50px;
+                gap: 24px;
             }
+
+            .scroll-strip-eyebrow { padding: 0 60px; margin-bottom: 40px; }
+            .scroll-strip-track { gap: 20px; padding: 0 60px; }
+            .scroll-strip-item { flex: 0 0 340px; }
+            .scroll-strip-item img { height: 420px; }
 
             footer {
                 padding: 50px 60px;
@@ -1407,17 +1474,6 @@
                 gap: 100px;
             }
 
-            .photo-section {
-                padding: 60px 0;
-            }
-
-            .photo-grid {
-                gap: 15px;
-            }
-
-            .photo-item {
-                aspect-ratio: 2/3;
-            }
         }
 
         /* Body scroll lock when menu is open */
@@ -1580,27 +1636,75 @@
         </div>
     </section>
 
-    <!-- Photo Grid -->
-    <section class="photo-section">
-        <div class="photo-grid">
-            <div class="photo-item stagger-item">
-                <img src="images/gridphoto1.jpg" alt="Nitin Solanki - Portrait">
+    <!-- Scrolling Photo Strip -->
+    <section class="scroll-strip">
+        <p class="scroll-strip-eyebrow fade-in line-accent">Moments</p>
+        <div class="scroll-strip-track" id="scroll-strip-track">
+            <div class="scroll-strip-item">
+                <img src="images/gridphoto1.jpg" alt="Nitin Solanki — black and white portrait">
+                <div class="scroll-strip-label">
+                    <div class="scroll-strip-title">Portrait</div>
+                    <div class="scroll-strip-sub">Black & White</div>
+                </div>
             </div>
-            <div class="photo-item stagger-item">
-                <img src="images/photo7.jpg" alt="Nitin Solanki - Professional">
+            <div class="scroll-strip-item">
+                <img src="images/photo7.jpg" alt="Nitin Solanki — ivy wall">
+                <div class="scroll-strip-label">
+                    <div class="scroll-strip-title">The Wall</div>
+                    <div class="scroll-strip-sub">Greenery</div>
+                </div>
             </div>
-            <div class="photo-item stagger-item">
-                <img src="images/gridphoto2.jpg" alt="Nitin Solanki - Lifestyle">
+            <div class="scroll-strip-item">
+                <img src="images/varied4.jpg" alt="Walking through tropical gardens">
+                <div class="scroll-strip-label">
+                    <div class="scroll-strip-title">The Walk</div>
+                    <div class="scroll-strip-sub">Palm Beach</div>
+                </div>
+            </div>
+            <div class="scroll-strip-item">
+                <img src="images/varied5.jpg" alt="Black and white portrait at arched doorway">
+                <div class="scroll-strip-label">
+                    <div class="scroll-strip-title">Doorways</div>
+                    <div class="scroll-strip-sub">Architecture</div>
+                </div>
+            </div>
+            <div class="scroll-strip-item">
+                <img src="images/gridphoto2.jpg" alt="Nitin Solanki — courtyard">
+                <div class="scroll-strip-label">
+                    <div class="scroll-strip-title">Courtyard</div>
+                    <div class="scroll-strip-sub">Mediterranean</div>
+                </div>
+            </div>
+            <div class="scroll-strip-item">
+                <img src="images/maralago.jpg" alt="Nitin Solanki — Mar-a-Lago fountain">
+                <div class="scroll-strip-label">
+                    <div class="scroll-strip-title">Mar-a-Lago</div>
+                    <div class="scroll-strip-sub">Palm Beach</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Social Links -->
     <section class="social-section">
-        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="social-link">LinkedIn</a>
-        <a href="https://www.instagram.com/nitinsolanki" target="_blank" class="social-link">Instagram</a>
-        <a href="https://www.facebook.com/nitinsolanki" target="_blank" class="social-link">Facebook</a>
-        <a href="https://x.com/nitinsolanki" target="_blank" class="social-link">X</a>
+        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" class="social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/nitinsolanki" target="_blank" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/nitinsolanki" target="_blank" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://x.com/nitinsolanki" target="_blank" class="social-icon" aria-label="X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+    </section>
+
+    <!-- Connect Band -->
+    <section class="connect-band">
+        <p class="connect-band-title">Stay Connected</p>
+        <a href="/workwithme.html" class="connect-band-link">Get in Touch</a>
     </section>
 
     <!-- Footer -->
@@ -1676,7 +1780,7 @@
         });
 
         // ===== PARALLAX EFFECT ON IMAGES =====
-        const parallaxImages = document.querySelectorAll('.hero-image, .how-image, .photo-item img');
+        const parallaxImages = document.querySelectorAll('.hero-image, .how-image, .scroll-strip-item img');
 
         function updateParallax() {
             parallaxImages.forEach(img => {
@@ -1708,6 +1812,31 @@
 
         // Initial call
         updateParallax();
+
+        // ===== SCROLL STRIP DRAG =====
+        const scrollTrack = document.getElementById('scroll-strip-track');
+        if (scrollTrack) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            scrollTrack.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - scrollTrack.offsetLeft;
+                scrollLeft = scrollTrack.scrollLeft;
+            });
+
+            scrollTrack.addEventListener('mouseleave', () => { isDown = false; });
+            scrollTrack.addEventListener('mouseup', () => { isDown = false; });
+
+            scrollTrack.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scrollTrack.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                scrollTrack.scrollLeft = scrollLeft - walk;
+            });
+        }
 
         // ===== CUSTOM CURSOR =====
         const cursor = document.createElement('div');
@@ -1746,7 +1875,7 @@
         animateCursor();
 
         // Cursor hover effects on interactive elements
-        const hoverTargets = document.querySelectorAll('a, button, .service-card, .focus-item, .photo-item');
+        const hoverTargets = document.querySelectorAll('a, button, .service-card, .focus-item, .scroll-strip-item');
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));

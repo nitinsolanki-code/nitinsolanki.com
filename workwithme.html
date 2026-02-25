@@ -7,16 +7,44 @@
     <meta name="description" content="Advisory, transformation, and investment partnerships with Nitin Solanki. Strategy, execution, and growth for founders and leaders.">
     <meta property="og:title" content="Work With Me – Nitin Solanki">
     <meta property="og:description" content="Advisory, transformation, and investment partnerships. Strategy, execution, and growth for founders and leaders.">
-    <meta property="og:image" content="images/hero.jpg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Work With Me – Nitin Solanki">
     <meta name="twitter:description" content="Advisory, transformation, and investment partnerships. Strategy, execution, and growth for founders and leaders.">
-    <meta name="twitter:image" content="images/hero.jpg">
+    <meta name="twitter:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://www.nitinsolanki.com/workwithme.html">
+    <meta property="og:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <link rel="canonical" href="https://www.nitinsolanki.com/workwithme.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Nitin Solanki – Advisory & Consulting",
+      "url": "https://www.nitinsolanki.com/workwithme.html",
+      "description": "Advisory, transformation, and investment partnerships. Strategy, execution, and growth for founders and leaders.",
+      "provider": {
+        "@type": "Person",
+        "name": "Nitin Solanki",
+        "url": "https://www.nitinsolanki.com"
+      },
+      "serviceType": ["Strategy Consulting", "Enterprise Transformation", "CRM Strategy", "Advisory"],
+      "areaServed": "US",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Engagement Models",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Advisory", "description": "Strategic guidance for founders and executives navigating complexity" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Transformation", "description": "End-to-end execution leadership for enterprise change" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Investing", "description": "Capital and strategic partnership for high-conviction opportunities" } }
+        ]
+      }
+    }
+    </script>
     <style>
         /* ===== AMAN BRAND COLORS ===== */
         :root {
@@ -40,7 +68,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .loading-screen.hidden {
@@ -56,7 +84,7 @@
             text-transform: uppercase;
             color: var(--primary-text);
             opacity: 0;
-            animation: logoFadeIn 1.2s ease forwards;
+            animation: logoFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .loading-line {
@@ -65,7 +93,7 @@
             background: var(--warm-taupe);
             margin-top: 30px;
             transform: scaleX(0);
-            animation: lineExpand 1s ease 0.4s forwards;
+            animation: lineExpand 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
         }
 
         @keyframes logoFadeIn {
@@ -82,7 +110,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in.visible {
@@ -93,7 +121,7 @@
         .fade-in-left {
             opacity: 0;
             transform: translateX(-40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in-left.visible {
@@ -104,7 +132,7 @@
         .fade-in-right {
             opacity: 0;
             transform: translateX(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in-right.visible {
@@ -115,7 +143,7 @@
         .stagger-item {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .stagger-item.visible {
@@ -164,12 +192,12 @@
             width: 20px;
             height: 20px;
             border: 1px solid var(--warm-taupe);
-            border-radius: 50%;
+            border-radius: 0;
             pointer-events: none;
             z-index: 10000;
             opacity: 0;
             transform: translate(-50%, -50%) scale(1);
-            transition: opacity 0.4s ease, transform 0.2s ease, border-color 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .custom-cursor.visible { opacity: 0.7; }
@@ -181,12 +209,12 @@
             width: 3px;
             height: 3px;
             background: var(--warm-taupe);
-            border-radius: 50%;
+            border-radius: 0;
             pointer-events: none;
             z-index: 10001;
             opacity: 0;
             transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cursor-dot.visible { opacity: 1; }
@@ -231,7 +259,7 @@
             gap: 12px;
             background: rgba(243, 238, 231, 0.95);
             backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         header.scrolled {
@@ -263,7 +291,7 @@
             width: 100%;
             height: 1px;
             background: var(--primary-text);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hamburger-lines span:first-child { margin-bottom: 5px; }
@@ -309,10 +337,10 @@
             font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 10px 14px;
+            padding: 12px 24px;
             min-height: 44px;
             white-space: nowrap;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reserve-btn:hover { opacity: 0.6; }
@@ -332,7 +360,7 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay.active { opacity: 1; visibility: visible; }
@@ -350,8 +378,8 @@
             font-weight: 300;
             color: var(--primary-text);
             text-decoration: none;
-            letter-spacing: 1px;
-            transition: opacity 0.3s ease;
+            letter-spacing: 0.15em;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay nav a:hover { opacity: 0.5; }
@@ -370,7 +398,7 @@
             text-transform: uppercase;
             color: var(--warm-taupe);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-social a:hover { color: var(--primary-text); }
@@ -400,7 +428,7 @@
         .page-title {
             font-size: 2.5rem;
             font-weight: 300;
-            letter-spacing: 1px;
+            letter-spacing: -0.02em;
             margin-bottom: 25px;
             line-height: 1.2;
         }
@@ -416,7 +444,7 @@
 
         /* ===== CONTENT (Mobile First) ===== */
         .content {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px 80px;
         }
@@ -606,9 +634,9 @@
             color: #fff;
             background: var(--accent-dark);
             text-decoration: none;
-            padding: 14px 35px;
+            padding: 12px 24px;
             min-height: 44px;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cta-link:hover { opacity: 0.85; }
@@ -634,7 +662,7 @@
             width: 0;
             height: 1px;
             background: var(--primary-text);
-            transition: width 0.4s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cta-link-secondary:hover::after { width: 100%; }
@@ -658,7 +686,7 @@
             color: var(--primary-text);
             text-decoration: none;
             position: relative;
-            transition: color 0.4s ease;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .social-link::after {
@@ -669,7 +697,7 @@
             width: 0;
             height: 1px;
             background: var(--primary-text);
-            transition: width 0.4s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .social-link:hover { color: var(--warm-taupe); }
@@ -766,16 +794,16 @@
                 text-decoration: none;
                 font-size: 0.75rem;
                 font-weight: 400;
-                letter-spacing: 1.5px;
+                letter-spacing: 0.15em;
                 text-transform: uppercase;
-                transition: opacity 0.4s ease;
+                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .desktop-nav a:hover { opacity: 0.5; }
 
             .desktop-nav .reserve-btn {
                 font-size: 0.7rem;
-                padding: 12px 28px;
+                padding: 12px 24px;
                 border-color: var(--primary-text);
             }
 
@@ -845,7 +873,7 @@
             .cta-eyebrow { font-size: 0.65rem; margin-bottom: 25px; }
             .cta-heading { font-size: 2.2rem; margin-bottom: 20px; }
             .cta-subtext { font-size: 0.95rem; margin-bottom: 40px; }
-            .cta-link { font-size: 0.75rem; padding: 16px 45px; }
+            .cta-link { font-size: 0.75rem; padding: 12px 24px; }
             .cta-link-secondary { font-size: 0.75rem; }
 
             .social-section { padding: 80px 60px; gap: 50px; }

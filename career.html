@@ -8,15 +8,38 @@
     <meta name="description" content="25+ years of global management consulting across 12 industries and 40+ clients. From Astound Digital and Deloitte to Accenture and Siebel Systems.">
     <meta property="og:title" content="Career – Nitin Solanki">
     <meta property="og:description" content="25+ years of global management consulting across strategy, technology, and transformation. 12 industries, 40+ clients.">
-    <meta property="og:image" content="images/hero.jpg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Career – Nitin Solanki">
     <meta name="twitter:description" content="25+ years of global management consulting across 12 industries and 40+ clients.">
-    <meta name="twitter:image" content="images/hero.jpg">
+    <meta name="twitter:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://www.nitinsolanki.com/career.html">
+    <meta property="og:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <link rel="canonical" href="https://www.nitinsolanki.com/career.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "Career – Nitin Solanki",
+      "url": "https://www.nitinsolanki.com/career.html",
+      "description": "25+ years of global management consulting across 12 industries and 40+ clients.",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Nitin Solanki",
+        "hasOccupation": [
+          { "@type": "Occupation", "name": "Director", "occupationLocation": { "@type": "Place", "name": "Atlanta, GA" } }
+        ],
+        "hasCredential": [
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "degree", "name": "B.S. Electrical Engineering", "recognizedBy": { "@type": "CollegeOrUniversity", "name": "Georgia Institute of Technology" } },
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "certificate", "name": "Salesforce Certified Administrator" },
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "certificate", "name": "Agile Certified Professional" }
+        ]
+      }
+    }
+    </script>
     <style>
         :root {
             --primary-bg: #F3EEE7;
@@ -61,7 +84,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .loading-screen.hidden {
@@ -77,7 +100,7 @@
             text-transform: uppercase;
             color: var(--primary-text);
             opacity: 0;
-            animation: logoFadeIn 1.2s ease forwards;
+            animation: logoFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .loading-line {
@@ -86,7 +109,7 @@
             background: var(--warm-taupe);
             margin-top: 30px;
             transform: scaleX(0);
-            animation: lineExpand 1s ease 0.4s forwards;
+            animation: lineExpand 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
         }
 
         @keyframes logoFadeIn {
@@ -113,7 +136,7 @@
             gap: 12px;
             background: rgba(243, 238, 231, 0.95);
             backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         header.scrolled {
@@ -146,7 +169,7 @@
             width: 100%;
             height: 1px;
             background: var(--primary-text);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hamburger-lines span:first-child {
@@ -218,8 +241,8 @@
             color: var(--primary-text);
             text-decoration: none;
             border: 1px solid var(--primary-text);
-            padding: 10px 18px;
-            transition: all 0.4s ease;
+            padding: 12px 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reserve-btn:hover {
@@ -241,7 +264,7 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay.active { opacity: 1; visibility: visible; }
@@ -259,8 +282,8 @@
             font-weight: 300;
             color: var(--primary-text);
             text-decoration: none;
-            letter-spacing: 1px;
-            transition: opacity 0.3s ease;
+            letter-spacing: 0.15em;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay nav a:hover { opacity: 0.5; }
@@ -279,7 +302,7 @@
             text-transform: uppercase;
             color: var(--warm-taupe);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-social a:hover { color: var(--primary-text); }
@@ -319,7 +342,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 4rem;
             font-weight: 400;
-            letter-spacing: 2px;
+            letter-spacing: -0.02em;
             margin-bottom: 1.5rem;
             color: var(--accent-dark);
         }
@@ -450,7 +473,7 @@
             height: 12px;
             background-color: var(--primary-bg);
             border: 2px solid var(--warm-taupe);
-            border-radius: 50%;
+            border-radius: 0;
             transform: translateX(-50%);
             z-index: 10;
         }
@@ -459,7 +482,7 @@
             background-color: transparent;
             padding: 1.5rem;
             border: 1px solid var(--warm-taupe);
-            border-radius: 2px;
+            border-radius: 0;
         }
 
         .company-name {
@@ -533,7 +556,7 @@
         .client-tag {
             border: 1px solid var(--warm-taupe);
             padding: 4px 12px;
-            border-radius: 2px;
+            border-radius: 0;
             font-size: 0.65rem;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -559,8 +582,8 @@
             border: 1px solid var(--warm-taupe);
             padding: 1.5rem 1.2rem;
             text-align: center;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+            border-radius: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -675,7 +698,7 @@
         .cert-tag {
             border: 1px solid var(--warm-taupe);
             padding: 6px 14px;
-            border-radius: 2px;
+            border-radius: 0;
             font-size: 0.75rem;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -701,7 +724,7 @@
             color: var(--primary-text);
             text-decoration: none;
             position: relative;
-            transition: color 0.4s ease;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .social-link::after {
@@ -712,7 +735,7 @@
             width: 0;
             height: 1px;
             background: var(--primary-text);
-            transition: width 0.4s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .social-link:hover {
@@ -721,6 +744,38 @@
 
         .social-link:hover::after {
             width: 100%;
+        }
+
+        /* Connect Band */
+        .connect-band {
+            background: #E2DBD6;
+            padding: 48px 20px;
+            text-align: center;
+        }
+
+        .connect-band-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            color: #313131;
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+
+        .connect-band-link {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid #313131;
+            color: #313131;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .connect-band-link:hover {
+            background: #313131;
+            color: #F3EEE7;
         }
 
         /* Footer */
@@ -803,9 +858,9 @@
                 text-decoration: none;
                 font-size: 0.75rem;
                 font-weight: 400;
-                letter-spacing: 1.5px;
+                letter-spacing: 0.15em;
                 text-transform: uppercase;
-                transition: opacity 0.4s ease;
+                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .desktop-nav a:hover { opacity: 0.5; }
@@ -1388,6 +1443,8 @@
         <a href="https://www.facebook.com/nitinsolanki" target="_blank" class="social-link">Facebook</a>
         <a href="https://x.com/nitinsolanki" target="_blank" class="social-link">X</a>
     </section>
+
+    <section class="connect-band"><p class="connect-band-title">Stay Connected</p><a href="/workwithme.html" class="connect-band-link">Get in Touch</a></section>
 
     <!-- Footer -->
     <footer>
