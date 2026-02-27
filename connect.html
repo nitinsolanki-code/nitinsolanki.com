@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect – Nitin Solanki</title>
+    <meta name="description" content="Book a conversation with Nitin Solanki. Whether it's a quick introduction, an exploratory discussion, or an advisory session — find the right time.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Connect – Nitin Solanki">
+    <meta property="og:description" content="Book a conversation with Nitin Solanki. Quick introductions, exploratory discussions, and advisory sessions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.nitinsolanki.com/connect">
+    <meta property="og:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Connect – Nitin Solanki">
+    <meta name="twitter:description" content="Book a conversation with Nitin Solanki. Quick introductions, exploratory discussions, and advisory sessions.">
+    <meta name="twitter:image" content="https://www.nitinsolanki.com/images/hero.jpg">
+    <link rel="canonical" href="https://www.nitinsolanki.com/connect">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Connect with Nitin Solanki",
+      "url": "https://www.nitinsolanki.com/connect",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Nitin Solanki",
+        "email": "nitin@nitinsolanki.com",
+        "url": "https://www.nitinsolanki.com"
+      }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== AMAN BRAND COLORS ===== */
+        :root {
+            --primary-bg: #F3EEE7;
+            --primary-text: #313131;
+            --warm-taupe: #D4C4B0;
+            --soft-sand: #E8DFD3;
+            --accent-dark: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.7;
+            font-weight: 300;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 18px 20px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+            background: rgba(243, 238, 231, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            background: rgba(243, 238, 231, 0.98);
+            border-bottom: 1px solid rgba(212, 196, 176, 0.3);
+        }
+
+        .hamburger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-lines {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 20px;
+            height: 14px;
+        }
+
+        .hamburger-lines span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--primary-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hamburger-lines span:first-child { margin-bottom: 5px; }
+
+        .hamburger-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            display: none;
+        }
+
+        .hamburger.active .hamburger-lines span:first-child { transform: rotate(45deg) translate(2px, 2px); }
+        .hamburger.active .hamburger-lines span:last-child { transform: rotate(-45deg) translate(2px, -2px); }
+        .hamburger.active .hamburger-label { visibility: hidden; }
+
+        .logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            text-decoration: none;
+            text-align: center;
+            justify-self: center;
+            white-space: nowrap;
+        }
+
+        .header-cta { display: flex; justify-content: flex-end; }
+
+        .reserve-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-text);
+            background: transparent;
+            border: 1px solid var(--primary-text);
+            text-decoration: none;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            min-height: 44px;
+            white-space: nowrap;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reserve-btn:hover {
+            background: var(--primary-text);
+            color: var(--primary-bg);
+        }
+
+        /* Full-Screen Navigation Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: var(--primary-bg);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-overlay.active { opacity: 1; visibility: visible; }
+
+        .nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-overlay nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--primary-text);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-overlay nav a:hover { opacity: 0.5; }
+
+        .nav-social {
+            position: absolute;
+            bottom: 60px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-social a {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            text-decoration: none;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-social a:hover { color: var(--primary-text); }
+
+        .desktop-nav { display: none; }
+
+        /* ===== CONNECT HERO ===== */
+        main { margin-top: 72px; }
+
+        .connect-hero {
+            min-height: 45vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+
+        .connect-hero-content {
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+        }
+
+        .section-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #9B9183;
+            margin-bottom: 20px;
+        }
+
+        .line-accent {
+            position: relative;
+        }
+
+        .line-accent::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -15px;
+            width: 60px;
+            height: 1px;
+            background: var(--warm-taupe);
+            transform: translateX(-50%);
+        }
+
+        .connect-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            color: var(--primary-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .connect-hero p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== BOOKING CARDS ===== */
+        .booking-section {
+            padding: 0 20px 80px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .booking-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid var(--warm-taupe);
+            text-decoration: none;
+            color: var(--primary-text);
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .booking-card:hover {
+            border-color: var(--primary-text);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .booking-card-content { flex: 1; }
+
+        .booking-card-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #9B9183;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-card h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--primary-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-card-desc {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .booking-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .booking-card-meta span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: #9B9183;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-card-arrow {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--warm-taupe);
+            margin-left: 2rem;
+            transition: transform 0.3s, color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .booking-card:hover .booking-card-arrow {
+            transform: translateX(4px);
+            color: var(--primary-text);
+        }
+
+        /* ===== TIDYCAL MODAL ===== */
+        .tidycal-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .tidycal-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .tidycal-modal-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(49, 49, 49, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .tidycal-modal-container {
+            position: relative;
+            width: 90vw;
+            max-width: 560px;
+            height: 85vh;
+            max-height: 720px;
+            background: var(--primary-bg);
+            border: 1px solid var(--warm-taupe);
+            overflow: hidden;
+            transform: translateY(16px);
+            transition: transform 0.35s ease;
+        }
+
+        .tidycal-modal.active .tidycal-modal-container {
+            transform: translateY(0);
+        }
+
+        .tidycal-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--warm-taupe);
+        }
+
+        .tidycal-modal-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #9B9183;
+        }
+
+        .tidycal-modal-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: #9B9183;
+            line-height: 1;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .tidycal-modal-close:hover { color: var(--primary-text); }
+
+        .tidycal-modal-body {
+            width: 100%;
+            height: calc(100% - 53px);
+        }
+
+        .tidycal-modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== NOTE SECTION ===== */
+        .connect-note {
+            padding: 60px 20px;
+            background: var(--soft-sand);
+            text-align: center;
+        }
+
+        .connect-note-inner {
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        .connect-note p {
+            font-size: 0.92rem;
+            color: #666;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .connect-note a {
+            color: var(--primary-text);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: opacity 0.3s;
+        }
+
+        .connect-note a:hover { opacity: 0.6; }
+
+        /* ===== BACK LINK ===== */
+        .back-section { padding: 48px 20px; text-align: center; }
+
+        .back-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #9B9183;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: var(--primary-text); }
+        .back-link span { margin-right: 6px; }
+
+        /* ===== SOCIAL ICONS ===== */
+        .social-section {
+            padding: 50px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            background: var(--primary-bg);
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--warm-taupe);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary-text);
+            transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-text);
+            border-color: var(--primary-text);
+            transform: scale(1.1);
+        }
+
+        .social-icon:hover svg { fill: var(--primary-bg); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: #9B9183;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== FADE-IN ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stagger-item.visible { opacity: 1; transform: translateY(0); }
+        .stagger-item:nth-child(1) { transition-delay: 0s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.2s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 767px) {
+            .booking-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem;
+            }
+            .booking-card-arrow { margin-left: 0; margin-top: 1rem; }
+        }
+
+        @media (min-width: 768px) {
+            header { padding: 20px 40px; gap: 20px; }
+            .hamburger-label { display: block; }
+            .logo { font-size: 1.1rem; letter-spacing: 3px; }
+            .connect-hero { padding: 120px 40px 80px; }
+            .booking-section { padding: 0 40px 100px; }
+        }
+
+        @media (min-width: 1024px) {
+            header { padding: 22px 60px; gap: 20px; }
+            .logo { font-size: 1.2rem; }
+            .desktop-nav {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+            }
+            .desktop-nav a {
+                font-size: 0.6rem;
+                font-weight: 400;
+                color: var(--primary-text);
+                text-decoration: none;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                transition: opacity 0.4s;
+            }
+            .desktop-nav a:hover { opacity: 0.5; }
+            .header-cta { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <div class="hamburger-lines">
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hamburger-label">Menu</span>
+        </button>
+        <a href="index.html" class="logo">Nitin Solanki</a>
+        <div class="header-cta">
+            <a href="connect.html" class="reserve-btn">Connect</a>
+        </div>
+        <nav class="desktop-nav">
+            <a href="about.html">About</a>
+            <a href="career.html">Career</a>
+            <a href="travel.html">Travel</a>
+            <a href="workwithme.html">Work With Me</a>
+            <a href="connect.html" class="reserve-btn">Connect</a>
+        </nav>
+    </header>
+
+    <!-- Full-Screen Navigation Overlay -->
+    <div class="nav-overlay">
+        <nav>
+            <a href="about.html">About</a>
+            <a href="career.html">Career</a>
+            <a href="travel.html">Travel</a>
+            <a href="workwithme.html">Work With Me</a>
+            <a href="connect.html">Connect</a>
+        </nav>
+        <div class="nav-social">
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/nitinsolanki" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://x.com/nitinsolanki" target="_blank" rel="noopener noreferrer">X</a>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- Connect Hero -->
+        <section class="connect-hero">
+            <div class="connect-hero-content">
+                <p class="section-eyebrow line-accent" style="text-align:center;">Connect</p>
+                <h1 style="margin-top: 30px;">Let's Talk</h1>
+                <p>Whether it's a quick introduction, an exploratory conversation, or a focused advisory session — find the format that fits.</p>
+            </div>
+        </section>
+
+        <!-- Booking Cards -->
+        <section class="booking-section">
+            <div class="booking-grid">
+
+                <div class="booking-card stagger-item" data-tidycal="https://tidycal.com/solanki/15-minute-meeting" data-label="Quick Introduction">
+                    <div class="booking-card-content">
+                        <div class="booking-card-label">Quick Introduction</div>
+                        <h3>15-Minute Call</h3>
+                        <p class="booking-card-desc">A brief, focused conversation to explore alignment and see if there's a reason to continue the dialogue.</p>
+                        <div class="booking-card-meta">
+                            <span>15 minutes</span>
+                            <span>&middot;</span>
+                            <span>Complimentary</span>
+                        </div>
+                    </div>
+                    <span class="booking-card-arrow">&rarr;</span>
+                </div>
+
+                <div class="booking-card stagger-item" data-tidycal="https://tidycal.com/solanki/30-minute-meeting" data-label="Exploratory Conversation">
+                    <div class="booking-card-content">
+                        <div class="booking-card-label">Exploratory Conversation</div>
+                        <h3>30-Minute Call</h3>
+                        <p class="booking-card-desc">A deeper discussion to understand your situation, explore potential collaboration, and identify the right next step.</p>
+                        <div class="booking-card-meta">
+                            <span>30 minutes</span>
+                            <span>&middot;</span>
+                            <span>Complimentary</span>
+                        </div>
+                    </div>
+                    <span class="booking-card-arrow">&rarr;</span>
+                </div>
+
+                <div class="booking-card stagger-item" data-tidycal="https://tidycal.com/solanki/60-minute-meeting" data-label="Advisory Session">
+                    <div class="booking-card-content">
+                        <div class="booking-card-label">Advisory Session</div>
+                        <h3>60-Minute Call</h3>
+                        <p class="booking-card-desc">A structured session for specific challenges — strategy, capital decisions, digital execution, or venture building.</p>
+                        <div class="booking-card-meta">
+                            <span>1 hour</span>
+                            <span>&middot;</span>
+                            <span>$60</span>
+                        </div>
+                    </div>
+                    <span class="booking-card-arrow">&rarr;</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Note -->
+        <section class="connect-note fade-in">
+            <div class="connect-note-inner">
+                <p>Prefer email? Reach out directly at <a href="mailto:nitin@nitinsolanki.com">nitin@nitinsolanki.com</a></p>
+            </div>
+        </section>
+
+        <!-- Back -->
+        <div class="back-section fade-in">
+            <a href="index.html" class="back-link"><span>&larr;</span> Back Home</a>
+        </div>
+
+    </main>
+
+    <!-- Social Icons -->
+    <section class="social-section">
+        <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/nitinsolanki" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/nitinsolanki" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://x.com/nitinsolanki" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Nitin Solanki. All Rights Reserved.</p>
+    </footer>
+
+    <!-- TidyCal Modal -->
+    <div class="tidycal-modal" id="tidycalModal">
+        <div class="tidycal-modal-backdrop" id="tidycalBackdrop"></div>
+        <div class="tidycal-modal-container">
+            <div class="tidycal-modal-header">
+                <span class="tidycal-modal-title" id="tidycalTitle"></span>
+                <button class="tidycal-modal-close" id="tidycalClose" aria-label="Close">&times;</button>
+            </div>
+            <div class="tidycal-modal-body">
+                <iframe id="tidycalFrame" src="" title="Book a call"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hamburger Menu
+        const hamburger = document.querySelector('.hamburger');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navLinks = document.querySelectorAll('.nav-overlay nav a');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.style.overflow = navOverlay.classList.contains('active') ? 'hidden' : '';
+            this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Header scroll
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Fade-in observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-in, .stagger-item').forEach(el => observer.observe(el));
+
+        // TidyCal Modal
+        const modal = document.getElementById('tidycalModal');
+        const modalBackdrop = document.getElementById('tidycalBackdrop');
+        const modalClose = document.getElementById('tidycalClose');
+        const modalTitle = document.getElementById('tidycalTitle');
+        const modalFrame = document.getElementById('tidycalFrame');
+
+        function openTidycal(url, label) {
+            modalTitle.textContent = label;
+            modalFrame.src = url;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTidycal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { modalFrame.src = ''; }, 350);
+        }
+
+        document.querySelectorAll('.booking-card[data-tidycal]').forEach(card => {
+            card.addEventListener('click', () => {
+                openTidycal(card.dataset.tidycal, card.dataset.label);
+            });
+        });
+
+        modalBackdrop.addEventListener('click', closeTidycal);
+        modalClose.addEventListener('click', closeTidycal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeTidycal();
+        });
+    </script>
+
+    <!-- AI Chat Widget -->
+    <script src="chat-widget.js" defer></script>
+
+</body>
+</html>
