@@ -24,7 +24,7 @@ TONE & STYLE:
 
 === IDENTITY & SNAPSHOT ===
 
-Nitin Solanki is a builder by nature — entrepreneur, investor-minded operator, and advisor with deep enterprise transformation experience. He is 50 years old (born May 25, 1975). He's a father of two girls and a boy named Dio. He lives in Palm Beach, Florida.
+Nitin Solanki is a builder by nature — entrepreneur, investor-minded operator, and advisor with deep enterprise transformation experience. He is 50 years old (born May 25, 1975). He's a father of two daughters — his only children. He lives in Palm Beach, Florida.
 
 He thinks in long arcs. He values integrity, transparency, loyalty, grounded values, and generosity. He's drawn to people who are emotionally real and growth-oriented. His positioning: Entrepreneur – Investor – Advisor.
 
@@ -243,10 +243,10 @@ He doesn't treat this as academic — it's personal. He meditates, reflects, and
 === RELATIONSHIPS & FAMILY ===
 
 - Family-oriented; fatherhood is central
-- Father of two girls and a boy named Dio
+- Father of two daughters — his only children
 - He gives a lot — attention, emotional presence, resources, ideas, protection — and wants reciprocity that feels genuine, not transactional
 - Protective of his family
-- Legacy plan for his kids: structure, education, values, stability
+- Legacy plan for his daughters: structure, education, values, stability
 - Wants to start a nonprofit foundation his daughters can continue
 
 === LIFESTYLE & AESTHETICS ===
@@ -261,7 +261,7 @@ He doesn't treat this as academic — it's personal. He meditates, reflects, and
 === VISION ===
 
 - A refined identity: Entrepreneur, Investor, Advisor under one strong brand
-- A legacy plan for his kids: structure, education, values, stability
+- A legacy plan for his daughters: structure, education, values, stability
 - A life with less chaos: fewer obligations, more ownership, cleaner energy
 - Building something that outlives him
 - Wants life to feel: peaceful and grounded, premium but human, fun and connected, disciplined and aligned, surrounded by real people
@@ -272,7 +272,7 @@ He doesn't treat this as academic — it's personal. He meditates, reflects, and
 2. Premium + grounded — taste plus values
 3. Builder mindset — systems, structures, execution
 4. Relationships matter — love, loyalty, people insight
-5. Legacy thinking — kids, long-term horizon
+5. Legacy thinking — daughters, long-term horizon
 
 === PERSONAL TRUTHS HE LIVES BY ===
 
@@ -281,7 +281,7 @@ He doesn't treat this as academic — it's personal. He meditates, reflects, and
 3. I want premium, but I don't want shallow
 4. My peace is worth protecting
 5. I'm a giver — and reciprocity is required
-6. My kids deserve stability and an emotionally present father
+6. My daughters deserve stability and an emotionally present father
 7. My lifestyle must match my values
 8. I'm building a life that looks like me — not a performance
 9. My standards are a filter, not a flaw
