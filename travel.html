@@ -1318,7 +1318,7 @@
     <section class="travel-stats">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-number">27</div>
+                <div class="stat-number">28</div>
                 <div class="stat-label">Countries</div>
             </div>
             <div class="stat-item">
@@ -1600,6 +1600,10 @@
                         <div class="country-cities">Athens</div>
                     </div>
                     <div class="country-item">
+                        <div class="country-name">Ireland</div>
+                        <div class="country-cities">Dublin</div>
+                    </div>
+                    <div class="country-item">
                         <div class="country-name">Sweden</div>
                         <div class="country-cities">Stockholm</div>
                     </div>
@@ -1609,7 +1613,7 @@
                     </div>
                     <div class="country-item">
                         <div class="country-name">United Kingdom</div>
-                        <div class="country-cities">Birmingham · Edinburgh · Glasgow · Leeds · Leicester · <span class="worked">London</span> · Nottingham · York</div>
+                        <div class="country-cities">Birmingham · Cornwall · Edinburgh · Glasgow · Leeds · Leicester · <span class="worked">London</span> · Manchester · Nottingham · York</div>
                     </div>
                 </div>
             </div>
@@ -1837,7 +1841,7 @@
         // ===== D3 WORLD MAP =====
         const visitedCountries = [
             'India', 'United States of America', 'Zambia', 'South Africa', 'Zimbabwe',
-            'Australia', 'Japan', 'United Kingdom', 'France', 'Czechia', 'Switzerland', 'Sweden',
+            'Australia', 'Japan', 'United Kingdom', 'France', 'Czechia', 'Switzerland', 'Sweden', 'Ireland',
             'Mexico', 'Costa Rica', 'Bahamas', 'Grenada', 'Dominican Rep.', 'Kenya', 'Mauritius',
             'Canada', 'Panama', 'Jamaica', 'Greece', 'Tanzania', 'United Republic of Tanzania',
             'Cayman Is.'
@@ -1953,6 +1957,10 @@
             { name: 'York', lat: 53.9591, lon: -1.0815, country: 'UK' },
             { name: 'Leicester', lat: 52.6369, lon: -1.1398, country: 'UK' },
             { name: 'Leeds', lat: 53.8008, lon: -1.5491, country: 'UK' },
+            { name: 'Cornwall', lat: 50.2660, lon: -5.0527, country: 'UK' },
+            { name: 'Manchester', lat: 53.4808, lon: -2.2426, country: 'UK' },
+            // Ireland
+            { name: 'Dublin', lat: 53.3498, lon: -6.2603, country: 'Ireland' },
             // Europe
             { name: 'Paris', lat: 48.8566, lon: 2.3522, country: 'France' },
             { name: 'Prague', lat: 50.0755, lon: 14.4378, country: 'Czech Republic' },
@@ -2050,6 +2058,7 @@
             'Czechia': ['Czech Republic'],
             'Switzerland': ['Switzerland'],
             'Sweden': ['Sweden'],
+            'Ireland': ['Ireland'],
             'Mexico': ['Mexico'],
             'Costa Rica': ['Costa Rica'],
             'Bahamas': ['Bahamas'],
