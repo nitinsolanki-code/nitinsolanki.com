@@ -607,30 +607,58 @@
         @media (min-width: 768px) {
             header { padding: 20px 40px; gap: 20px; }
             .hamburger-label { display: block; }
-            .logo { font-size: 1.1rem; letter-spacing: 3px; }
+            .logo { font-size: 1.2rem; letter-spacing: 3px; }
+
+            .reserve-btn {
+                font-size: 0.65rem;
+                padding: 11px 20px;
+            }
+
+            .nav-overlay nav a { font-size: 2.5rem; }
             .connect-hero { padding: 120px 40px 80px; }
             .booking-section { padding: 0 40px 100px; }
         }
 
         @media (min-width: 1024px) {
-            header { padding: 22px 60px; gap: 20px; }
-            .logo { font-size: 1.2rem; }
+            header {
+                padding: 22px 60px;
+                grid-template-columns: auto 1fr auto;
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 3px;
+            }
+
             .desktop-nav {
                 display: flex;
                 align-items: center;
                 gap: 40px;
+                justify-self: end;
             }
+
             .desktop-nav a {
-                font-size: 0.6rem;
-                font-weight: 400;
                 color: var(--primary-text);
                 text-decoration: none;
+                font-size: 0.75rem;
+                font-weight: 400;
                 letter-spacing: 0.15em;
                 text-transform: uppercase;
-                transition: opacity 0.4s;
+                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
+
             .desktop-nav a:hover { opacity: 0.5; }
+
+            .desktop-nav .reserve-btn {
+                font-size: 0.7rem;
+                padding: 12px 28px;
+                border-color: var(--primary-text);
+            }
+
             .header-cta { display: none; }
+            .hamburger-lines { width: 22px; }
+            .nav-overlay nav a { font-size: 3rem; }
         }
     </style>
 </head>
