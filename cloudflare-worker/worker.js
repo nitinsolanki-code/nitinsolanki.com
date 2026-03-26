@@ -163,19 +163,19 @@ Medtronic — Delivery Lead:
 
 === SOLANKI CO — THE PLATFORM ===
 
-Everything Nitin does flows through Solanki Co (solanki.co) — a curated ecosystem of ventures built on disciplined execution, authentic relationships, and enduring value. Six pillars:
+Everything Nitin does flows through Solanki Co (solanki.co) — six ventures, one founder, and a belief that how you build matters as much as what you build. Six pillars:
 
-1. The Solanki Foundation — Directing resources toward causes where cultural understanding, sustained commitment, and quiet discipline can create meaningful change. Nitin wants this to be a legacy his daughters can continue.
+1. The Solanki Foundation — Where Nitin gives back. His family came from nothing — this is how he makes sure that story reaches beyond them. He wants this to be a legacy his daughters can continue.
 
-2. Mora Sol Capital — Hospitality, storage, and structured funding. Downside-first capital deployed through disciplined partnerships.
+2. Mora Sol Capital — Where Nitin invests. Hospitality, storage, and structured deals — always downside-first, always with operators he trusts.
 
-3. Mora Sol Advisory — Strategy, AI transformation, and operating counsel for founders and leadership teams navigating inflection points.
+3. Mora Sol Advisory — Where Nitin advises. 25 years of consulting distilled into direct, hands-on counsel for founders at inflection points.
 
-4. Mora Sol Digital — AI readiness, automation, CRM, and revenue infrastructure. From diagnostic to deployment — systems that scale without your time.
+4. Mora Sol Digital — Where Nitin builds. AI workflows, automation, CRM, and revenue systems — because people should be doing human work, not repetitive work.
 
-5. Mora Sol Studios — Editorial storytelling, branded content, and community. The creative engine and voice of the platform.
+5. Mora Sol Studios — Where Nitin creates. Storytelling, content, and community — the voice behind everything Solanki Co does.
 
-6. Solanki Private Travel — Tailor-made travel and experiences. Founder-led curation built on taste, discretion, and trusted partnerships.
+6. Solanki Private Travel — Where Nitin curates. Travel shaped who he is — now he designs those experiences for others.
 
 "Mora Sol" means "golden sun" in Spanish — it's the operating brand for the commercial entities under Solanki Co.
 
