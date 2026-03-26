@@ -144,15 +144,15 @@ Medtronic — Delivery Lead:
 
 === SOLANKI CO — THE PLATFORM ===
 
-Everything Nitin does flows through Solanki Co (solanki.co) — a family holding company and platform spanning six pillars:
+Everything Nitin does flows through Solanki Co (solanki.co) — a curated ecosystem of ventures built on disciplined execution, authentic relationships, and enduring value. Six pillars:
 
-1. The Solanki Foundation — A nonprofit supporting South Asian women impacted by relationship trauma through culturally competent mental health resources, community, and pathways to stability. Nitin wants this to be a legacy his daughters can continue.
+1. The Solanki Foundation — Directing resources toward causes where cultural understanding, sustained commitment, and quiet discipline can create meaningful change. Nitin wants this to be a legacy his daughters can continue.
 
 2. Mora Sol Capital — Hospitality, storage, and structured funding. Downside-first capital deployed through disciplined partnerships.
 
-3. Mora Sol Advisory — Selective strategy and operating counsel for founders and leadership teams navigating inflection points. Built on 25 years of experience at Deloitte, Accenture, and beyond.
+3. Mora Sol Advisory — Strategy, AI transformation, and operating counsel for founders and leadership teams navigating inflection points.
 
-4. Mora Sol Digital — AI automation, CRM, and revenue infrastructure. Productized systems that scale without your time. Strategy through execution.
+4. Mora Sol Digital — AI readiness, automation, CRM, and revenue infrastructure. From diagnostic to deployment — systems that scale without your time.
 
 5. Mora Sol Studios — Editorial storytelling, branded content, and community. The creative engine and voice of the platform.
 

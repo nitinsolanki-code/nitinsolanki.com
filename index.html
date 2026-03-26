@@ -863,6 +863,11 @@
             order: 1;
             display: flex;
             justify-content: center;
+            position: relative;
+        }
+
+        .hero-origin-card {
+            display: none;
         }
 
         .hero-image {
@@ -1082,11 +1087,13 @@
             height: 320px;
             object-fit: cover;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(40%) brightness(1.02);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .scroll-strip-item:hover img {
             transform: scale(1.05);
+            filter: grayscale(0%) brightness(1);
         }
 
         .scroll-strip-label {
@@ -1178,6 +1185,347 @@
         .connect-band-link:hover {
             background: var(--primary-text);
             color: var(--primary-bg);
+        }
+
+        /* ===== UPGRADED PLATFORM CARDS ===== */
+        .platform-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .platform-header p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: #6B6560;
+            margin-top: 16px;
+        }
+
+        .platform-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .platform-card {
+            padding: 40px 24px;
+            background: rgba(250, 250, 247, 0.6);
+            border: 1px solid var(--soft-sand);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .platform-card:hover {
+            background: white;
+        }
+
+        .platform-card-number {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            color: var(--warm-taupe);
+            opacity: 0.3;
+            margin-bottom: 16px;
+            transition: opacity 0.5s ease;
+        }
+
+        .platform-card:hover .platform-card-number {
+            opacity: 1;
+        }
+
+        .platform-card h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: var(--primary-text);
+        }
+
+        .platform-card p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .platform-card-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .platform-card-link:hover {
+            color: var(--primary-text);
+        }
+
+        /* ===== METHOD ROWS ===== */
+        .method-section {
+            background: #EDE8E1;
+            padding: 60px 20px;
+        }
+
+        .method-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .method-header {
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--soft-sand);
+        }
+
+        .method-header h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--primary-text);
+            margin-bottom: 8px;
+        }
+
+        .method-header-note {
+            font-size: 0.9rem;
+            font-weight: 300;
+            font-style: italic;
+            color: #6B6560;
+        }
+
+        .method-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 32px 0;
+            transition: background 0.5s ease;
+        }
+
+        .method-row + .method-row {
+            border-top: 1px solid var(--soft-sand);
+        }
+
+        .method-number {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--warm-taupe);
+            transition: color 0.5s ease;
+        }
+
+        .method-row:hover .method-number {
+            color: var(--primary-text);
+        }
+
+        .method-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .method-desc {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #6B6560;
+        }
+
+        /* ===== NOW / CURRENTLY CARD ===== */
+        .now-section {
+            padding: 60px 20px;
+            background: var(--primary-bg);
+        }
+
+        .now-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(250, 250, 247, 0.8);
+            padding: 48px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .now-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-text);
+        }
+
+        .now-eyebrow {
+            font-size: 0.55rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--warm-taupe);
+            margin-bottom: 20px;
+        }
+
+        .now-heading {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .now-heading em {
+            font-style: italic;
+            color: #6B6560;
+        }
+
+        /* ===== DARK CTA SECTION ===== */
+        .dark-cta {
+            padding: 100px 20px;
+            background: var(--primary-text);
+            color: var(--primary-bg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 196, 176, 0.06) 0%, transparent 70%);
+        }
+
+        .dark-cta h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .dark-cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary-bg);
+            color: var(--primary-text);
+            text-decoration: none;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .dark-cta-button:hover {
+            background: var(--warm-taupe);
+        }
+
+        /* ===== TABLET UPGRADES (768px) ===== */
+        @media (min-width: 768px) {
+            .platform-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0;
+            }
+
+            .platform-card {
+                padding: 48px 36px;
+            }
+
+            .method-section {
+                padding: 80px 40px;
+            }
+
+            .method-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+
+            .method-header-note {
+                max-width: 300px;
+                text-align: right;
+            }
+
+            .method-row {
+                display: grid;
+                grid-template-columns: 50px 1fr 2fr;
+                gap: 32px;
+                align-items: baseline;
+                padding: 40px 24px;
+                margin: 0 -24px;
+            }
+
+            .method-row:hover {
+                background: rgba(243, 238, 231, 0.5);
+            }
+
+            .now-card {
+                padding: 64px 48px;
+            }
+
+            .now-heading {
+                font-size: 2rem;
+            }
+
+            .dark-cta {
+                padding: 120px 40px;
+            }
+
+            .dark-cta h2 {
+                font-size: 3rem;
+            }
+        }
+
+        /* ===== DESKTOP UPGRADES (1024px) ===== */
+        @media (min-width: 1024px) {
+            .platform-card {
+                padding: 56px 48px;
+            }
+
+            .platform-card-number {
+                font-size: 3rem;
+            }
+
+            .method-section {
+                padding: 120px 60px;
+            }
+
+            .method-row {
+                padding: 48px 32px;
+                margin: 0 -32px;
+            }
+
+            .method-title {
+                font-size: 1.8rem;
+            }
+
+            .now-section {
+                padding: 80px 60px;
+            }
+
+            .now-card {
+                padding: 80px 64px;
+            }
+
+            .now-heading {
+                font-size: 2.5rem;
+            }
+
+            .dark-cta {
+                padding: 160px 60px;
+            }
+
+            .dark-cta h2 {
+                font-size: 4rem;
+            }
         }
 
         /* ===== FOOTER (Mobile First) ===== */
@@ -1418,13 +1766,40 @@
                 justify-content: flex-end;
             }
 
+            .hero-origin-card {
+                display: block;
+                position: absolute;
+                bottom: -16px;
+                left: -24px;
+                background: var(--primary-bg);
+                padding: 16px 24px;
+                border: 1px solid var(--soft-sand);
+            }
+
+            .hero-origin-label {
+                display: block;
+                font-size: 0.5rem;
+                font-weight: 300;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--warm-taupe);
+                margin-bottom: 4px;
+            }
+
+            .hero-origin-text {
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-size: 0.95rem;
+                font-style: italic;
+                color: var(--primary-text);
+            }
+
             .hero-image {
                 max-width: 480px;
                 max-height: 600px;
             }
 
             .section {
-                padding: 120px 60px;
+                padding: 140px 60px;
             }
 
             .section-eyebrow {
@@ -1596,72 +1971,75 @@
             </div>
             <div class="hero-image-wrapper fade-in-right">
                 <img src="images/hero.jpg" alt="Nitin Solanki" class="hero-image">
+                <div class="hero-origin-card">
+                    <span class="hero-origin-label">Origin</span>
+                    <p class="hero-origin-text">Luanshya, Zambia to Palm Beach, Florida</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Divider -->
-    <div class="section-divider"></div>
-
-    <!-- What I Do Section -->
+    <!-- The Solanki Co Platform -->
     <section class="section" id="about">
-        <p class="section-eyebrow fade-in line-accent">What I Do</p>
-        <h2 class="section-title fade-in">The Solanki Co Platform</h2>
-        <div class="services-grid">
-            <div class="service-card stagger-item">
-                <h3>Advisory</h3>
-                <p>Mora Sol Advisory helps founders and leadership teams create clarity, align stakeholders, and turn strategy into execution. Built on 25 years of doing this work at the highest levels.</p>
+        <div class="platform-header fade-in">
+            <p class="section-eyebrow line-accent line-accent-center" style="text-align: center;">The Platform</p>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 16px;">Solanki Co</h2>
+            <p>A curated ecosystem of ventures built on disciplined execution, authentic relationships, and enduring value.</p>
+        </div>
+        <div class="platform-grid">
+            <div class="platform-card stagger-item">
+                <div class="platform-card-number">01</div>
+                <h3>Mora Sol Advisory</h3>
+                <p>Strategy, AI transformation, and operating counsel for founders and leadership teams navigating inflection points.</p>
+                <a href="workwithme.html" class="platform-card-link">Learn more &rarr;</a>
             </div>
-            <div class="service-card stagger-item">
-                <h3>Capital</h3>
-                <p>Mora Sol Capital focuses on hospitality, storage, and structured funding with a downside-first discipline. Capital plus the strategic support of someone who's been in the room.</p>
+            <div class="platform-card stagger-item">
+                <div class="platform-card-number">02</div>
+                <h3>Mora Sol Digital</h3>
+                <p>AI readiness, automation, CRM, and revenue infrastructure. From diagnostic to deployment — systems that scale without your time.</p>
+                <a href="workwithme.html" class="platform-card-link">Learn more &rarr;</a>
             </div>
-            <div class="service-card stagger-item">
-                <h3>Digital</h3>
-                <p>Mora Sol Digital helps teams modernize the way they operate — AI automation, CRM, and revenue infrastructure that scales without your time.</p>
+            <div class="platform-card stagger-item">
+                <div class="platform-card-number">03</div>
+                <h3>Mora Sol Capital</h3>
+                <p>Hospitality, storage, and structured funding. Downside-first capital deployed through disciplined partnerships.</p>
+                <a href="workwithme.html" class="platform-card-link">Learn more &rarr;</a>
             </div>
         </div>
     </section>
 
-    <!-- Focus Areas -->
-    <section class="focus-areas">
-        <div class="section" style="padding-top: 0; padding-bottom: 0;">
-            <p class="section-eyebrow fade-in line-accent">Focus Areas</p>
-            <div class="focus-list">
-                <div class="focus-item stagger-item">
-                    <strong>Strategy → Execution</strong>
-                    Operating cadence, priorities, accountability
-                </div>
-                <div class="focus-item stagger-item">
-                    <strong>Operations</strong>
-                    Performance improvement and optimization
-                </div>
-                <div class="focus-item stagger-item">
-                    <strong>Go-to-Market</strong>
-                    Customer journey, CRM/RevOps foundations
-                </div>
-                <div class="focus-item stagger-item">
-                    <strong>Technology</strong>
-                    Data + AI readiness, modernization
-                </div>
+    <!-- How I Work — Method Rows -->
+    <section class="method-section">
+        <div class="method-inner">
+            <div class="method-header fade-in">
+                <h2>How I Work</h2>
+                <p class="method-header-note">25 years across 12 industries. The pattern is always the same.</p>
+            </div>
+            <div class="method-row fade-in">
+                <div class="method-number">01</div>
+                <h4 class="method-title">Listen</h4>
+                <p class="method-desc">Understanding what a client truly needs — often before they can articulate it. Identifying the real friction, the hidden dependencies, and what's actually at stake.</p>
+            </div>
+            <div class="method-row fade-in">
+                <div class="method-number">02</div>
+                <h4 class="method-title">Clarify</h4>
+                <p class="method-desc">Aligning stakeholders with competing priorities. Stripping complexity down to what matters. Turning messy situations into structured plans that people can rally behind.</p>
+            </div>
+            <div class="method-row fade-in">
+                <div class="method-number">03</div>
+                <h4 class="method-title">Deliver</h4>
+                <p class="method-desc">Navigating ambiguity and executing under real pressure. Not just strategy decks — tangible outcomes, shipped work, and durable results that outlast the engagement.</p>
             </div>
         </div>
     </section>
 
-    <!-- How I Work -->
-    <section class="section">
-        <div class="how-section">
-            <img src="images/howework.jpg" alt="Nitin Solanki" class="how-image fade-in-left">
-            <div class="how-content fade-in-right">
-                <p class="section-eyebrow line-accent">How I Work</p>
-                <h2 class="section-title">Relationship-First, Outcome-Driven</h2>
-                <p>In high-pressure environments, I bring structure, calm, and delivery discipline—so decisions get made and progress compounds. Transformation succeeds when leaders communicate the why, teams understand the what, and delivery is disciplined enough to produce outcomes.</p>
-            </div>
+    <!-- Currently -->
+    <section class="now-section">
+        <div class="now-card fade-in">
+            <div class="now-eyebrow">Currently</div>
+            <h3 class="now-heading">Focused on the intersection of<br><em>AI and human-centered leadership.</em></h3>
         </div>
     </section>
-
-    <!-- Section Divider -->
-    <div class="section-divider"></div>
 
     <!-- Story Teaser -->
     <section class="story-section" id="story">
@@ -1739,10 +2117,10 @@
         </a>
     </section>
 
-    <!-- Connect Band -->
-    <section class="connect-band">
-        <p class="connect-band-title">Stay Connected</p>
-        <a href="/workwithme.html" class="connect-band-link">Get in Touch</a>
+    <!-- CTA -->
+    <section class="dark-cta">
+        <h2 class="fade-in">Let's Begin a<br>Conversation.</h2>
+        <a href="connect.html" class="dark-cta-button fade-in">Book a Call</a>
     </section>
 
     <!-- Footer -->
