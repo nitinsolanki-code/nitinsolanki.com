@@ -586,90 +586,45 @@
             line-height: 1.8;
         }
 
-        /* ===== DUAL CTA SECTION ===== */
-        .cta-section {
-            background: var(--soft-sand);
+        /* ===== TONAL ZONING ===== */
+        .process-section {
+            background: #EDE8E1;
+        }
+
+        /* ===== DARK CTA ===== */
+        .dark-cta {
+            background: #313131;
             padding: 80px 20px;
             text-align: center;
         }
 
-        .cta-eyebrow {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+        .dark-cta h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.4rem;
+            color: #F3EEE7;
             font-weight: 300;
+            font-style: normal;
+            margin-bottom: 28px;
+            line-height: 1.3;
+        }
+
+        .dark-cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid rgba(243, 238, 231, 0.4);
+            color: #F3EEE7;
+            text-decoration: none;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #9B9183;
-            margin-bottom: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .cta-heading {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.8rem;
-            font-weight: 300;
-            color: var(--primary-text);
-            margin-bottom: 15px;
-            line-height: 1.4;
+        .dark-cta-button:hover {
+            background: #F3EEE7;
+            color: #313131;
+            border-color: #F3EEE7;
         }
-
-        .cta-subtext {
-            font-size: 0.9rem;
-            font-weight: 300;
-            color: #666;
-            max-width: 500px;
-            margin: 0 auto 35px;
-            line-height: 1.8;
-        }
-
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .cta-link {
-            display: inline-block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #fff;
-            background: var(--accent-dark);
-            text-decoration: none;
-            padding: 12px 24px;
-            min-height: 44px;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cta-link:hover { opacity: 0.85; }
-
-        .cta-link-secondary {
-            display: inline-block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--primary-text);
-            text-decoration: none;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .cta-link-secondary::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--primary-text);
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cta-link-secondary:hover::after { width: 100%; }
 
         /* ===== SOCIAL LINKS (Mobile First) ===== */
         .social-section {
@@ -788,9 +743,7 @@
             .step-number { font-size: 1.3rem; }
             .step-title { font-size: 1.4rem; }
 
-            .cta-section { padding: 100px 40px; }
-            .cta-heading { font-size: 2rem; }
-            .cta-buttons { flex-direction: row; justify-content: center; gap: 30px; }
+            .process-section { padding: 80px 40px; }
 
             .social-section { padding: 60px 40px; gap: 20px; }
         }
@@ -894,10 +847,7 @@
             .step-title { font-size: 1.5rem; }
             .step-text { font-size: 0.95rem; }
 
-            .cta-section { padding: 120px 60px; }
-            .cta-eyebrow { font-size: 0.65rem; margin-bottom: 25px; }
-            .cta-heading { font-size: 2.2rem; margin-bottom: 20px; }
-            .cta-subtext { font-size: 0.95rem; margin-bottom: 40px; }
+            .process-section { padding: 100px 60px; }
             .cta-link { font-size: 0.75rem; padding: 12px 24px; }
             .cta-link-secondary { font-size: 0.75rem; }
 
@@ -1029,15 +979,10 @@
 
     </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section fade-in">
-        <p class="cta-eyebrow line-accent line-accent-center">Start Here</p>
-        <h2 class="cta-heading">Ready to Move?</h2>
-        <p class="cta-subtext">Connect with me directly, or ask Nico — my AI — anything about how I work. Learn more at <a href="https://solanki.co" target="_blank" rel="noopener noreferrer" style="color: var(--primary-text); text-decoration: underline;">solanki.co</a>.</p>
-        <div class="cta-buttons">
-            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" rel="noopener noreferrer" class="cta-link">Connect on LinkedIn</a>
-            <span class="cta-link-secondary" onclick="document.querySelector('.chat-widget-trigger')?.click()">Ask Nico.AI</span>
-        </div>
+    <!-- Dark CTA -->
+    <section class="dark-cta">
+        <h2 class="fade-in">Let's Begin a<br>Conversation.</h2>
+        <a href="connect.html" class="dark-cta-button fade-in">Book a Call</a>
     </section>
 
     <!-- Social Links -->
