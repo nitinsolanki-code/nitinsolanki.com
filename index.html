@@ -40,373 +40,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#F3EEE7">
+    <link rel="stylesheet" href="shared.css">
     <style>
-        /* ===== AMAN BRAND COLORS ===== */
-        :root {
-            --primary-bg: #F3EEE7;
-            --primary-text: #313131;
-            --warm-taupe: #D4C4B0;
-            --soft-sand: #E8DFD3;
-            --accent-dark: #000000;
-        }
-
-        /* ===== SCREEN READER ONLY ===== */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* ===== LOADING SCREEN ===== */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--primary-bg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loading-logo {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.8rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--primary-text);
-            opacity: 0;
-            animation: logoFadeIn 1.2s ease forwards;
-        }
-
-        .loading-line {
-            width: 60px;
-            height: 1px;
-            background: var(--warm-taupe);
-            margin-top: 30px;
-            transform: scaleX(0);
-            animation: lineExpand 1s ease 0.4s forwards;
-        }
-
-        @keyframes logoFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes lineExpand {
-            0% {
-                transform: scaleX(0);
-            }
-            100% {
-                transform: scaleX(1);
-            }
-        }
-
-        /* ===== SCROLL ANIMATIONS ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-in-left {
-            opacity: 0;
-            transform: translateX(-40px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .fade-in-right {
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Staggered animations for grid items */
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .stagger-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stagger-item:nth-child(1) { transition-delay: 0s; }
-        .stagger-item:nth-child(2) { transition-delay: 0.1s; }
-        .stagger-item:nth-child(3) { transition-delay: 0.2s; }
-        .stagger-item:nth-child(4) { transition-delay: 0.3s; }
-
-        /* ===== ENHANCED HOVER ANIMATIONS ===== */
-        /* Brand: "Subtle -- slight opacity change or underline animation, never aggressive transforms" */
-        /* Brand: "Shadows: Avoided -- flatness and subtlety preferred over depth effects" */
-        .hover-lift {
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hover-lift:hover {
-            opacity: 0.7;
-        }
-
-        .hover-underline {
-            position: relative;
-        }
-
-        .hover-underline::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: currentColor;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hover-underline:hover::after {
-            width: 100%;
-        }
-
-        /* ===== PARALLAX IMAGES ===== */
-        .parallax-container {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .parallax-image {
-            transition: transform 0.1s ease-out;
-            will-change: transform;
-        }
-
-        /* ===== SIGNATURE HORIZONTAL LINE MOTIFS ===== */
-        .line-accent {
-            position: relative;
-        }
-
-        .line-accent::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -15px;
-            width: 60px;
-            height: 1px;
-            background: var(--warm-taupe);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .line-accent.visible::before {
-            transform: scaleX(1);
-        }
-
-        /* Centered line accent variant */
-        .line-accent-center::before {
-            left: 50%;
-            transform: translateX(-50%) scaleX(0);
-        }
-
-        .line-accent-center.visible::before {
-            transform: translateX(-50%) scaleX(1);
-        }
-
-        /* Section divider lines */
-        .section-divider {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--warm-taupe), transparent);
-            margin: 80px auto;
-            max-width: 200px;
-            opacity: 0;
-            transform: scaleX(0);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .section-divider.visible {
-            opacity: 1;
-            transform: scaleX(1);
-        }
-
-        /* Animated extending line from headers */
-        .extending-line {
-            position: relative;
-            display: inline-block;
-        }
-
-        .extending-line::after {
-            content: '';
-            position: absolute;
-            right: -80px;
-            top: 50%;
-            width: 60px;
-            height: 1px;
-            background: var(--warm-taupe);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-        }
-
-        .extending-line.visible::after {
-            transform: scaleX(1);
-        }
-
-        /* ===== CUSTOM CURSOR ===== */
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 1px solid var(--warm-taupe);
-            border-radius: 0;
-            pointer-events: none;
-            z-index: 10000;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(1);
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .custom-cursor.visible {
-            opacity: 0.7;
-        }
-
-        .custom-cursor.hover {
-            transform: translate(-50%, -50%) scale(1.4);
-            border-color: var(--primary-text);
-            opacity: 0.5;
-        }
-
-        .custom-cursor.click {
-            transform: translate(-50%, -50%) scale(0.9);
-        }
-
-        /* Cursor dot (inner) */
-        .cursor-dot {
-            position: fixed;
-            width: 3px;
-            height: 3px;
-            background: var(--warm-taupe);
-            border-radius: 0;
-            pointer-events: none;
-            z-index: 10001;
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cursor-dot.visible {
-            opacity: 1;
-        }
-
-        /* Hide custom cursor on touch devices */
-        @media (hover: none) and (pointer: coarse) {
-            .custom-cursor,
-            .cursor-dot {
-                display: none !important;
-            }
-        }
-
-        /* ===== TEXT REVEAL ANIMATIONS ===== */
-        .text-reveal {
-            overflow: hidden;
-        }
-
-        .text-reveal-inner {
-            display: inline-block;
-            transform: translateY(100%);
-            opacity: 0;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .text-reveal.visible .text-reveal-inner {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Staggered word reveal */
-        .word-reveal .word {
-            display: inline-block;
-            overflow: hidden;
-            margin-right: 0.25em;
-        }
-
-        .word-reveal .word-inner {
-            display: inline-block;
-            transform: translateY(110%);
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .word-reveal.visible .word-inner {
-            transform: translateY(0);
-        }
-
-        /* Character reveal animation */
-        .char-reveal .char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .char-reveal.visible .char {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Fade up with blur */
-        .fade-blur {
-            opacity: 0;
-            transform: translateY(20px);
-            filter: blur(5px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-blur.visible {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
-        }
-
-        /* ===== SMOOTH SCROLL ENHANCEMENT ===== */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* ===== PAGE SPECIFIC STYLES ===== */
 
         /* ===== VIDEO HERO ===== */
         .video-hero {
@@ -519,239 +156,14 @@
             }
         }
 
-        /* ===== RESET & BASE (Mobile First) ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--primary-text);
-            line-height: 1.7;
-            font-weight: 300;
-            font-size: 16px;
-        }
-
-        /* Typography - Serif for headlines (Lyon Display equivalent) */
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        h1 { font-weight: 200; }
-        h2 { font-weight: 300; font-style: italic; }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* ===== HEADER - AMAN STYLE (Mobile First) ===== */
-        /* Structure: Hamburger (left) - Logo (center) - Reserve (right) */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 18px 20px;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            align-items: center;
-            gap: 12px;
-            background: rgba(243, 238, 231, 0.95);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        header.scrolled {
-            background: rgba(243, 238, 231, 0.98);
-            border-bottom: 1px solid rgba(212, 196, 176, 0.3);
-        }
-
-        /* Hamburger Menu Button — Aman Style */
-        .hamburger {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1001;
-        }
-
-        .hamburger-lines {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 20px;
-            height: 14px;
-        }
-
-        .hamburger-lines span {
-            display: block;
-            width: 100%;
-            height: 1px;
-            background: var(--primary-text);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hamburger-lines span:first-child {
-            margin-bottom: 5px;
-        }
-
-        .hamburger-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--primary-text);
-            display: none;
-        }
-
-        .hamburger.active .hamburger-lines span:first-child {
-            transform: rotate(45deg) translate(2px, 2px);
-        }
-
-        .hamburger.active .hamburger-lines span:last-child {
-            transform: rotate(-45deg) translate(2px, -2px);
-        }
-
-        .hamburger.active .hamburger-label {
-            visibility: hidden;
-        }
-
-        /* Logo - Centered */
-        .logo {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--primary-text);
-            text-decoration: none;
-            text-align: center;
-            justify-self: center;
-            white-space: nowrap;
-        }
-
-        /* Reserve Button - Right */
-        .header-cta {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .reserve-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-text);
-            background: transparent;
-            border: 1px solid var(--primary-text);
-            text-decoration: none;
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            padding: 12px 24px;
-            min-height: 44px;
-            white-space: nowrap;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reserve-btn:hover {
-            background: var(--primary-text);
-            color: var(--primary-bg);
-        }
-
-        /* Full-Screen Navigation Overlay */
-        .nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--primary-bg);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .nav-overlay nav {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 35px;
-        }
-
-        .nav-overlay nav a {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--primary-text);
-            text-decoration: none;
-            letter-spacing: 0.15em;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-overlay nav a:hover {
-            opacity: 0.5;
-        }
-
-        .nav-social {
-            position: absolute;
-            bottom: 60px;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-social a {
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--warm-taupe);
-            text-decoration: none;
-            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-social a:hover {
-            color: var(--primary-text);
-        }
-
-        /* Desktop Navigation Links (hidden on mobile) */
-        .desktop-nav {
-            display: none;
-        }
-
+        /* ===== PAGE-SPECIFIC HERO STYLES ===== */
         /* ===== HERO (Mobile First) ===== */
         .hero {
-            min-height: 100vh;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 100px 20px 60px;
+            padding: 40px 20px 60px;
         }
 
         .hero-container {
@@ -888,7 +300,7 @@
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #9B9183;
+            color: #847A6F;
             margin-bottom: 20px;
         }
 
@@ -1117,44 +529,6 @@
             margin-top: 2px;
         }
 
-        /* ===== SOCIAL LINKS (Mobile First) ===== */
-        .social-section {
-            padding: 50px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 24px;
-            background: var(--primary-bg);
-        }
-
-        .social-icon {
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--warm-taupe);
-            text-decoration: none;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .social-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--primary-text);
-            transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .social-icon:hover {
-            background: var(--primary-text);
-            border-color: var(--primary-text);
-            transform: scale(1.1);
-        }
-
-        .social-icon:hover svg {
-            fill: var(--primary-bg);
-        }
-
         /* ===== UPGRADED PLATFORM CARDS ===== */
         .platform-header {
             text-align: center;
@@ -1351,49 +725,6 @@
             color: #6B6560;
         }
 
-        /* ===== DARK CTA SECTION ===== */
-        .dark-cta {
-            padding: 100px 20px;
-            background: var(--primary-text);
-            color: var(--primary-bg);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dark-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(212, 196, 176, 0.06) 0%, transparent 70%);
-        }
-
-        .dark-cta h2 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .dark-cta-button {
-            display: inline-block;
-            padding: 16px 40px;
-            background: var(--primary-bg);
-            color: var(--primary-text);
-            text-decoration: none;
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .dark-cta-button:hover {
-            background: var(--warm-taupe);
-        }
 
         /* ===== TABLET UPGRADES (768px) ===== */
         @media (min-width: 768px) {
@@ -1442,14 +773,6 @@
             .now-heading {
                 font-size: 2rem;
             }
-
-            .dark-cta {
-                padding: 120px 40px;
-            }
-
-            .dark-cta h2 {
-                font-size: 3rem;
-            }
         }
 
         /* ===== DESKTOP UPGRADES (1024px) ===== */
@@ -1486,76 +809,14 @@
             .now-heading {
                 font-size: 2.5rem;
             }
-
-            .dark-cta {
-                padding: 160px 60px;
-            }
-
-            .dark-cta h2 {
-                font-size: 4rem;
-            }
-        }
-
-        /* ===== FOOTER (Mobile First) ===== */
-        footer {
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 300;
-            color: var(--warm-taupe);
-            letter-spacing: 1px;
-            background: var(--primary-bg);
-            border-top: 1px solid var(--warm-taupe);
-        }
-
-        .footer-relationship {
-            margin-top: 8px;
-            font-size: 0.6rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .footer-relationship a {
-            color: var(--warm-taupe);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(212, 196, 176, 0.4);
-            padding-bottom: 1px;
-            transition: border-color 0.3s ease;
-        }
-
-        .footer-relationship a:hover {
-            border-color: var(--warm-taupe);
         }
 
         /* ========================================
            TABLET STYLES (min-width: 768px)
            ======================================== */
         @media (min-width: 768px) {
-            header {
-                padding: 20px 40px;
-                grid-template-columns: auto 1fr auto;
-                gap: 20px;
-            }
-
-            .hamburger-label {
-                display: block;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .reserve-btn {
-                font-size: 0.65rem;
-                padding: 11px 20px;
-            }
-
-            .nav-overlay nav a {
-                font-size: 2.5rem;
-            }
-
             .hero {
-                padding: 120px 40px 80px;
+                padding: 60px 40px 80px;
             }
 
             .hero-name {
@@ -1641,60 +902,8 @@
            DESKTOP STYLES (min-width: 1024px)
            ======================================== */
         @media (min-width: 1024px) {
-            header {
-                padding: 22px 60px;
-                grid-template-columns: auto 1fr auto;
-                gap: 20px;
-            }
-
-            .logo {
-                font-size: 1.3rem;
-                letter-spacing: 3px;
-            }
-
-            /* Show desktop nav on large screens */
-            .desktop-nav {
-                display: flex;
-                align-items: center;
-                gap: 40px;
-                justify-self: end;
-            }
-
-            .desktop-nav a {
-                color: var(--primary-text);
-                text-decoration: none;
-                font-size: 0.75rem;
-                font-weight: 400;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .desktop-nav a:hover {
-                opacity: 0.5;
-            }
-
-            .desktop-nav .reserve-btn {
-                font-size: 0.7rem;
-                padding: 12px 28px;
-                border-color: var(--primary-text);
-            }
-
-            /* Hide mobile CTA on desktop */
-            .header-cta {
-                display: none;
-            }
-
-            .hamburger-lines {
-                width: 22px;
-            }
-
-            .nav-overlay nav a {
-                font-size: 3rem;
-            }
-
             .hero {
-                padding: 140px 60px 100px;
+                padding: 80px 60px 100px;
             }
 
             .hero-container {
@@ -1767,7 +976,7 @@
             }
 
             .section {
-                padding: 140px 60px;
+                padding: 100px 60px;
             }
 
             .section-eyebrow {
@@ -1855,14 +1064,11 @@
             }
 
         }
-
-        /* Body scroll lock when menu is open */
-        body.menu-open {
-            overflow: hidden;
-        }
     </style>
 </head>
 <body>
+
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
 
     <!-- Loading Screen -->
     <div class="loading-screen">
@@ -1909,8 +1115,8 @@
         </div>
     </div>
 
-    <!-- Video Hero -->
-    <section class="video-hero">
+    <!-- Hero Section -->
+    <section class="video-hero" id="main-content">
         <div class="video-hero-inner">
             <video autoplay muted loop playsinline poster="images/hero.jpg">
                 <source src="videos/hero.mp4" type="video/mp4">
@@ -1922,7 +1128,6 @@
         </div>
     </section>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content fade-in-left">
@@ -2028,35 +1233,35 @@
                 <img src="images/gridphoto1.jpg" alt="Nitin Solanki — black and white portrait">
                 <div class="scroll-strip-label">
                     <div class="scroll-strip-title">Portrait</div>
-                    <div class="scroll-strip-sub">Black & White</div>
+                    <div class="scroll-strip-sub">Styled Editorial</div>
                 </div>
             </div>
             <div class="scroll-strip-item">
                 <img src="images/photo7.jpg" alt="Nitin Solanki — ivy wall">
                 <div class="scroll-strip-label">
-                    <div class="scroll-strip-title">The Wall</div>
-                    <div class="scroll-strip-sub">Greenery</div>
+                    <div class="scroll-strip-title">The Ivy Wall</div>
+                    <div class="scroll-strip-sub">West Palm Beach</div>
                 </div>
             </div>
             <div class="scroll-strip-item">
                 <img src="images/varied4.jpg" alt="Walking through tropical gardens">
                 <div class="scroll-strip-label">
-                    <div class="scroll-strip-title">The Walk</div>
-                    <div class="scroll-strip-sub">Palm Beach</div>
+                    <div class="scroll-strip-title">Morning Walk</div>
+                    <div class="scroll-strip-sub">Worth Avenue</div>
                 </div>
             </div>
             <div class="scroll-strip-item">
                 <img src="images/varied5.jpg" alt="Black and white portrait at arched doorway">
                 <div class="scroll-strip-label">
                     <div class="scroll-strip-title">Doorways</div>
-                    <div class="scroll-strip-sub">Architecture</div>
+                    <div class="scroll-strip-sub">Mediterranean Revival</div>
                 </div>
             </div>
             <div class="scroll-strip-item">
                 <img src="images/gridphoto2.jpg" alt="Nitin Solanki — courtyard">
                 <div class="scroll-strip-label">
-                    <div class="scroll-strip-title">Courtyard</div>
-                    <div class="scroll-strip-sub">Mediterranean</div>
+                    <div class="scroll-strip-title">The Courtyard</div>
+                    <div class="scroll-strip-sub">Palm Beach</div>
                 </div>
             </div>
             <div class="scroll-strip-item">

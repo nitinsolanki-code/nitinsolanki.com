@@ -34,194 +34,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#F3EEE7">
+    <link rel="stylesheet" href="shared.css">
     <style>
-        /* ===== AMAN BRAND COLORS ===== */
-        :root {
-            --primary-bg: #F3EEE7;
-            --primary-text: #313131;
-            --warm-taupe: #D4C4B0;
-            --soft-sand: #E8DFD3;
-            --accent-dark: #000000;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--primary-text);
-            line-height: 1.7;
-            font-weight: 300;
-            font-size: 16px;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        img { max-width: 100%; height: auto; display: block; }
-
-        /* ===== HEADER ===== */
-        header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            padding: 18px 20px;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            align-items: center;
-            gap: 12px;
-            background: rgba(243, 238, 231, 0.95);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        header.scrolled {
-            background: rgba(243, 238, 231, 0.98);
-            border-bottom: 1px solid rgba(212, 196, 176, 0.3);
-        }
-
-        .hamburger {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1001;
-        }
-
-        .hamburger-lines {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 20px;
-            height: 14px;
-        }
-
-        .hamburger-lines span {
-            display: block;
-            width: 100%;
-            height: 1px;
-            background: var(--primary-text);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hamburger-lines span:first-child { margin-bottom: 5px; }
-
-        .hamburger-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--primary-text);
-            display: none;
-        }
-
-        .hamburger.active .hamburger-lines span:first-child { transform: rotate(45deg) translate(2px, 2px); }
-        .hamburger.active .hamburger-lines span:last-child { transform: rotate(-45deg) translate(2px, -2px); }
-        .hamburger.active .hamburger-label { visibility: hidden; }
-
-        .logo {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--primary-text);
-            text-decoration: none;
-            text-align: center;
-            justify-self: center;
-            white-space: nowrap;
-        }
-
-        .header-cta { display: flex; justify-content: flex-end; }
-
-        .reserve-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-text);
-            background: transparent;
-            border: 1px solid var(--primary-text);
-            text-decoration: none;
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            padding: 12px 24px;
-            min-height: 44px;
-            white-space: nowrap;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reserve-btn:hover {
-            background: var(--primary-text);
-            color: var(--primary-bg);
-        }
-
-        /* Full-Screen Navigation Overlay */
-        .nav-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: var(--primary-bg);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-overlay.active { opacity: 1; visibility: visible; }
-
-        .nav-overlay nav {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 35px;
-        }
-
-        .nav-overlay nav a {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--primary-text);
-            text-decoration: none;
-            letter-spacing: 0.15em;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-overlay nav a:hover { opacity: 0.5; }
-
-        .nav-social {
-            position: absolute;
-            bottom: 60px;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-social a {
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--warm-taupe);
-            text-decoration: none;
-            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-social a:hover { color: var(--primary-text); }
-
-        .desktop-nav { display: none; }
 
         /* ===== CONNECT HERO ===== */
         main { margin-top: 72px; }
@@ -243,28 +58,9 @@
         }
 
         .section-eyebrow {
-            font-size: 0.6rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #9B9183;
-            margin-bottom: 20px;
+            color: #847A6F;
         }
 
-        .line-accent {
-            position: relative;
-        }
-
-        .line-accent::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: -15px;
-            width: 60px;
-            height: 1px;
-            background: var(--warm-taupe);
-            transform: translateX(-50%);
-        }
 
         .connect-hero h1 {
             font-size: clamp(2.2rem, 5vw, 3.5rem);
@@ -327,7 +123,7 @@
             font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #9B9183;
+            color: #847A6F;
             margin-bottom: 0.5rem;
         }
 
@@ -357,7 +153,7 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.7rem;
             font-weight: 300;
-            color: #9B9183;
+            color: #847A6F;
             letter-spacing: 0.5px;
         }
 
@@ -433,7 +229,7 @@
             font-weight: 400;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #9B9183;
+            color: #847A6F;
         }
 
         .tidycal-modal-close {
@@ -441,7 +237,7 @@
             border: none;
             cursor: pointer;
             font-size: 1.4rem;
-            color: #9B9183;
+            color: #847A6F;
             line-height: 1;
             padding: 4px;
             transition: color 0.2s;
@@ -497,7 +293,7 @@
             font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #9B9183;
+            color: #847A6F;
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -505,94 +301,22 @@
         .back-link:hover { color: var(--primary-text); }
         .back-link span { margin-right: 6px; }
 
-        /* ===== SOCIAL ICONS ===== */
-        .social-section {
-            padding: 50px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 16px;
-            background: var(--primary-bg);
+        /* ===== CONNECT REASSURANCE ===== */
+        .connect-reassurance {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #6B6560;
+            max-width: 500px;
+            margin: 20px auto 0;
+            line-height: 1.7;
         }
 
-        .social-icon {
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--warm-taupe);
-            text-decoration: none;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        @media (min-width: 1024px) {
+            .connect-reassurance {
+                font-size: 1.2rem;
+            }
         }
-
-        .social-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--primary-text);
-            transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .social-icon:hover {
-            background: var(--primary-text);
-            border-color: var(--primary-text);
-            transform: scale(1.1);
-        }
-
-        .social-icon:hover svg { fill: var(--primary-bg); }
-
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.7rem;
-            font-weight: 300;
-            color: #9B9183;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-relationship {
-            margin-top: 8px;
-            font-size: 0.6rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #9B9183;
-        }
-
-        .footer-relationship a {
-            color: #9B9183;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(155, 145, 131, 0.4);
-            padding-bottom: 1px;
-            transition: border-color 0.3s ease;
-        }
-
-        .footer-relationship a:hover {
-            border-color: #9B9183;
-        }
-
-        /* ===== FADE-IN ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .stagger-item.visible { opacity: 1; transform: translateY(0); }
-        .stagger-item:nth-child(1) { transition-delay: 0s; }
-        .stagger-item:nth-child(2) { transition-delay: 0.1s; }
-        .stagger-item:nth-child(3) { transition-delay: 0.2s; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 767px) {
@@ -605,64 +329,17 @@
         }
 
         @media (min-width: 768px) {
-            header { padding: 20px 40px; gap: 20px; }
-            .hamburger-label { display: block; }
-            .logo { font-size: 1.2rem; letter-spacing: 3px; }
-
-            .reserve-btn {
-                font-size: 0.65rem;
-                padding: 11px 20px;
-            }
-
-            .nav-overlay nav a { font-size: 2.5rem; }
             .connect-hero { padding: 120px 40px 80px; }
             .booking-section { padding: 0 40px 100px; }
         }
 
         @media (min-width: 1024px) {
-            header {
-                padding: 22px 60px;
-                grid-template-columns: auto 1fr auto;
-                gap: 20px;
-            }
-
-            .logo {
-                font-size: 1.3rem;
-                letter-spacing: 3px;
-            }
-
-            .desktop-nav {
-                display: flex;
-                align-items: center;
-                gap: 40px;
-                justify-self: end;
-            }
-
-            .desktop-nav a {
-                color: var(--primary-text);
-                text-decoration: none;
-                font-size: 0.75rem;
-                font-weight: 400;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .desktop-nav a:hover { opacity: 0.5; }
-
-            .desktop-nav .reserve-btn {
-                font-size: 0.7rem;
-                padding: 12px 28px;
-                border-color: var(--primary-text);
-            }
-
-            .header-cta { display: none; }
-            .hamburger-lines { width: 22px; }
-            .nav-overlay nav a { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
+
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
 
     <!-- Header -->
     <header>
@@ -705,11 +382,12 @@
     <main>
 
         <!-- Connect Hero -->
-        <section class="connect-hero">
+        <section class="connect-hero" id="main-content">
             <div class="connect-hero-content">
                 <p class="section-eyebrow line-accent" style="text-align:center;">Connect</p>
                 <h1 style="margin-top: 30px;">Let's Talk</h1>
-                <p>Whether it's a quick introduction, an exploratory conversation, or a focused advisory session — find the format that fits.</p>
+                <p class="connect-description">Whether it's a quick introduction, an exploratory conversation, or a focused advisory session — find the format that fits.</p>
+                <p class="connect-reassurance">Every conversation begins with listening. No pressure, no pitch — just an honest discussion about what you're working on and how I might help.</p>
             </div>
         </section>
 

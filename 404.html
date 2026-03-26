@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F3EEE7">
+    <title>Page Not Found – Nitin Solanki</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .error-eyebrow {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--eyebrow-color);
+            margin-bottom: 24px;
+        }
+
+        .error-heading {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--primary-text);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .error-description {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--body-secondary);
+            max-width: 400px;
+            margin-bottom: 40px;
+        }
+
+        .error-link {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-text);
+            text-decoration: none;
+            padding-bottom: 5px;
+            position: relative;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .error-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary-text);
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .error-link:hover {
+            color: var(--warm-taupe);
+        }
+
+        .error-link:hover::after {
+            background: var(--warm-taupe);
+        }
+
+        @media (min-width: 768px) {
+            .error-heading {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .error-heading {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+    <!-- Header -->
+    <header>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <div class="hamburger-lines">
+                <span></span>
+                <span></span>
+            </div>
+            <span class="hamburger-label">Menu</span>
+        </button>
+        <a href="index.html" class="logo">Nitin Sol<span class="logo-a">a</span>nki</a>
+        <div class="header-cta">
+            <a href="connect.html" class="reserve-btn">Connect</a>
+        </div>
+        <nav class="desktop-nav">
+            <a href="about.html">About</a>
+            <a href="career.html">Career</a>
+            <a href="travel.html">Travel</a>
+            <a href="workwithme.html">Work With Me</a>
+            <a href="connect.html" class="reserve-btn">Connect</a>
+        </nav>
+    </header>
+
+    <!-- Full-Screen Navigation Overlay -->
+    <div class="nav-overlay">
+        <nav>
+            <a href="about.html">About</a>
+            <a href="career.html">Career</a>
+            <a href="travel.html">Travel</a>
+            <a href="workwithme.html">Work With Me</a>
+            <a href="connect.html">Connect</a>
+        </nav>
+        <div class="nav-social">
+            <a href="https://www.linkedin.com/in/nitinsolanki" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/nitinsolanki" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://x.com/nitinsolanki" target="_blank" rel="noopener noreferrer">X</a>
+        </div>
+    </div>
+
+    <!-- 404 Content -->
+    <main class="error-page" id="main-content">
+        <p class="error-eyebrow">404</p>
+        <h1 class="error-heading">This page doesn't exist.</h1>
+        <p class="error-description">The page you're looking for may have been moved or no longer exists.</p>
+        <a href="index.html" class="error-link">Return Home &rarr;</a>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Nitin Solanki. All Rights Reserved.</p>
+        <p class="footer-relationship">My ventures and work live on <a href="https://solanki.co" target="_blank" rel="noopener noreferrer">solanki.co</a></p>
+    </footer>
+
+    <script>
+        // Hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navLinks = document.querySelectorAll('.nav-overlay nav a');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
